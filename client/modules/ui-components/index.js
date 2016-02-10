@@ -22,8 +22,8 @@ import _TriSection from './components/organisms/tri-section.jsx';
 import _QuadSection from './components/organisms/quad-section.jsx';
 import _Banner from './components/organisms/banner.jsx';
 import _FooterSection from './components/organisms/footer-section.jsx';
-
 import _Landing from './components/templates/landing.jsx';
+import _ICSSLanding from './components/templates/icss-landing.jsx';
 
 import * as _textareaLib from './libs/textarea.js';
 
@@ -51,3 +51,31 @@ export const DialogBox = _DialogBox;
 export const MdlInputText = _MdlInputText;
 
 export const textareaLib = _textareaLib;
+
+export const ICSSLanding = _ICSSLanding;
+
+// import Landing from './components/templates/landing.jsx';
+
+
+
+export default {
+  AppBar,
+  AppDrawer,
+  AppLogo,
+  AppTitle,
+  Banner,
+  BannerTitle,
+  FooterSection,
+  FooterLinks,
+  FooterText,
+  Icon,
+  IconGroup,
+  NavLink,
+  NavList,
+  Landing,
+  QuadSection,
+  SectionCard,
+  SectionList,
+  TriSection,
+  ICSSLanding
+};
