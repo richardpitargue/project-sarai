@@ -70,7 +70,7 @@ class DrawerContent extends React.Component {
     return (
       <div>
         <div className="mdl-grid">
-          <div className="mdl-`cell mdl-cell--6-col">
+          <div className="mdl-cell mdl-cell--6-col">
             <div id="station-name">
               {station}
             </div>

@@ -11,6 +11,7 @@ import eskwelaModule from './modules/eskwela';
 import oldAboutModule from './modules/old-about-v1';
 import oldInteractiveMaps from './modules/old-interactive-maps';
 import experiment from './modules/experiment';
+import yieldCalculator from './modules/yield-calculator'
 
 // These are the new ones
 // import aboutModule from './modules/about-v1';
@@ -32,6 +33,7 @@ app.loadModule(monitoring);
 app.loadModule(oldAboutModule);
 app.loadModule(oldInteractiveMaps);
 app.loadModule(experiment);
+app.loadModule(yieldCalculator);
 
 // Load the new ones here
 app.loadModule(MdlCoreDeisgn);
