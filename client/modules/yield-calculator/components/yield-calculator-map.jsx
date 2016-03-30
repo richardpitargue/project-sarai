@@ -4,6 +4,7 @@ import L from 'leaflet';
 class YieldCalculator extends React.Component {
   constructor() {
     super();
+    this.calculateYield = this.calculateYield.bind(this);
     this.groupA = this.groupA.bind(this);
   }
 
@@ -11,8 +12,6 @@ class YieldCalculator extends React.Component {
     if (componentHandler) {
       componentHandler.upgradeDom();
     }
-
-    this.groupA(1, 2, 3, 4, 5, 6, 7)
 
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
@@ -41,23 +40,64 @@ class YieldCalculator extends React.Component {
     });
   }
 
-  groupA(plantingDate, solarRadiation, maxTemperature, minTemperature, precipitation, soilTexture, elevation) {
-    const {calculateGroupA} = this.props;
+  calculateYield() {
+    this.location = document.getElementById('location').value
+    this.solarRadiation = document.getElementById('solar-radiation').value
+    this.plantingDate = document.getElementById('planting-date').value
+    this.maximumTemperature = document.getElementById('maximum-temperature').value
+    this.minimumTemperature = document.getElementById('minimum-temperature').value
+    this.precipitation = document.getElementById('precipitation').value
+    this.soilTexture = document.getElementById('soil-texture').value
+    this.elevation = document.getElementById('elevation').value
 
-    console.log(calculateGroupA(plantingDate, solarRadiation, maxTemperature, minTemperature, precipitation, soilTexture, elevation));
+
+    switch (this.locationGroup) {
+      case 'A':
+        groupA();
+        break;
+      case 'B':
+        break;
+      case 'C':
+        break;
+      case 'D':
+        break;
+      case 'E':
+        break;
+      case 'F':
+        break;
+      case 'G':
+        break;
+    }
   }
 
-  renderSidebar() {
+  groupA() {
+    const {calculateGroupA} = this.props;
+  }
 
+  renderLocationSelect() {
+
+  }
+
+  renderPlantingDateOptions() {
+    const {plantingDateOptions} = this.props;
+
+    return plantingDateOptions.options.map((option, key) => {
+
+      return (
+        <option value={option.weekNumber} key={key}>{option.week}</option>
+      )
+    })
+  }
+
+  renderForm() {
     return (
       <div id="yield-calculator-sidebar">
         <div className="mdl-grid">
 
-          <form action="#">
-            <div className="mdl-cell mdl-cell--2-col">
+            <div className="mdl-cell mdl-cell--6-col">
               Location:
             </div>
-            <div className="mdl-cell mdl-cell--2-col">
+            <div className="mdl-cell mdl-cell--6-col">
               <select>
                 <option>Cordon</option>
               </select>
@@ -68,7 +108,7 @@ class YieldCalculator extends React.Component {
             </div>
             <div className="mdl-cell mdl-cell--6-col">
               <select>
-                <option>Week 1: Jan 1 - Jan 7</option>
+                {this.renderPlantingDateOptions()}
               </select>
             </div>
 
@@ -76,18 +116,18 @@ class YieldCalculator extends React.Component {
               Solar Radiation: <sup></sup>
             </div>
             <div className="mdl-cell mdl-cell--6-col">
-              <input type="number" className="custom-input" />MJ / m<sup>2</sup>
+              <input type="number" className="custom-input" id="srad"/>MJ / m<sup>2</sup>
             </div>
 
             <div className="mdl-cell mdl-cell--6-col">
-              Max Temp:
+              Maximum Temperature:
             </div>
             <div className="mdl-cell mdl-cell--6-col">
               <input type="number" className="custom-input" />
             </div>
 
             <div className="mdl-cell mdl-cell--6-col">
-              Min Temp: 
+              Minimum Temperature: 
             </div>
             <div className="mdl-cell mdl-cell--6-col">
               <input type="number" className="custom-input" />
@@ -104,7 +144,14 @@ class YieldCalculator extends React.Component {
               Soil Texture 
             </div>
             <div className="mdl-cell mdl-cell--6-col">
-              
+              <select>
+                <option value="1">Sand</option>
+                <option value="2">Sandy Loam</option>
+                <option value="3">Silty Clay</option>
+                <option value="4">Clay</option>
+                <option value="5">Loam</option>
+                <option value="6">Clay Loam</option>
+              </select>
             </div>
 
             <div className="mdl-cell mdl-cell--6-col">
@@ -114,7 +161,12 @@ class YieldCalculator extends React.Component {
               <input type="number" className="custom-input" />
             </div>
 
-          </form>
+            <div className="mdl-cell mdl-cell--12-col">
+              <button className="mdl-button mdl-js-button mdl-button--raised" onClick={this.calculateYield}>
+                Submit
+              </button>
+            </div>
+
         </div>
       </div>
     )
@@ -129,7 +181,7 @@ class YieldCalculator extends React.Component {
     return (
       <div id="map-container">
         <div id="yield-calculator-map"></div>
-        {this.renderSidebar()}
+        {this.renderForm()}
       </div>
       
     )

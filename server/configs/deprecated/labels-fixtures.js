@@ -1,8 +1,8 @@
-import {ChartLabels} from '/lib/collections';
+import {Labels} from '/lib/collections';
 
-if (!ChartLabels.findOne({name: 'simulatedYield'})) {
-  ChartLabels.insert({
-    "name": "simulatedYield",
+if (!Labels.findOne({name: 'simulatedYieldChartLabels'})) {
+  Labels.insert({
+    "name": "simulatedYieldChartLabels",
     "labels": [
       "Jan 1-7",
       "Jan 8-14 ",
@@ -60,8 +60,8 @@ if (!ChartLabels.findOne({name: 'simulatedYield'})) {
   });
 }
 
-if (!ChartLabels.findOne({name: 'plantingDateOptions'})) {
-  ChartLabels.insert({
+if (!Labels.findOne({name: 'plantingDateOptions'})) {
+  Labels.insert({
     "name": "plantingDateOptions",
     "options": [
       { "weekNumber": 1, "week": "Jan 1-7" },
