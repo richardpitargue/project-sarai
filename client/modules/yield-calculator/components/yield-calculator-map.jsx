@@ -38,6 +38,8 @@ class YieldCalculator extends React.Component {
       iconAnchor: [20, 39],
       popupAnchor: [0, -40]
     });
+
+    this.groupA()
   }
 
   calculateYield() {
@@ -51,27 +53,33 @@ class YieldCalculator extends React.Component {
     this.elevation = document.getElementById('elevation').value
 
 
-    switch (this.locationGroup) {
-      case 'A':
-        groupA();
-        break;
-      case 'B':
-        break;
-      case 'C':
-        break;
-      case 'D':
-        break;
-      case 'E':
-        break;
-      case 'F':
-        break;
-      case 'G':
-        break;
-    }
+    const {calculateGroupA} = this.props;
+    
+    
+
+    // switch (this.locationGroup) {
+    //   case 'A':
+    //     groupA();
+    //     break;
+    //   case 'B':
+    //     break;
+    //   case 'C':
+    //     break;
+    //   case 'D':
+    //     break;
+    //   case 'E':
+    //     break;
+    //   case 'F':
+    //     break;
+    //   case 'G':
+    //     break;
+    // }
   }
 
   groupA() {
     const {calculateGroupA} = this.props;
+
+    console.log(calculateGroupA(4));
   }
 
   renderLocationSelect() {
@@ -94,71 +102,61 @@ class YieldCalculator extends React.Component {
       <div id="yield-calculator-sidebar">
         <div className="mdl-grid">
 
-            <div className="mdl-cell mdl-cell--6-col">
-              Location:
-            </div>
-            <div className="mdl-cell mdl-cell--6-col">
+            <div className="mdl-cell mdl-cell--12-col">
               <select>
                 <option>Cordon</option>
               </select>
             </div>
 
-            <div className="mdl-cell mdl-cell--6-col">
-              Planting Date:
-            </div>
-            <div className="mdl-cell mdl-cell--6-col">
+            <div className="mdl-cell mdl-cell--12-col">
               <select>
                 {this.renderPlantingDateOptions()}
               </select>
             </div>
 
-            <div className="mdl-cell mdl-cell--6-col">
-              Solar Radiation: <sup></sup>
-            </div>
-            <div className="mdl-cell mdl-cell--6-col">
-              <input type="number" className="custom-input" id="srad"/>MJ / m<sup>2</sup>
-            </div>
-
-            <div className="mdl-cell mdl-cell--6-col">
-              Maximum Temperature:
-            </div>
-            <div className="mdl-cell mdl-cell--6-col">
-              <input type="number" className="custom-input" />
+            <div className="mdl-cell mdl-cell--12-col">
+              <div className="yc-input yc-input-srad">
+                <input type="number" className="yc-input__number" id="solar-radiation" placeholder="Solar Radation"/>
+              </div>
             </div>
 
-            <div className="mdl-cell mdl-cell--6-col">
-              Minimum Temperature: 
-            </div>
-            <div className="mdl-cell mdl-cell--6-col">
-              <input type="number" className="custom-input" />
-            </div>
-
-            <div className="mdl-cell mdl-cell--6-col">
-              Precipitation
-            </div>
-            <div className="mdl-cell mdl-cell--6-col">
-              <input type="number" className="custom-input" />
+            <div className="mdl-cell mdl-cell--12-col">
+              <div className="yc-input yc-input-temp">
+                <input type="number" className="yc-input__number" id="minimum-temperature" placeholder="Minimum Temperature" />
+              </div>
             </div>
 
-            <div className="mdl-cell mdl-cell--6-col">
-              Soil Texture 
-            </div>
-            <div className="mdl-cell mdl-cell--6-col">
-              <select>
-                <option value="1">Sand</option>
-                <option value="2">Sandy Loam</option>
-                <option value="3">Silty Clay</option>
-                <option value="4">Clay</option>
-                <option value="5">Loam</option>
-                <option value="6">Clay Loam</option>
-              </select>
+            <div className="mdl-cell mdl-cell--12-col">
+              <div className="yc-input yc-input-temp">
+                <input type="number" className="yc-input__number" id="maximum-temperature" placeholder="Maximum Temperature" />
+              </div>
             </div>
 
-            <div className="mdl-cell mdl-cell--6-col">
-              Elevation
+            <div className="mdl-cell mdl-cell--12-col">
+              <div className="yc-input yc-input-rain">
+                <input type="number" className="yc-input__number yc-input__number-rain" id="precipitation" placeholder="Precipitation" />
+              </div>
             </div>
-            <div className="mdl-cell mdl-cell--6-col">
-              <input type="number" className="custom-input" />
+
+            <div className="mdl-cell mdl-cell--12-col">
+
+              <div className="yc-dropdown">
+                <select id="soil-type" className="yc-dropdown__select" defaultValue="0">
+                  <option value="0" className="no-display">Select Soil Type</option>
+                  <option value="1">Sand</option>
+                  <option value="2">Sandy Loam</option>
+                  <option value="3">Silty Clay</option>
+                  <option value="4">Clay</option>
+                  <option value="5">Loam</option>
+                  <option value="6">Clay Loam</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mdl-cell mdl-cell--12-col">
+              <div className="yc-input yc-input-elev">
+                <input type="number" className="yc-input__number" id="elevation" placeholder="Elevation" />
+              </div>
             </div>
 
             <div className="mdl-cell mdl-cell--12-col">
