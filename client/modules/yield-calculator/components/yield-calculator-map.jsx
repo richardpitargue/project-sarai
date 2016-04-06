@@ -58,25 +58,25 @@ class YieldCalculator extends React.Component {
     const soilTexture = document.getElementById('soil-texture').value
     const elevation = document.getElementById('elevation').value
 
-    // const input = {
-    //   "plantingDate": plantingDate,
-    //   "solarRadiation": solarRadiation,
-    //   "minimumTemperature": minimumTemperature,
-    //   "maximumTemperature": maximumTemperature,
-    //   "precipitation": precipitation,
-    //   "soilTexture": soilTexture,
-    //   "elevation": elevation
-    // }
-
     const input = {
-      "plantingDate": 24,
-      "solarRadiation": 15,
-      "minimumTemperature": 24,
-      "maximumTemperature": 32,
-      "precipitation": 2,
-      "soilTexture": 4,
-      "elevation": 80
+      "plantingDate": plantingDate,
+      "solarRadiation": solarRadiation,
+      "minimumTemperature": minimumTemperature,
+      "maximumTemperature": maximumTemperature,
+      "precipitation": precipitation,
+      "soilTexture": soilTexture,
+      "elevation": elevation
     }
+
+    // const input = {
+    //   "plantingDate": 24,
+    //   "solarRadiation": 15,
+    //   "minimumTemperature": 24,
+    //   "maximumTemperature": 32,
+    //   "precipitation": 2,
+    //   "soilTexture": 4,
+    //   "elevation": 80
+    // }
 
     const {
       calculateGroupA,
