@@ -7,6 +7,12 @@ const composer = ({context, plantingDateOptions}, onData) => {
 
 const deps = (context, actions) => ({
   calculateGroupA: actions.yieldCalculator.calculateGroupA,
+  calculateGroupB: actions.yieldCalculator.calculateGroupB,
+  calculateGroupC: actions.yieldCalculator.calculateGroupC,
+  calculateGroupD: actions.yieldCalculator.calculateGroupD,
+  calculateGroupE: actions.yieldCalculator.calculateGroupE,
+  calculateGroupF: actions.yieldCalculator.calculateGroupF,
+  calculateGroupG: actions.yieldCalculator.calculateGroupG,
   context: () => context
 })
 

@@ -9,15 +9,23 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
 const composerLandingPage = ({context}, onData) => {
   const {Meteor, Collections} = context();
-  const {ChartLabels} = Collections;
+  const {Labels} = Collections;
 
   const sections = [];
   const spacing = false;
 
-  if (Meteor.subscribe('chart-labels').ready()) {
-    const plantingDateOptions = ChartLabels.findOne({name: "plantingDateOptions"});
+  if (Meteor.subscribe('labels').ready()) {
+    // const locations = Labels.findOne({name: "YC_IsabelaMunicipalities"});
+    const locations = Labels.findOne({name: "YC_IsabelaMunicipalitiesSelect"});
+    const filteredLocations = locations.data.filter((entry) => {
+      return !(entry.group == null)
+    })
 
-    sections.push(React.createElement(YieldCalculator, {plantingDateOptions}));
+    const plantingDateOptions = Labels.findOne({name: "YC_PlantingDateOptions"});
+
+    const soilTextures = Labels.findOne({name: "YC_SoilTextures"});
+
+    sections.push(React.createElement(YieldCalculator, {filteredLocations, plantingDateOptions, soilTextures}));
   }  
 
   onData(null, {sections, spacing});

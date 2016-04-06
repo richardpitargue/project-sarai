@@ -5,7 +5,6 @@ class YieldCalculator extends React.Component {
   constructor() {
     super();
     this.calculateYield = this.calculateYield.bind(this);
-    this.groupA = this.groupA.bind(this);
   }
 
   componentDidMount() {
@@ -39,79 +38,120 @@ class YieldCalculator extends React.Component {
       popupAnchor: [0, -40]
     });
 
-    this.groupA()
   }
 
   calculateYield() {
-    this.location = document.getElementById('location').value
-    this.solarRadiation = document.getElementById('solar-radiation').value
-    this.plantingDate = document.getElementById('planting-date').value
-    this.maximumTemperature = document.getElementById('maximum-temperature').value
-    this.minimumTemperature = document.getElementById('minimum-temperature').value
-    this.precipitation = document.getElementById('precipitation').value
-    this.soilTexture = document.getElementById('soil-texture').value
-    this.elevation = document.getElementById('elevation').value
+    const {filteredLocations} = this.props
 
+    // const location = document.getElementById('location').value
+    const location = 'Cordon'
 
-    const {calculateGroupA} = this.props;
-    
-    
+    const group = (filteredLocations.find((entry) => {
+      return (entry.value == location) 
+    })).group;
 
-    // switch (this.locationGroup) {
-    //   case 'A':
-    //     groupA();
-    //     break;
-    //   case 'B':
-    //     break;
-    //   case 'C':
-    //     break;
-    //   case 'D':
-    //     break;
-    //   case 'E':
-    //     break;
-    //   case 'F':
-    //     break;
-    //   case 'G':
-    //     break;
+    const solarRadiation = document.getElementById('solar-radiation').value
+    const plantingDate = document.getElementById('planting-date').value
+    const maximumTemperature = document.getElementById('maximum-temperature').value
+    const minimumTemperature = document.getElementById('minimum-temperature').value
+    const precipitation = document.getElementById('precipitation').value
+    const soilTexture = document.getElementById('soil-texture').value
+    const elevation = document.getElementById('elevation').value
+
+    // const input = {
+    //   "plantingDate": plantingDate,
+    //   "solarRadiation": solarRadiation,
+    //   "minimumTemperature": minimumTemperature,
+    //   "maximumTemperature": maximumTemperature,
+    //   "precipitation": precipitation,
+    //   "soilTexture": soilTexture,
+    //   "elevation": elevation
     // }
+
+    const input = {
+      "plantingDate": 24,
+      "solarRadiation": 15,
+      "minimumTemperature": 24,
+      "maximumTemperature": 32,
+      "precipitation": 2,
+      "soilTexture": 4,
+      "elevation": 80
+    }
+
+    const {
+      calculateGroupA,
+      calculateGroupB,
+      calculateGroupC,
+      calculateGroupD,
+      calculateGroupE,
+      calculateGroupF,
+      calculateGroupG
+    } = this.props;
+
+    let result = 0
+
+    switch (group) {
+      case 'A':
+        result = calculateGroupA(input);
+        break;
+      case 'B':
+        result = calculateGroupB(input);
+        break;
+      case 'C':
+        result = calculateGroupC(input);
+        break;
+      case 'D':
+        result = calculateGroupD(input);
+        break;
+      case 'E':
+        result = calculateGroupE(input);
+        break;
+      case 'F':
+        result = calculateGroupF(input);
+        break;
+      case 'G':
+        result = calculateGroupG(input);
+        break;
+    }
+
+    console.log(`Yield: ${result}`)
   }
 
-  groupA() {
-    const {calculateGroupA} = this.props;
-
-    console.log(calculateGroupA(4));
-  }
-
-  renderLocationSelect() {
-
-  }
-
-  renderPlantingDateOptions() {
-    const {plantingDateOptions} = this.props;
-
-    return plantingDateOptions.options.map((option, key) => {
-
+  renderSelectOptions(data) {
+    return data.map((option, key) => {
       return (
-        <option value={option.weekNumber} key={key}>{option.week}</option>
+        <option value={option.value} key={key}>{option.text}</option>
       )
     })
   }
 
   renderForm() {
+    const {
+      filteredLocations,
+      plantingDateOptions,
+      soilTextures} 
+      = this.props;
+
     return (
       <div id="yield-calculator-sidebar">
         <div className="mdl-grid">
 
             <div className="mdl-cell mdl-cell--12-col">
-              <select>
-                <option>Cordon</option>
-              </select>
+              <div className="yc-dropdown">
+                <select className="yc-dropdown__select" id="location" defaultValue="0">
+                  <option value="0" className="no-display">Select Location</option>
+                  {this.renderSelectOptions(filteredLocations)}
+                </select>
+              </div>
             </div>
 
             <div className="mdl-cell mdl-cell--12-col">
-              <select>
-                {this.renderPlantingDateOptions()}
-              </select>
+              <div className="yc-dropdown">
+                <select className="yc-dropdown__select" id="planting-date" defaultValue="0">
+                  <option value="0" className="no-display">Select Planting Date</option>
+                  {this.renderSelectOptions(plantingDateOptions.data)}
+                </select>
+              </div>
             </div>
 
             <div className="mdl-cell mdl-cell--12-col">
@@ -141,14 +181,9 @@ class YieldCalculator extends React.Component {
             <div className="mdl-cell mdl-cell--12-col">
 
               <div className="yc-dropdown">
-                <select id="soil-type" className="yc-dropdown__select" defaultValue="0">
+                <select id="soil-texture" className="yc-dropdown__select" defaultValue="0">
                   <option value="0" className="no-display">Select Soil Type</option>
-                  <option value="1">Sand</option>
-                  <option value="2">Sandy Loam</option>
-                  <option value="3">Silty Clay</option>
-                  <option value="4">Clay</option>
-                  <option value="5">Loam</option>
-                  <option value="6">Clay Loam</option>
+                  {this.renderSelectOptions(soilTextures.data)}
                 </select>
               </div>
             </div>

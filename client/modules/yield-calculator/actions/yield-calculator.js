@@ -4,21 +4,51 @@ export default {
 
   calculateGroupA(context, input) {
     const {Meteor, LocalState} = context
-    //plantingDate, solarRadiation, maxTemperature, minTemperature, precipitation, soilTexture, elevation
 
-    /*[yield] = 2432.594 – 0.347([planting date])2 + 
+    console.log(input)
 
-0.013([solar radiation)3 +0.022([maximum 
+    // const yield = 2432.594 - (0.347 * Math.pow(input.plantingDate))
 
-temperature])3 – 0.045([minimum temperature])3 
-
-+ 36.100log([precipitation])  + 3.904[soil 
-
-texture] + 1.818[elevation]*/
-    // const yield = math.sqrt(parseInt(input.toString()))
-
-
+    const yield =
+      2432.594 - (0.347 * Math.pow(input.plantingDate, 2))
+      + (0.013 * Math.pow(input.solarRadiation, 3))
+      + (0.022 * Math.pow(input.maximumTemperature, 3))
+      - (0.045 * Math.pow(input.minimumTemperature, 3))
+      + (36.1 * Math.log10(input.precipitation))
+      + (3.904 * input.soilTexture)
+      + (1.818 * input.elevation)
 
     return yield
+  },
+
+  calculateGroupB(cnotext, input) {
+    const {Meteor, LocalState} = context
+
+  },
+
+  calculateGroupC(context, input) {
+    const {Meteor, LocalState} = context
+
+  },
+
+  calculateGroupD(context, input) {
+    const {Meteor, LocalState} = context
+
+  },
+
+  calculateGroupE(context, input) {
+    const {Meteor, LocalState} = context
+
+  },
+
+  calculateGroupF(context, input) {
+    const {Meteor, LocalState} = context
+
+  },
+
+  calculateGroupG(context, input) {
+    const {Meteor, LocalState} = context
+
   }
+
 }
