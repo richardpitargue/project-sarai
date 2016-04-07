@@ -6,29 +6,14 @@ import DrawerContent from './drawer-content.jsx';
 class WeatherMap extends React.Component {
   constructor() {
     super()
-    this.closeDrawer = this.closeDrawer.bind(this);
-    this.temp = '';
-    // this.getLatestTimestamp = this.getLatestTimestamp(this);
+    this.renderForecast = this.renderForecast.bind(this);
+    Session.set('weatherFetched', 'false');
   }
 
   componentDidMount() {
     if (componentHandler) {
       componentHandler.upgradeDom();
     }
-
-    //Modal stuff
-    // const dialog = document.querySelector('#rainfall-dialog');
-    // const showDialogButton = document.querySelector('#show-dialog');
-    // if (! dialog.showModal) {
-    //   dialogPolyfill.registerDialog(dialog);
-    // }
-    // showDialogButton.addEventListener('click', function() {
-    //   dialog.showModal();
-    // });
-    // dialog.querySelector('.close').addEventListener('click', function() {
-    //   dialog.close();
-    // });
-
 
     Session.set('drawerVisibility', 'false');
 
@@ -47,7 +32,7 @@ class WeatherMap extends React.Component {
     });
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWNhcmFuZGFuZyIsImEiOiJjaWtxaHgzYTkwMDA4ZHZtM3E3aXMyYnlzIn0.x63VGx2C-BP_ttuEsn2fVg', {
-      // attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       // maxZoom: 14,
       id: 'mcarandang.p67769a5',
       accessToken: 'pk.eyJ1IjoibWNhcmFuZGFuZyIsImEiOiJjaWtxaHgzYTkwMDA4ZHZtM3E3aXMyYnlzIn0.x63VGx2C-BP_ttuEsn2fVg'
@@ -60,214 +45,284 @@ class WeatherMap extends React.Component {
       popupAnchor: [0, -40]
     });
 
-
-
     for (let station of stations) {
-      L.marker(
-        [station.coords[0], station.coords[1]],
-        {icon: markerIcon}).bindPopup(station.label).on('click', () => {
-
-          if (Session.get('drawerVisibility') == 'false') {
-            //Increase drawer width
-            let drawer = document.getElementById('drawer');
-            drawer.classList.remove('hidden-drawer', 'hidden-element');
-            drawer.classList.add('visible-drawer', 'visible-element');
-
-            //Un-hide drawer content
-            let drawerContent = document.getElementById('drawer-content');
-            drawerContent.classList.remove('hidden-element');
-            drawerContent.classList.add('visible-element');
-
-            //What is with this line???
-            //Session.set('drawerVisibility', 'true');
-
-            //Get last timestamp
-            $.getJSON(
-              `http:\/\/localhost:3080/api/${station.name}/last`,
-              // `https:\/\/sarai-realtime-tjmonsi1.c9users.io/api/${station.name}/last`,
-              (data) => {
-                console.log(`Success: Latest from ${station.name} is ${data}`);
-
-                $.getJSON(`http:\/\/localhost:3080/api/${station.name}/get/${data}`,
-                // $.getJSON(`https:\/\/sarai-realtime-tjmonsi1.c9users.io/api/${station.name}/get/${data}`,
-
-                  (data) => {
-                    console.log(data);
-                    // What is this.temp
-                    // this.temp.set(data.temperature.outside.value);
-                    this.temp = data.temperature.outside.value;
-                    Session.set('temperature.outside.value', data.temperature.outside.value);
-                    Session.set('temperature.outside.min', data.temperature.outside.min);
-                    Session.set('temperature.outside.max', data.temperature.outside.max);
-
-                    Session.set('humidity.outside', data.humidity.outside);
-                    Session.set('humidity.inside', data.humidity.inside);
-
-                    Session.set('solar.UV.average', data.solar.UV.average);
-                    Session.set('solar.UV.max', data.solar.UV.max);
-
-
-                    Session.set('barometer', data.barometer);
-                    Session.set('station', data.station);
-                    Session.set('rainfall.value', data.rainfall.value);
-                    Session.set('solar.radiation.value', data.solar.radiation.value);
-
-                    Session.set('soil.temperature.0', data.soil.temperature[0]);
-                    Session.set('soil.temperature.1', data.soil.temperature[1]);
-                    Session.set('soil.temperature.2', data.soil.temperature[2]);
-                    Session.set('soil.temperature.3', data.soil.temperature[3]);
-
-                    Session.set('soil.humidity.0', data.soil.humidity[0]);
-                    Session.set('soil.humidity.1', data.soil.humidity[1]);
-                    Session.set('soil.humidity.2', data.soil.humidity[2]);
-                    Session.set('soil.humidity.3', data.soil.humidity[3]);
-
-                    Session.set('wind.direction.prevailing', data.wind.direction.prevailing);
-                    Session.set('wind.speed.average', data.wind.speed.average);
-                  });
-
-              }
-            );
-          }
-        }).addTo(map);
+        L.marker(
+          [station.coords[0], station.coords[1]],
+          {icon: markerIcon})
+        .bindPopup(`<h5>${station.label}</h5>`)
+        .on('click', () => {
+          $.getJSON(
+            `http:\/\/api.wunderground.com/api/9470644e92f975d3/forecast10day/conditions/q/pws:${station.id}.json`,
+            (data) => {
+              this.data = data;
+              Session.set('forecast', data.forecast.simpleforecast.forecastday);
+              Session.set('conditions', data.current_observation);
+              Session.set('weatherFetched', 'true');
+            })
+        })
+        .addTo(map);
     }
 
-    //Instruction modal
-    const instructionDialog = document.querySelector('#instruction-dialog');
-    if (! instructionDialog.showModal) {
-      dialogPolyfill.registerDialog(instructionDialog);
-    }
-    instructionDialog.querySelector('.close').addEventListener('click', function() {
-      instructionDialog.close();
-    });
-    instructionDialog.showModal();
-
   }
 
-
-
-  closeDrawer() {
-
-    if (Session.get('drawerVisibility') == 'true') {
-
-      //Decrease drawer width to 0
-      let drawer = document.getElementById('drawer');
-      drawer.classList.remove('visible-drawer');
-      drawer.classList.add('hidden-drawer');
-
-      //Hide drawer contents
-      let drawerContent = document.getElementById('drawer-content');
-      drawerContent.classList.remove('visible-element');
-      drawerContent.classList.add('hidden-element');
-
-      Session.set('drawerVisibility', 'false');
-    }
+  toMeters(elevation_feet) {
+    let m = parseInt(elevation_feet) * 0.3048;
+    return Number(Math.round(m));
   }
 
-  toCelsius(f_temp) {
-    if (f_temp == -1) return 'NA';
-
-    let c = (f_temp - 32) * (0.5556);
-    c = Number(Math.round(c+'e1')+'e-1');
-
-    return `${c} °C`;
+  formatCoordinates(c) {
+    return Number(Math.round(c+'e2')+'e-2');
   }
 
-  toCelsiusNoUnit(f_temp) {
-    if (f_temp == -1) return 'NA';
+  renderForecast() {
+    // const fc = this.data.forecast.simpleforecast.forecastday
+    // const c = this.data.current_observation
 
-    let c = (f_temp - 32) * (0.5556);
-    c = Number(Math.round(c+'e1')+'e-1');
+    if (Session.get('weatherFetched') == 'true') return (
+      <div id="forecast-grid">
 
-    return `${c}`;
-  }
+        <div className="mdl-grid">
+          <div className="mdl-cell mdl-cell--1-offset-desktop mdl-cell--10-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <div className="mdl-grid">
 
-  formatRain(rain) {
-    if (rain == -1) return 'NA';
-    else return rain + 'mm';
-  }
+              <div className="mdl-cell mdl-cell--3-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+                <div className="mdl-grid">
+                  <div className="mdl-cell mdl-cell--12-col">
+                    <h5>{Session.get('conditions').observation_location.city}</h5>
+                  </div>
+                  <div className="mdl-cell mdl-cell--12-col">
+                    <div className="mdl-grid">
+                      <div id="current-coordinates" className="mdl-cell mdl-cell--12-col">
+                        Elevation <span className="number">{this.toMeters(Session.get('conditions').observation_location.elevation)}</span> m <span className="number">{this.formatCoordinates(Session.get('conditions').observation_location.latitude)}</span> °N <span className="number">{this.formatCoordinates(Session.get('conditions').observation_location.longitude)}</span> °E
+                      </div>
 
-  formatSolar(solar) {
-    if (solar == -1) return 'NA';
-    else return solar;
-  }
 
-  formatSoilMoisture(sm) {
-    if (sm <= 0 || sm >= 255) return 'NA';
-    else return `${sm} cb`;
-  }
+                      <div className="mdl-cell mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--2-col-phone center">
+                        <img src={Session.get('conditions').icon_url} />
+                      </div>
 
-  formatHumidity(humidity) {
-    if (humidity <= 0 || humidity > 100) return 'NA';
-    else return `${humidity}%`;
-  }
+                      <div id="current-temperature" className="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--1-col-phone center">
+                        {Session.get('conditions').temp_c} °C
+                      </div>
 
-  formatPressure(ap) {
-    if (ap < 20 || ap > 40) return 'NA';
-    else return `${ap} inHG`;
-  }
+                      <div id="current-wind" className="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--1-col-phone center">
+                      Humidity<br/>
+                        <span className="value">{Session.get('conditions').relative_humidity}</span>
+                      </div>
 
-  renderDrawerContent() {
-    let windDirection = Session.get('wind.direction.prevailing') - 45;
-    // console.log(windDirection);
+                      <div id="current-weather-text" className="mdl-cell mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--2-col-phone center">
+                        {Session.get('conditions').weather}
+                      </div>
 
-    const windSpeedRotation = {
-      transform: `rotate(${windDirection}deg)`
-    }
+                      <div id="current-heat-index" className="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--1-col-phone center">
+                        Feels like<br /><span className="temp">{Session.get('conditions').feelslike_c} °C</span>
+                      </div>
 
-    const dialogStyle = {
-      width: '500px'
-    }
+                      <div id="current-wind-string" className="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--1-col-phone center">
+                        Wind from <span className="value">{Session.get('conditions').wind_dir}</span>
+                        <br/><span className="value">{Session.get('conditions').wind_gust_kph}</span> km/h gusts
+                      </div>
 
-    return (
-        <div id="drawer" className="hidden-drawer">
-          <div id="drawer-content" className="hidden-element">
-            <DrawerContent
-              data="sample line"
-              temperatureOutsideValue={this.toCelsius(Session.get('temperature.outside.value'))}
-              temperatureOutsideMin={this.toCelsiusNoUnit(Session.get('temperature.outside.min'))}
-              temperatureOutsideMax={this.toCelsiusNoUnit(Session.get('temperature.outside.max'))}
-              humidityOutside={this.formatHumidity(Session.get('humidity.outside'))}
-              humidityInside={this.formatHumidity(Session.get('humidity.inside'))}
-              solarUVAverage={Session.get('solar.UV.average')}
-              solarUVMax={Session.get('solar.UV.max')}
-              solarRadiationValue={this.formatSolar(Session.get('solar.radiation.value'))}
-              barometer={this.formatPressure(Session.get('barometer'))}
-              station={Session.get('station')}
-              rainfallValue={this.formatRain(Session.get('rainfall.value'))}
-              soilTemperature0={this.toCelsius(Session.get('soil.temperature.0'))}
-              soilTemperature1={this.toCelsius(Session.get('soil.temperature.1'))}
-              soilTemperature2={this.toCelsius(Session.get('soil.temperature.2'))}
-              soilTemperature3={this.toCelsius(Session.get('soil.temperature.3'))}
-              soilHumidity0={this.formatSoilMoisture(Session.get('soil.humidity.0'))}
-              soilHumidity1={this.formatSoilMoisture(Session.get('soil.humidity.1'))}
-              soilHumidity2={this.formatSoilMoisture(Session.get('soil.humidity.2'))}
-              soilHumidity3={this.formatSoilMoisture(Session.get('soil.humidity.3'))}
-              windDirectionPrevailing={Session.get('wind.direction.prevailing')}
-              windSpeedAverage={Session.get('wind.speed.average')}
-            />
+                      <div id="current-updated" className="mdl-cell mdl-cell--12-col">
+                        {Session.get('conditions').observation_time}
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+
+              <div className="mdl-cell mdl-cell--9-col mdl-cell--4-col-phone">
+                <div className="mdl-grid">
+                  <div className="mdl-cell mdl-cell--12-col">
+                    <h5>Forecast</h5>
+                  </div>
+                  <div className="mdl-cell mdl-cell--12-col">
+                    <div className="mdl-grid">
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[0].date.monthname_short} {Session.get('forecast')[0].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[0].low.celsius}° | {Session.get('forecast')[0].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[0].icon_url} />
+                            <br/>{Session.get('forecast')[0].conditions}
+                            <br/>{Session.get('forecast')[0].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[1].date.monthname_short} {Session.get('forecast')[1].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[1].low.celsius}° | {Session.get('forecast')[1].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[1].icon_url} />
+                            <br/>{Session.get('forecast')[1].conditions}
+                            <br/>{Session.get('forecast')[1].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[2].date.monthname_short} {Session.get('forecast')[2].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[2].low.celsius}° | {Session.get('forecast')[2].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[2].icon_url} />
+                            <br/>{Session.get('forecast')[2].conditions}
+                            <br/>{Session.get('forecast')[2].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[3].date.monthname_short} {Session.get('forecast')[3].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[3].low.celsius}° | {Session.get('forecast')[3].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[3].icon_url} />
+                            <br/>{Session.get('forecast')[3].conditions}
+                            <br/>{Session.get('forecast')[3].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[4].date.monthname_short} {Session.get('forecast')[4].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[4].low.celsius}° | {Session.get('forecast')[4].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[4].icon_url} />
+                            <br/>{Session.get('forecast')[4].conditions}
+                            <br/>{Session.get('forecast')[4].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[5].date.monthname_short} {Session.get('forecast')[5].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[5].low.celsius}° | {Session.get('forecast')[5].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[5].icon_url} />
+                            <br/>{Session.get('forecast')[5].conditions}
+                            <br/>{Session.get('forecast')[5].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[6].date.monthname_short} {Session.get('forecast')[6].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[6].low.celsius}° | {Session.get('forecast')[6].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[6].icon_url} />
+                            <br/>{Session.get('forecast')[6].conditions}
+                            <br/>{Session.get('forecast')[6].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[7].date.monthname_short} {Session.get('forecast')[7].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[7].low.celsius}° | {Session.get('forecast')[7].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[7].icon_url} />
+                            <br/>{Session.get('forecast')[7].conditions}
+                            <br/>{Session.get('forecast')[7].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[8].date.monthname_short} {Session.get('forecast')[8].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[8].low.celsius}° | {Session.get('forecast')[8].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[8].icon_url} />
+                            <br/>{Session.get('forecast')[8].conditions}
+                            <br/>{Session.get('forecast')[8].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mdl-cell mdl-cell--2-col mdl-cell--2-col-phone">
+                        <div className="mdl-grid">
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[9].date.monthname_short} {Session.get('forecast')[9].date.day}
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            {Session.get('forecast')[9].low.celsius}° | {Session.get('forecast')[9].high.celsius}°
+                          </div>
+                          <div className="mdl-cell--12-col center">
+                            <img src={Session.get('forecast')[9].icon_url} />
+                            <br/>{Session.get('forecast')[9].conditions}
+                            <br/>{Session.get('forecast')[9].qpf_allday.mm} mm
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+
+            </div>
           </div>
         </div>
-    );
 
+        
+      </div>
+    )
   }
 
   render() {
     return (
-
-      <div id="map-container">
-        <div id="map"></div>
-        {this.renderDrawerContent()}
-        <dialog id="instruction-dialog" className="mdl-dialog">
-          <div className="mdl-dialog__content">
-            {'Select a weather station from the map to view its latest reading.'}
-          </div>
-          <div className="mdl-dialog__actions">
-            <button type="button" className="mdl-button close">OK</button>
-          </div>
-        </dialog>
+      <div>
+        <div id="map-container">
+          <div id="map"></div>
+        </div>
+        {this.renderForecast()}
       </div>
-
     );
   }
 }
