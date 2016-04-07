@@ -25,37 +25,8 @@
   width: 350px;
 }
 
-input.yc-input {
-  width: 70%;
-  -moz-border-radius:3px; /* Firefox */
-  -webkit-border-radius: 3px; /* Safari, Chrome */
-  -khtml-border-radius: 3px; /* KHTML */
-  border-radius: 3px; /* CSS3 */
-  
-  padding: 10px;
-  border: solid 1px #dcdcdc;
-  transition: box-shadow 0.3s, border 0.3s;
-}
-
-input.yc-input :focus,
-input.yc-input .focus {
-  border: solid 1px #707070;
-  box-shadow: 0 0 5px 1px #969696;
-}
-
-select.yc-select {
-  background-color: #fff;
-  color: #444;
-  padding: .5em;
-  border: none;
-  border-radius: 3px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;   
-}
-
-.no-display {
-  display: none;
+.yc-help-icon {
+  text-align: right;
 }
 
 /********SELECT**********/
@@ -159,3 +130,12 @@ select.yc-select {
   }
 
 /********END NUMBER INPUT*********/
+
+
+#yc-help-modal {
+  width: 400px;
+}
+
+#yc-help-modal p {
+  font-size: 1.5em;
+}

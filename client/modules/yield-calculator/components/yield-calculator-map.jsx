@@ -12,6 +12,38 @@ class YieldCalculator extends React.Component {
       componentHandler.upgradeDom();
     }
 
+    //Help modal
+    const dialog = document.querySelector('#yc-help-modal');
+    const showDialogButton = document.querySelector('#help-icon');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+
+    dialog.showModal();
+
+    //Yield modal
+    const yieldDialog = document.querySelector('#yc-yield-modal');
+    const showYieldDialogButton = document.querySelector('#calculate-yield-button');
+    if (! yieldDialog.showModal) {
+      dialogPolyfill.registerDialog(yieldDialog);
+    }
+    // showYieldDialogButton.addEventListener('click', function() {
+    //   yieldDialog.showModal();
+    // });
+    yieldDialog.querySelector('.close').addEventListener('click', function() {
+      yieldDialog.close();
+    });
+
+    this.yieldDialog = yieldDialog;
+
+
+
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
     const southWest = L.latLng(4.566972, 128.614468);
@@ -38,6 +70,7 @@ class YieldCalculator extends React.Component {
       popupAnchor: [0, -40]
     });
 
+    
   }
 
   calculateYield() {
@@ -115,9 +148,11 @@ class YieldCalculator extends React.Component {
     }
 
     console.log(`Yield: ${result}`)
-  }
+    Session.set('yield', result)
 
-  renderSelectOptions(data) {
+    this.yieldDialog.showModal()
+  }
+renderSelectOptions(data) {
     return data.map((option, key) => {
       return (
         <option value={option.value} key={key}>{option.text}</option>
@@ -135,73 +170,102 @@ class YieldCalculator extends React.Component {
     return (
       <div id="yield-calculator-sidebar">
         <div className="mdl-grid">
+          <div className="mdl-cell mdl-cell--12-col yc-help-icon">
+            <a href="#"><i id="help-icon" className="help-options material-icons">help</i></a>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <div className="yc-dropdown">
-                <select className="yc-dropdown__select" id="location" defaultValue="0">
-                  <option value="0" className="no-display">Select Location</option>
-                  {this.renderSelectOptions(filteredLocations)}
-                </select>
-              </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <div className="yc-dropdown">
+              <select className="yc-dropdown__select" id="location" defaultValue="0">
+                <option value="0" className="no-display">Select Location</option>
+                {this.renderSelectOptions(filteredLocations)}
+              </select>
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <div className="yc-dropdown">
-                <select className="yc-dropdown__select" id="planting-date" defaultValue="0">
-                  <option value="0" className="no-display">Select Planting Date</option>
-                  {this.renderSelectOptions(plantingDateOptions.data)}
-                </select>
-              </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <div className="yc-dropdown">
+              <select className="yc-dropdown__select" id="planting-date" defaultValue="0">
+                <option value="0" className="no-display">Select Planting Date</option>
+                {this.renderSelectOptions(plantingDateOptions.data)}
+              </select>
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <div className="yc-input yc-input-srad">
-                <input type="number" className="yc-input__number" id="solar-radiation" placeholder="Solar Radation"/>
-              </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <div className="yc-input yc-input-srad">
+              <input type="number" className="yc-input__number" id="solar-radiation" placeholder="Solar Radation"/>
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <div className="yc-input yc-input-temp">
-                <input type="number" className="yc-input__number" id="minimum-temperature" placeholder="Minimum Temperature" />
-              </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <div className="yc-input yc-input-temp">
+              <input type="number" className="yc-input__number" id="minimum-temperature" placeholder="Minimum Temperature" />
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <div className="yc-input yc-input-temp">
-                <input type="number" className="yc-input__number" id="maximum-temperature" placeholder="Maximum Temperature" />
-              </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <div className="yc-input yc-input-temp">
+              <input type="number" className="yc-input__number" id="maximum-temperature" placeholder="Maximum Temperature" />
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <div className="yc-input yc-input-rain">
-                <input type="number" className="yc-input__number yc-input__number-rain" id="precipitation" placeholder="Precipitation" />
-              </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <div className="yc-input yc-input-rain">
+              <input type="number" className="yc-input__number yc-input__number-rain" id="precipitation" placeholder="Precipitation" />
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col">
 
-              <div className="yc-dropdown">
-                <select id="soil-texture" className="yc-dropdown__select" defaultValue="0">
-                  <option value="0" className="no-display">Select Soil Type</option>
-                  {this.renderSelectOptions(soilTextures.data)}
-                </select>
-              </div>
+            <div className="yc-dropdown">
+              <select id="soil-texture" className="yc-dropdown__select" defaultValue="0">
+                <option value="0" className="no-display">Select Soil Type</option>
+                {this.renderSelectOptions(soilTextures.data)}
+              </select>
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <div className="yc-input yc-input-elev">
-                <input type="number" className="yc-input__number" id="elevation" placeholder="Elevation" />
-              </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <div className="yc-input yc-input-elev">
+              <input type="number" className="yc-input__number" id="elevation" placeholder="Elevation" />
             </div>
+          </div>
 
-            <div className="mdl-cell mdl-cell--12-col">
-              <button className="mdl-button mdl-js-button mdl-button--raised" onClick={this.calculateYield}>
-                Submit
-              </button>
-            </div>
+          <div className="mdl-cell mdl-cell--12-col">
+            <button id="calculate-yield-button" className="mdl-button mdl-js-button mdl-button--raised" onClick={this.calculateYield}>
+              Submit
+            </button>
+          </div>
 
         </div>
       </div>
+    )
+  }
+
+  renderHelpDialog() {
+    return (
+      <dialog id="yc-help-modal" className="mdl-dialog">
+        <div className="mdl-dialog__content">
+          <p>Use the Project SARAI <b>yield calculator</b> to assist you in your farming plan. Our yield calculator can help you to estimate your crop yield (kg/ha), guide your decisions on getting a crop insurance, plan your harvest and storage requirements, and budget your resources.</p>
+        </div>
+        <div className="mdl-dialog__actions">
+          <button type="button" className="mdl-button close">OK</button>
+        </div>
+      </dialog>
+    )
+  }
+
+  renderYieldDialog() {
+    return (
+      <dialog id="yc-yield-modal" className="mdl-dialog">
+        <div className="mdl-dialog__content">
+          <p>You can get {Session.get('yield')} kg per hectare.</p>
+        </div>
+        <div className="mdl-dialog__actions">
+          <button type="button" className="mdl-button close">OK</button>
+        </div>
+      </dialog>
     )
   }
 
@@ -215,6 +279,8 @@ class YieldCalculator extends React.Component {
       <div id="map-container">
         <div id="yield-calculator-map"></div>
         {this.renderForm()}
+        {this.renderHelpDialog()}
+        {this.renderYieldDialog()}
       </div>
       
     )
