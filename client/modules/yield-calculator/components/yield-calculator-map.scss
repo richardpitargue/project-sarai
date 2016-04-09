@@ -25,8 +25,16 @@
   width: 350px;
 }
 
-.yc-help-icon {
+.yc-top-row {
   text-align: right;
+}
+
+.yc-help-icon {
+  color: azure;
+}
+
+.yc-input-row {
+  text-align: center;
 }
 
 /********SELECT**********/
@@ -36,6 +44,7 @@
   margin: 0; /* remove default margins */
   background-color: #fff;
   color: #444;
+  width: 17em;
 }
 
 .yc-dropdown {

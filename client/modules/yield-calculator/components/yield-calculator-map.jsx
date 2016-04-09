@@ -170,11 +170,11 @@ renderSelectOptions(data) {
     return (
       <div id="yield-calculator-sidebar">
         <div className="mdl-grid">
-          <div className="mdl-cell mdl-cell--12-col yc-help-icon">
-            <a href="#"><i id="help-icon" className="help-options material-icons">help</i></a>
+          <div className="mdl-cell mdl-cell--12-col yc-top-row">
+            <a href="#" className="yc-help-icon"><i id="help-icon" className="help-options material-icons">help</i></a>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
             <div className="yc-dropdown">
               <select className="yc-dropdown__select" id="location" defaultValue="0">
                 <option value="0" className="no-display">Select Location</option>
@@ -183,7 +183,7 @@ renderSelectOptions(data) {
             </div>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
             <div className="yc-dropdown">
               <select className="yc-dropdown__select" id="planting-date" defaultValue="0">
                 <option value="0" className="no-display">Select Planting Date</option>
@@ -192,31 +192,31 @@ renderSelectOptions(data) {
             </div>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
             <div className="yc-input yc-input-srad">
               <input type="number" className="yc-input__number" id="solar-radiation" placeholder="Solar Radation"/>
             </div>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
             <div className="yc-input yc-input-temp">
               <input type="number" className="yc-input__number" id="minimum-temperature" placeholder="Minimum Temperature" />
             </div>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
             <div className="yc-input yc-input-temp">
               <input type="number" className="yc-input__number" id="maximum-temperature" placeholder="Maximum Temperature" />
             </div>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
             <div className="yc-input yc-input-rain">
               <input type="number" className="yc-input__number yc-input__number-rain" id="precipitation" placeholder="Precipitation" />
             </div>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
 
             <div className="yc-dropdown">
               <select id="soil-texture" className="yc-dropdown__select" defaultValue="0">
@@ -226,7 +226,7 @@ renderSelectOptions(data) {
             </div>
           </div>
 
-          <div className="mdl-cell mdl-cell--12-col">
+          <div className="mdl-cell mdl-cell--12-col yc-input-row">
             <div className="yc-input yc-input-elev">
               <input type="number" className="yc-input__number" id="elevation" placeholder="Elevation" />
             </div>
