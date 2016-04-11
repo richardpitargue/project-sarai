@@ -1,8 +1,8 @@
-// import actions from './actions';
+import actions from './actions';
 import routes from './routes';
 
 export default {
-  // actions,
+  actions,
   load: () => null,
   routes
 };
