@@ -1,11 +1,11 @@
 import React from 'react';
-import highcharts from 'highcharts/highstock';
+import highcharts from 'highcharts';
 
 class RainChartWithForecast extends React.Component {
   constructor() {
     super()
     this.getMeteogramOptions = this.getMeteogramOptions.bind(this);
-    this.drawIcons = this.drawIcons.bind(this);
+    this.getSampleData = this.getSampleData.bind(this);
   }
 
   componentDidMount() {
@@ -16,13 +16,7 @@ class RainChartWithForecast extends React.Component {
     const meteogramID = `meteogram`;
 
     $('#meteogram').highcharts(
-      'StockChart',
-      this.getMeteogramOptions(),
-      function (chart) {
-        // meteogram.onChartLoad(chart);
-        console.log("Finished rendering chart...")
-        this.drawIcons();
-      });
+      this.getMeteogramOptions());
   }
 
   componentDidUpdate() {
@@ -31,92 +25,94 @@ class RainChartWithForecast extends React.Component {
     }
   }
 
+  getSampleData() {
+    const pastMonthRainfall = [
+      // {date: {year: '2016',  month: '03', day: '16'}, rainm: '0'},
+      // {date: {year: '2016',  month: '03', day: '17'}, rainm: '0'},
+      // {date: {year: '2016',  month: '03', day: '18'}, rainm: '0'},
+      // {date: {year: '2016',  month: '03', day: '19'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '20'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '21'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '22'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '23'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '24'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '25'}, rainm: '3.8'},
+      {date: {year: '2016',  month: '03', day: '26'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '27'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '28'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '29'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '30'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '31'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '1'}, rainm: '3.6'},
+      {date: {year: '2016',  month: '04', day: '2'}, rainm: '0.3'},
+      {date: {year: '2016',  month: '04', day: '3'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '4'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '5'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '6'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '7'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '8'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '9'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '10'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '11'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '12'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '13'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '14'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '15'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '16'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '17'}, rainm: '0'},
+      {date: {year: '2016',  month: '04', day: '18'}, rainm: '0'}
+    ]
+
+    const rainfall = []
+    const accumulatedRainfall = []
+
+    let totalRainfall = 0
+
+    for (let entry of pastMonthRainfall) {
+      const utcDate = Date.UTC(entry.date.year, entry.date.month, entry.date.day);
+
+      totalRainfall += parseFloat(entry.rainm)
+
+      console.log(totalRainfall)
+      rainfall.push([utcDate, parseFloat(entry.rainm)]);
+      accumulatedRainfall.push([utcDate, parseFloat(totalRainfall)])
+    }
+
+    data = {
+      "rainfall": rainfall,
+      "accumulatedRainfall": accumulatedRainfall
+    }
+
+    return data
+  }
+
   getMeteogramOptions() {
-    const {chartData} = this.props;
+    // const {chartData} = this.props;
+    const data = this.getSampleData()
 
     return {
       title: {
-        text: '10 Day Forecast',
-        align: 'left'
+          text: 'Past 30-Day Rainfall'
       },
-
-      rangeSelector: {
-        enabled: false
-      },
-
-      navigator: {
-        enabled: false
-      },
-
       yAxis: [
         {
-          labels: {
-            format: '{value}°C',
-            style: {
-                color: highcharts.getOptions().colors[0]
-            }
-          },
           title: {
-            text: 'Temperature',
+            text: 'Millimeters of Rain',
             style: {
-                color: highcharts.getOptions().colors[0]
+              fontWeight: 'bold'
             }
           },
-          opposite: false,
-          gridLineWidth: 0
-        },
-        {
           labels: {
-            format: '{value} mb',
+            format: '{value} mm',
             style: {
-                color: highcharts.getOptions().colors[1]
+              color: '#0066cc',
+              fontWeight: 'bold'
             }
-          },
-          title: {
-            text: 'Pressure',
-            style: {
-                color: highcharts.getOptions().colors[1]
-            }
-          },
-          opposite: true,
-          gridLineWidth: 0       
-        },
-        {
-          labels: {
-            format: '{value} %',
-            style: {
-                color: highcharts.getOptions().colors[2]
-            }
-          },
-          title: {
-            text: 'Chance of Rain',
-            style: {
-                color: highcharts.getOptions().colors[2]
-            }
-          },
-          opposite: true,
-          gridLineWidth: 0       
+          }
         }
       ],
-
       xAxis: [
         {
-          // plotLines: [{
-          //   color: '#FF0000', // Red
-          //   width: 2,
-          //   value: Date.UTC(2016, 4, 3, 9) // Position, you'll have to translate this to the values on your x axis
-          // }],
-          gridLineWidth: 1,
-          tickPosition: 'inside',
-          tickPositions: chartData.tickPositions,
-          labels: {
-            enabled: false
-          }
-        },
-        {
-          tickPositions: chartData.altTickPositions,
-          tickWidth: 0,
-          opposite: true,
           labels: {
             formatter: function () {
               var s = highcharts.dateFormat('%e %b', new Date(this.value));
@@ -126,51 +122,23 @@ class RainChartWithForecast extends React.Component {
           }
         }
       ],
-
-      legend: {
-        layout: 'vertical',
-        align: 'left',
-        x: 80,
-        verticalAlign: 'top',
-        y: 55,
-        floating: true,
-        backgroundColor: (highcharts.theme && highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-      },
-
-      series: [
-        {
-          name: 'Temperature',
-          id: 'temperature',
-          data: chartData.series.temperature,
+      series: [{
+          type: 'column',
+          name: 'Rainfall',
+          data: data.rainfall
+      }, {
           type: 'spline',
-          tooltip: {
-            valueDecimals: 1
-          }
-        },
-        {
-          name: 'Pressure',
-          id: 'pressure',
-          data: chartData.series.pressure,
-          type: 'spline',
-          yAxis: 1,
-          xAxis: 1
-        },
-        {
-          name: 'Chance of Rain',
-          id: 'pop',
-          data: chartData.series.pop,
-          type: 'spline',
-          yAxis: 2
-        }
-      ],
+          name: 'Accumulated Rainfall',
+          data: data.accumulatedRainfall
+      }],
 
       tooltip: {
-        formatter: function () {
-          var s = '<b>' + highcharts.dateFormat('%e %b - %H:00', new Date(this.x)) + '</b>';
+        borderColor: '#cccccc',
+        formatter: function( ) {
+          var s = '<b>' + highcharts.dateFormat('%e %b', new Date(this.x)) + '</b>';
 
-          s += '<br />' + this.points[0].series.name + ': ' + this.points[0].y + ' °C';
-          s += '<br />' + this.points[1].series.name + ': ' + this.points[1].y + ' mb';
-          s += '<br />' + this.points[2].series.name + ': ' + this.points[2].y + '%';
+          s += '<br />' + this.points[0].series.name + ': ' + this.points[0].y + ' mm';
+          s += '<br />' + this.points[1].series.name + ': ' + this.points[1].y + ' mm';
 
 
           // $.each(this.points, function () {
@@ -180,13 +148,9 @@ class RainChartWithForecast extends React.Component {
           return s;
         },
         shared: true
-      },
+      }
     }
 
-  }
-
-  drawIcons() {
-    const meteogram = this
   }
 
   render() {

@@ -182,11 +182,13 @@ class DSSMapChart extends React.Component {
 
     if (Session.get('weatherFetched') == 'true') {
       return (
-        <RainChartWithForecast
-          chartData={Session.get('meteogramData')}
-        />
+        <RainChartWithForecast />
       )
     }
+
+    return (
+        <RainChartWithForecast />
+      )
   }
 
   render() {
