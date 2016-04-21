@@ -10,6 +10,7 @@ const composer = ({stations}, onData) => {
 
 const deps = (context, actions) => ({
   getSampleResponse: actions.SampleData.getSampleResponse,
+  getHistoricalDay: actions.SampleData.getHistoricalDay,
   context: () => context
 })
 

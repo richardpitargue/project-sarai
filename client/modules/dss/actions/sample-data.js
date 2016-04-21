@@ -7053,5 +7053,56 @@ export default {
     }
 
     return data;
+  },
+
+  getHistoricalDay(context, year, month, day) {
+    const {Meteor, LocalState} = context
+
+    const rainfall = [
+      // {date: {year: '2016',  month: '03', day: '16'}, rainm: '0'},
+      // {date: {year: '2016',  month: '03', day: '17'}, rainm: '0'},
+      // {date: {year: '2016',  month: '03', day: '18'}, rainm: '0'},
+      // {date: {year: '2016',  month: '03', day: '19'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '20'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '21'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '22'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '23'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '24'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '25'}, rainm: '3.8'},
+      {date: {year: '2016',  month: '02', day: '26'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '27'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '28'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '29'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '30'}, rainm: '0'},
+      {date: {year: '2016',  month: '02', day: '31'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '1'}, rainm: '3.6'},
+      {date: {year: '2016',  month: '03', day: '2'}, rainm: '0.3'},
+      {date: {year: '2016',  month: '03', day: '3'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '4'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '5'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '6'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '7'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '8'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '9'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '10'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '11'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '12'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '13'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '14'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '15'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '16'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '17'}, rainm: '0'},
+      // {date: {year: '2016',  month: '04', day: '18'}, rainm: '10'}
+    ]
+
+    result = rainfall.find((entry) => {
+      return (entry.date.year == year
+              && entry.date.month == month
+              && entry.date.day == day)
+    });
+
+    console.log(result)
   }
+
+  
 }
