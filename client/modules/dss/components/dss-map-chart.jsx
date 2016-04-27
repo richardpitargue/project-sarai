@@ -18,7 +18,7 @@ class DSSMapChart extends React.Component {
     Session.set('drawerVisibility', 'false');
 
     const {stations} = this.props;
-    const {get30Days} = this.props;
+    const {getRainfallData} = this.props;
 
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
@@ -69,27 +69,27 @@ class DSSMapChart extends React.Component {
 
         /*********** TEST DATA ***********/
 
-        get30Days(station.id)
+        getRainfallData(station.id)
+        Session.set('stationID', station.id)
 
 
         /*********** TEST DATA ***********/
       })
       .addTo(map);
     }
-
-    // const {get30Days} = this.props
-
-    // get30Days()
   }
 
-  renderMeteogram() {
-    const {getPast30Days, get10DayForecast, chartData} = this.props;
+  renderMeteogram(stationID) {
+    const {chartData} = this.props;
 
     if (chartData) {
       return (
-        <RainChartWithForecast
-          chartData={chartData}
+        <div>
+          <h4>{stationID}</h4>
+          <RainChartWithForecast
+            chartData={Session.get('chartData')}
           />
+        </div>
       )
     }
 
@@ -117,7 +117,7 @@ class DSSMapChart extends React.Component {
               </div>
 
               <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-                {this.renderMeteogram()}
+                {this.renderMeteogram(Session.get('stationID'))}
               </div>
 
               <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">

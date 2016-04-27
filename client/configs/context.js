@@ -13,6 +13,27 @@ const mediaLibDefaultState = {
   token: null
 };
 
+const aaaDefaultState = {
+}
+
+const aaaStore = createStore((state = aaaDefaultState, action) => {
+
+  switch (action.type) {
+    case 'CLEAR':
+      return aaaDefaultState
+    case 'VIEW_STATION':
+      return Object.assign({}, state, {
+        stationID: action.stationID
+      })
+    case 'ADD':
+      return Object.assign({}, state, {
+        stationID: state.stationID +=1
+      })
+    default:
+      return state
+  }
+});
+
 const dssDefaultState = {}
 
 const dssStore = createStore((state = dssDefaultState, action) => {
@@ -73,6 +94,7 @@ export function initContext() {
     SimpleSchema,
     check,
     mediaLib,
-    dssStore
+    dssStore,
+    aaaStore
   };
 }
