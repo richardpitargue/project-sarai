@@ -13,6 +13,30 @@ const mediaLibDefaultState = {
   token: null
 };
 
+const dssDefaultState = {}
+
+const dssStore = createStore((state = dssDefaultState, action) => {
+  switch (action.type) {
+    case 'CLEAR':
+      return dssDefaultState
+    case 'ADD-WD':
+      return Object.assign({}, state, {
+        wd: action.wd
+      })
+    case 'DEL-WD':
+      return Object.assign({}, state, {
+        wd: null
+      })
+    default:
+      return state
+  }
+});
+
+// dssStore.dispatch({
+//  action: 'ADD-WD',
+//  wd: 'ICAGAYAN2'
+// })
+
 const mediaLib = createStore((state = mediaLibDefaultState, action) => {
   switch (action.type) {
   case 'CLEAR':
@@ -48,6 +72,7 @@ export function initContext() {
     Method,
     SimpleSchema,
     check,
-    mediaLib
+    mediaLib,
+    dssStore
   };
 }

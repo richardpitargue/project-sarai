@@ -141,24 +141,17 @@ class RainChartWithForecast extends React.Component {
 
 
   getMeteogramOptions() {
-    // const {chartData} = this.props;
+    const {chartData} = this.props
 
-    //past 30-day rainfall and 10-day forecast will be passed separately and concatenaed
-    //Obtain: Day today (for plotband), 
-    //
-    const data = this.getSampleData()
-    const forecast = this.getSampleForecast()
+    const completeRainfall = chartData.pastRainfall.concat(chartData.forecastRain)
+    const completeAccumulatedRainfall = chartData.accumulatedRainfall.concat(chartData.forecastAccumulation)
 
-    const dateToday = new Date().toJSON().slice(0,10);
-
-    const completeRainfall = data.rainfall.concat(forecast.forecast)
-    const completeAccumulatedRainfall = data.accumulatedRainfall.concat(forecast.forecastAccumulation)
+    const plotBandStart = chartData.forecastRain[0].x
+    const plotBandEnd = chartData.forecastRain[chartData.forecastRain.length - 1].x
 
 
     //This must be configurable
     const requiredRainfall = 8
-    
-    const canPlantToday = (data.accumulatedRainfall[data.accumulatedRainfall.length - 1].y >= requiredRainfall) ? true : false
 
     let potentialPlantingDate = null
 
@@ -168,7 +161,7 @@ class RainChartWithForecast extends React.Component {
       }
     }
 
-    //TODO add message depending on result 
+    //TODO add message depending on result
     //TODO make message collection
 
     return {
@@ -221,9 +214,9 @@ class RainChartWithForecast extends React.Component {
 
           plotBands: [{
             color: '#FCFFC5',
-            from: forecast.startDate,
-            to: forecast.endDate,
-            label: { 
+            from: plotBandStart,
+            to: plotBandEnd,
+            label: {
               text: '10-Day Forecast',
               align: 'center',
               style: {

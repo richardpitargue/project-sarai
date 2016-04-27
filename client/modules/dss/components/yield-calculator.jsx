@@ -4,6 +4,7 @@ class YieldCalculator extends React.Component {
   constructor() {
     super()
     this.renderForm = this.renderForm.bind(this)
+    this.renderSelectOptions = this.renderSelectOptions.bind(this)
   }
 
   componentDidMount() {
@@ -27,6 +28,8 @@ class YieldCalculator extends React.Component {
   }
 
   renderForm() {
+    const {plantingDateOptions} = this.props
+
     return (
       <div id="dss-yield-calculator">
         <div className="mdl-grid">
@@ -46,7 +49,7 @@ class YieldCalculator extends React.Component {
             <div className="yc-dropdown">
               <select className="yc-dropdown__select" id="planting-date" defaultValue="0">
                 <option value="0" className="no-display">Select Planting Date</option>
-
+                  {this.renderSelectOptions(plantingDateOptions.data)}
               </select>
             </div>
           </div>

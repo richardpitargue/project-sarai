@@ -1,4 +1,5 @@
-import {Meteor} from 'meteor/meteor';
+// import {Meteor} from 'meteor/meteor';
+// import {WeatherData} from '/lib/collections';
 
 export default {
   getSampleResponse() {
@@ -7055,19 +7056,8 @@ export default {
     return data;
   },
 
-  getHistoricalDay(context, year, month, day) {
-    const {Meteor, LocalState} = context
-
-    const rainfall = [
-      // {date: {year: '2016',  month: '03', day: '16'}, rainm: '0'},
-      // {date: {year: '2016',  month: '03', day: '17'}, rainm: '0'},
-      // {date: {year: '2016',  month: '03', day: '18'}, rainm: '0'},
-      // {date: {year: '2016',  month: '03', day: '19'}, rainm: '0'},
-      {date: {year: '2016',  month: '02', day: '20'}, rainm: '0'},
-      {date: {year: '2016',  month: '02', day: '21'}, rainm: '0'},
-      {date: {year: '2016',  month: '02', day: '22'}, rainm: '0'},
-      {date: {year: '2016',  month: '02', day: '23'}, rainm: '0'},
-      {date: {year: '2016',  month: '02', day: '24'}, rainm: '0'},
+  getPast30Days() {
+    const pastMonthRainfall = [
       {date: {year: '2016',  month: '02', day: '25'}, rainm: '3.8'},
       {date: {year: '2016',  month: '02', day: '26'}, rainm: '0'},
       {date: {year: '2016',  month: '02', day: '27'}, rainm: '0'},
@@ -7092,17 +7082,92 @@ export default {
       {date: {year: '2016',  month: '03', day: '15'}, rainm: '0'},
       {date: {year: '2016',  month: '03', day: '16'}, rainm: '0'},
       {date: {year: '2016',  month: '03', day: '17'}, rainm: '0'},
-      // {date: {year: '2016',  month: '04', day: '18'}, rainm: '10'}
+      {date: {year: '2016',  month: '03', day: '18'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '19'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '20'}, rainm: '0.3'},
+      {date: {year: '2016',  month: '03', day: '21'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '22'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '23'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '24'}, rainm: '0'},
     ]
 
-    result = rainfall.find((entry) => {
-      return (entry.date.year == year
-              && entry.date.month == month
-              && entry.date.day == day)
-    });
+    const rainfall = []
+    const accumulatedRainfall = []
 
-    console.log(result)
+    let totalRainfall = 0
+
+    for (let entry of pastMonthRainfall) {
+      const utcDate = Date.UTC(entry.date.year, entry.date.month, entry.date.day);
+
+      totalRainfall += parseFloat(entry.rainm)
+
+      // rainfall.push([utcDate, parseFloat(entry.rainm)]);
+      // accumulatedRainfall.push([utcDate, parseFloat(totalRainfall)])
+      rainfall.push({x: utcDate, y: parseFloat(entry.rainm)})
+      accumulatedRainfall.push({x: utcDate, y: parseFloat(totalRainfall)})
+    }
+
+    data = {
+      "rainfall": rainfall,
+      "accumulatedRainfall": accumulatedRainfall
+    }
+
+    return data
+  },
+
+
+  get10DayForecast() {
+    const tenDayForecast = [
+      {date: {year: '2016',  month: '03', day: '24'}, rainm: '4'},
+      {date: {year: '2016',  month: '03', day: '25'}, rainm: '1'},
+      {date: {year: '2016',  month: '03', day: '26'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '27'}, rainm: '0'},
+      {date: {year: '2016',  month: '03', day: '28'}, rainm: '5'},
+      {date: {year: '2016',  month: '03', day: '29'}, rainm: '1'},
+      {date: {year: '2016',  month: '03', day: '30'}, rainm: '9'},
+      {date: {year: '2016',  month: '04', day: '1'}, rainm: '7'},
+      {date: {year: '2016',  month: '04', day: '2'}, rainm: '4'},
+      {date: {year: '2016',  month: '04', day: '3'}, rainm: '6'},
+    ]
+
+    forecast = []
+    forecastAccumulation = []
+
+    // const ar = this.getSampleData().accumulatedRainfall
+
+    let totalRainfall = 11//ar[ar.length - 1].y
+
+    for (let entry of tenDayForecast) {
+      const utcDate = Date.UTC(entry.date.year, entry.date.month, entry.date.day);
+
+      totalRainfall += parseFloat(entry.rainm)
+
+      // forecast.push([utcDate, parseFloat(entry.rainm)])
+      // forecastAccumulation.push([utcDate, parseFloat(totalRainfall)])
+
+      forecast.push({x: utcDate, y: parseFloat(entry.rainm)})
+      forecastAccumulation.push({x: utcDate, y: parseFloat(totalRainfall)})
+    }
+
+    const lastIndex = forecast.length - 1
+    const startDate = forecast[0].x
+    const endDate = forecast[lastIndex].x
+
+    data = {
+      "forecast": forecast,
+      "forecastAccumulation": forecastAccumulation,
+      "startDate": startDate,
+      "endDate": endDate
+    }
+
+    return data
+  },
+
+  get30Days(context, stationID) {
+    const {FlowRouter, Meteor, LocalState} = context
+
+    FlowRouter.go(`/dss?stationID=${stationID}`)
+
   }
 
-  
 }
