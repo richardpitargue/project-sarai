@@ -13,7 +13,7 @@ const composer = ({}, onData) => {
 const composeAAARedux = ({context}, onData) => {
   const {aaaStore} = context()
 
-  onData(null, {})
+  onData(null, {stationID: 0})
 
   return aaaStore.subscribe(() => {
     const {stationID} = aaaStore.getState()

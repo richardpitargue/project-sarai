@@ -14,6 +14,7 @@ const mediaLibDefaultState = {
 };
 
 const aaaDefaultState = {
+  stationID: 0
 }
 
 const aaaStore = createStore((state = aaaDefaultState, action) => {
