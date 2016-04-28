@@ -7,7 +7,6 @@ import YieldCalculator from './yield-calculator.jsx';
 class DSSMapChart extends React.Component {
   constructor() {
     super()
-    Session.set('weatherFetched', 'false');
   }
 
   componentDidMount() {
@@ -70,7 +69,6 @@ class DSSMapChart extends React.Component {
         /*********** TEST DATA ***********/
 
         getRainfallData(station.id)
-        Session.set('stationID', station.id)
 
 
         /*********** TEST DATA ***********/
@@ -79,17 +77,19 @@ class DSSMapChart extends React.Component {
     }
   }
 
-  renderMeteogram(stationID) {
+  renderMeteogram() {
     const {chartData} = this.props;
+    console.log('rendering meteogram')
+    console.log(chartData)
 
     if (chartData) {
       return (
         <div>
-          <h4>{stationID}</h4>
           <RainChartWithForecast
-            chartData={Session.get('chartData')}
+            chartData={chartData}
           />
         </div>
+
       )
     }
 

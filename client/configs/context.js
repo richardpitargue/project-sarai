@@ -41,13 +41,9 @@ const dssStore = createStore((state = dssDefaultState, action) => {
   switch (action.type) {
     case 'CLEAR':
       return dssDefaultState
-    case 'ADD-WD':
+    case 'SET-STATION-ID':
       return Object.assign({}, state, {
-        wd: action.wd
-      })
-    case 'DEL-WD':
-      return Object.assign({}, state, {
-        wd: null
+        stationID: action.stationID
       })
     default:
       return state
