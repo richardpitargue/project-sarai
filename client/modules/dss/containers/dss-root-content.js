@@ -5,6 +5,7 @@ import {CoreRootTriSection} from '/client/modules/core';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
 import DSSMapChart from './dss-map-chart';
+import RainGraph from './rain-graph';
 
 const composerLandingPage = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
@@ -21,10 +22,11 @@ const composerLandingPage = ({context}, onData) => {
     const plantingDateOptions = Labels.findOne({name: "YC_PlantingDateOptions"});
 
 
-    //If StationID is not provided, don't pass any weather data. Page will display instructions instead.
-
     sections.push(React.createElement(DSSMapChart, {stations, plantingDateOptions
     }));
+
+    sections.push(React.createElement(RainGraph))
+
 
     onData(null, {sections, spacing});
 

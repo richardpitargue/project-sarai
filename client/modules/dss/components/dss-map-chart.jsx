@@ -78,28 +78,12 @@ class DSSMapChart extends React.Component {
   }
 
   renderMeteogram() {
-    const {chartData} = this.props;
-    console.log('rendering meteogram')
-    console.log(chartData)
+    return (
+      <div>
+        <h4>Select a location on the map to view its rainfall data.</h4>
+      </div>
+    )
 
-    if (chartData) {
-      return (
-        <div>
-          <RainChartWithForecast
-            chartData={chartData}
-          />
-        </div>
-
-      )
-    }
-
-    else {
-      return (
-        <div>
-          <h4>Select a location on the map to view its rainfall data.</h4>
-        </div>
-      )
-    }
   }
 
   render() {
