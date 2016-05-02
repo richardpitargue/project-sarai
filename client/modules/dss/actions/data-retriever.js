@@ -41,15 +41,12 @@ export default {
 
         const {dssStore} = context
 
-        // dssStore.dispatch({
-        //   type: 'SET-FORECAST-DATA',
-        //   forecast: forecastRain
-        // })
-
         dssStore.dispatch({
-          type: 'SET-STATION-ID',
-          stationID
+          type: 'SET-FORECAST-DATA',
+          stationID: stationID,
+          forecast: forecastRain
         })
+
       } else {
         console.log(`Waiting for the forecast from wunderground... ${xhr.readyState}`)
       }

@@ -104,10 +104,7 @@ class DSSMapChart extends React.Component {
                 {this.renderMeteogram(Session.get('stationID'))}
               </div>
 
-              <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-                <YieldCalculator
-                plantingDateOptions={plantingDateOptions}/>
-              </div>
+
             </div>
           </div>
 
@@ -121,6 +118,11 @@ class DSSMapChart extends React.Component {
 }
 
 export default DSSMapChart;
+
+/*<div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+                <YieldCalculator
+                plantingDateOptions={plantingDateOptions}/>
+              </div>*/
 //
 // <div id="dss-map-container">
 //           <div id="dss-map"></div>
