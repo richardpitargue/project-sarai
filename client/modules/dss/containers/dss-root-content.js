@@ -26,7 +26,6 @@ const composerLandingPage = ({context}, onData) => {
     const map = React.createElement(WeatherStationMap, {stations})
     const chart = React.createElement(RainGraph)
 
-    console.log('Pushing layout into section')
     sections.push(React.createElement(DSSLayout, {chart, map}))
 
     onData(null, {sections, spacing});
