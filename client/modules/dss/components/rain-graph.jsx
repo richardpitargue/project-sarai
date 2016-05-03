@@ -1,7 +1,7 @@
 import React from 'react';
 import highcharts from 'highcharts';
 
-class RainChartWithForecast extends React.Component {
+class RainGraph extends React.Component {
   constructor() {
     super()
     this.getMeteogramOptions = this.getMeteogramOptions.bind(this);
@@ -162,11 +162,10 @@ class RainChartWithForecast extends React.Component {
 
     return (
       <div>
-        {`Chart of Weather Station ${stationID} is supposed to render here`}
         <div id="meteogram"/>
       </div>
     )
   }
 }
 
-export default RainChartWithForecast;
+export default RainGraph;

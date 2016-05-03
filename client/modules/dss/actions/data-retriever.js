@@ -54,5 +54,17 @@ export default {
 
     xhr.send()
 
+  },
+
+  updateWeatherData(context) {
+    const someData = 'some data'
+    Meteor.call('DSS.insertWeatherData', someData, (err, res) => {
+      if (err) {
+        console.error(err)
+      } else {
+        console.log(res)
+      }
+    })
   }
+
 }

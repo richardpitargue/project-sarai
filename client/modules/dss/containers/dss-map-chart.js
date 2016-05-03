@@ -11,6 +11,7 @@ const composer = ({stations, plantingDateOptions}, onData) => {
 const deps = (context, actions) => ({
   get30Days: actions.SampleData.get30Days,
   getRainfallData: actions.DataRetriever.getRainfallData,
+  updateWeatherData: actions.DataRetriever.updateWeatherData,
   context: () => context
 })
 

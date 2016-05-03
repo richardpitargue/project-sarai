@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
-import RainChartWithForecast from './../components/rain-chart-with-forecast.jsx';
+import RainGraph from './../components/rain-graph.jsx';
 
 const deps = (context, actions) => ({
   get30Days: actions.SampleData.get30Days,
@@ -9,7 +9,7 @@ const deps = (context, actions) => ({
   context: () => context
 })
 
-const DSSMapChartRedux = ({context}, onData) => {
+const RainGraphRedux = ({context}, onData) => {
   const {Meteor, Collections, dssStore} = context()
   const {WeatherData} = Collections
   onData(null, {})
@@ -17,8 +17,6 @@ const DSSMapChartRedux = ({context}, onData) => {
   if (Meteor.subscribe('weather-data').ready()) {
     return dssStore.subscribe(() => {
       const {forecast, stationID} = dssStore.getState()
-      console.log(`stationID is ${stationID}`)
-      console.log(forecast)
 
       //Get Records For The Past 30 Days
       const date = new Date();
@@ -73,7 +71,7 @@ const DSSMapChartRedux = ({context}, onData) => {
 
       }
 
-      console.log(records)
+      // console.log(records)
 
       const pastRainfall = []
       const accumulatedRainfall = []
@@ -108,7 +106,6 @@ const DSSMapChartRedux = ({context}, onData) => {
       }
 
       console.log('Finished assembling chart data')
-      console.log(chartData)
 
       onData(null, {chartData, stationID})
     })
@@ -116,6 +113,6 @@ const DSSMapChartRedux = ({context}, onData) => {
 }
 
 export default composeAll(
-  composeWithTracker(DSSMapChartRedux),
+  composeWithTracker(RainGraphRedux),
   useDeps(deps)
-)(RainChartWithForecast);
+)(RainGraph);

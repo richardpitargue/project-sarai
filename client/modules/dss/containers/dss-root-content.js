@@ -4,8 +4,10 @@ import {SectionList} from '/client/modules/ui-components';
 import {CoreRootTriSection} from '/client/modules/core';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
-import DSSMapChart from './dss-map-chart';
 import RainGraph from './rain-graph';
+import WeatherStationMap from './weather-station-map';
+
+import DSSLayout from './../components/dss-layout.jsx';
 
 const composerLandingPage = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
@@ -15,18 +17,17 @@ const composerLandingPage = ({context}, onData) => {
   const spacing = false;
 
   if (Meteor.subscribe('weather-stations').ready()
-    && Meteor.subscribe('labels').ready() && Meteor.subscribe('weather-data').ready()
+    //&& Meteor.subscribe('labels').ready()
     ) {
 
     const stations = WeatherStations.find().fetch();
-    const plantingDateOptions = Labels.findOne({name: "YC_PlantingDateOptions"});
+    // const plantingDateOptions = Labels.findOne({name: "YC_PlantingDateOptions"});
 
+    const map = React.createElement(WeatherStationMap, {stations})
+    const chart = React.createElement(RainGraph)
 
-    sections.push(React.createElement(DSSMapChart, {stations, plantingDateOptions
-    }));
-
-    sections.push(React.createElement(RainGraph))
-
+    console.log('Pushing layout into section')
+    sections.push(React.createElement(DSSLayout, {chart, map}))
 
     onData(null, {sections, spacing});
 
