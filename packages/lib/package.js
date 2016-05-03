@@ -33,7 +33,7 @@ Package.onUse(function(api) {
     'meteorhacks:picker@1.0.3',
     'kadira:debug@3.0.1',
     'kadira:flow-router@2.10.0',
-    'meteorhacks:sikka@1.0.1',
+    // 'meteorhacks:sikka@1.0.1',
     'ongoworks:security@1.3.0',
     // 'zodiase:mdl@1.0.6_1',
     // users,

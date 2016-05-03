@@ -9,13 +9,20 @@ const composer = ({stations, plantingDateOptions}, onData) => {
 };
 
 const deps = (context, actions) => ({
-  getPast30Days: actions.SampleData.getPast30Days,
-  get10DayForecast: actions.SampleData.get10DayForecast,
   get30Days: actions.SampleData.get30Days,
+  getRainfallData: actions.DataRetriever.getRainfallData,
+  updateWeatherData: actions.DataRetriever.updateWeatherData,
   context: () => context
 })
 
+const DSSMapChartRedux = ({context, stations, plantingDateOptions}, onData) => {
+  const {Meteor, Collections, dssStore} = context()
+  const {WeatherData} = Collections
+
+  onData(null, {stations, plantingDateOptions})
+}
+
 export default composeAll(
-  compose(composer),
+  compose(DSSMapChartRedux),
   useDeps(deps)
 )(DSSMapChart);

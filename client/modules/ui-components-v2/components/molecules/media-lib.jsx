@@ -79,7 +79,7 @@ class MediaLib extends React.Component {
 
     if (this.fileContainers[attr]) {
       this.fileContainers[attr].className = classNames(
-        this.defaultClassNameForCard(),
+        this.defaultClassNamfeForCard(),
         'media-lib-card-active'
       );
     }

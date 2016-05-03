@@ -16,7 +16,6 @@ caching-compiler@1.0.1-beta.11
 caching-html-compiler@1.0.3-beta.11
 callback-hook@1.0.5-beta.11
 check@1.1.1-beta.11
-chuangbo:cookie@1.1.0
 coffeescript@1.0.12-beta.11
 cosmos:browserify@0.9.3
 ddp@1.2.2
@@ -57,7 +56,6 @@ meteorhacks:kadira-binary-deps@1.4.0
 meteorhacks:kadira-profiler@1.2.1
 meteorhacks:meteorx@1.4.1
 meteorhacks:picker@1.0.3
-meteorhacks:sikka@1.0.1
 minifier-css@1.1.8-beta.11
 minifier-js@1.1.8-beta.11
 minimongo@1.0.11-beta.11

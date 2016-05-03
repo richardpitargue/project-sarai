@@ -19,14 +19,17 @@ const dssStore = createStore((state = dssDefaultState, action) => {
   switch (action.type) {
     case 'CLEAR':
       return dssDefaultState
-    case 'ADD-WD':
+    case 'SET-FORECAST-DATA':
       return Object.assign({}, state, {
-        wd: action.wd
+        stationID: action.stationID,
+        forecast: action.forecast
       })
-    case 'DEL-WD':
+    case 'SET-STATION-ID':
       return Object.assign({}, state, {
-        wd: null
+        stationID: action.stationID,
+        chartData: state.chartData
       })
+
     default:
       return state
   }
