@@ -17,14 +17,12 @@ class DSSLayout extends React.Component {
     const {map, chart} = this.props
 
     return(
-      <div className="mdl-cell mdl-cell--1-offset-desktop mdl-cell--10-col-desktop mdl-cell--1-offset-tablet mdl-cell--6-col-tablet mdl-cell--4-phone">
+      <div className="mdl-cell mdl-cell--1-offset-desktop mdl-cell--10-col-desktop mdl-cell--1-offset-tablet mdl-cell--4-col-tablet mdl-cell--4-phone">
         <div className="mdl-grid">
           {map}
-
-          <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-            {chart}
-          </div>
         </div>
+
+        {chart}
       </div>
     )
   }

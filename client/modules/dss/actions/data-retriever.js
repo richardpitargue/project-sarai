@@ -25,20 +25,6 @@ export default {
           //forecastTemp.push([parseInt(entry.high.celsius), parseInt(entry.low.celsius)])
         }
 
-
-
-        // const chartData = {
-        //   // "pastRainfall" : pastRainfall,
-        //   // "accumulatedRainfall" : accumulatedRainfall,
-        //   "forecastRain" : forecastRain,
-        //   // "forecastAccumulation" : forecastAccumulation
-        // }
-
-
-
-        // console.log(`Finished chart data`)
-        // console.log(chartData)
-
         const {dssStore} = context
 
         dssStore.dispatch({

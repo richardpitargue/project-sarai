@@ -29,6 +29,10 @@ const dssStore = createStore((state = dssDefaultState, action) => {
         stationID: action.stationID,
         chartData: state.chartData
       })
+    case 'SET-RAINFALL-MET-DATE':
+      return Object.assign({}, state, {
+        rainfallMetDate: ''
+      })
 
     default:
       return state

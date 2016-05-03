@@ -77,11 +77,19 @@ const RainGraphRedux = ({context}, onData) => {
       const accumulatedRainfall = []
       let totalRainfall = 0
 
+      //configurable min rain
+      const minimumRainfall = 30
+      let dateOfSufficientRain = -1
+
       //Collate past rainfall
       for (let entry of records.reverse()) {
         const utcDate = Date.UTC(entry.date.year, entry.date.month, entry.date.day);
 
         totalRainfall += entry.data.rainfall
+
+        if (dateOfSufficientRain == -1 && totalRainfall >= minimumRainfall) {
+          dateOfSufficientRain = utcDate
+        }
 
         pastRainfall.push({x: utcDate, y: entry.data.rainfall})
         accumulatedRainfall.push({x: utcDate, y: totalRainfall})
@@ -95,6 +103,10 @@ const RainGraphRedux = ({context}, onData) => {
       for (let entry of forecast) {
         fa += entry.y
 
+        if (dateOfSufficientRain == -1 && fa >= minimumRainfall) {
+          dateOfSufficientRain = entry.x
+        }
+
         forecastAccumulation.push({x: entry.x, y: fa})
       }
 
@@ -107,7 +119,7 @@ const RainGraphRedux = ({context}, onData) => {
 
       console.log('Finished assembling chart data')
 
-      onData(null, {chartData, stationID})
+      onData(null, {chartData, stationID, minimumRainfall, dateOfSufficientRain})
     })
   }
 }
