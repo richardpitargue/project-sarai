@@ -12,7 +12,6 @@ import oldAboutModule from './modules/old-about-v1';
 import oldInteractiveMaps from './modules/old-interactive-maps';
 import experiment from './modules/experiment';
 import dss from './modules/dss';
-import aaa from './modules/aaa';
 
 // These are the new ones
 // import aboutModule from './modules/about-v1';
@@ -35,7 +34,6 @@ app.loadModule(oldAboutModule);
 app.loadModule(oldInteractiveMaps);
 app.loadModule(experiment);
 app.loadModule(dss);
-app.loadModule(aaa);
 
 // Load the new ones here
 app.loadModule(MdlCoreDeisgn);
