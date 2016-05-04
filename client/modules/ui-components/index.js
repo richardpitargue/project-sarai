@@ -29,6 +29,7 @@ import _FooterSection from './components/organisms/footer-section.jsx';
 
 import _Landing from './components/templates/landing.jsx';
 import _MapPage from './components/templates/map-page.jsx';
+import _DSSAdmin from './components/templates/dss-admin.jsx';
 
 import * as _textareaLib from './libs/textarea.js';
 
@@ -50,6 +51,7 @@ export const NavLink = _NavLink;
 export const NavList = _NavList;
 export const Landing = _Landing;
 export const MapPage = _MapPage;
+export const DSSAdmin = _DSSAdmin;
 export const QuadSection = _QuadSection;
 export const SectionCard = _SectionCard;
 export const SectionList = _SectionList;
