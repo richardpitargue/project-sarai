@@ -71,7 +71,7 @@ const RainGraphRedux = ({context}, onData) => {
 
       }
 
-      // console.log(records)
+      console.log(records)
 
       const pastRainfall = []
       const accumulatedRainfall = []
