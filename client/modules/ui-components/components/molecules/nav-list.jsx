@@ -20,7 +20,7 @@ class NavList extends React.Component {
       return (
         <NavLink
           classList = {linksClassList}
-          href = {nav.link}
+          href = {nav.href}
           id = {nav.id}
           key = {key}
           label = {nav.label}
