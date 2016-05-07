@@ -182,24 +182,8 @@ class RainGraph extends React.Component {
   }
 
   render() {
-    const style = {
-      'width': '100%'
-    }
-
-    const {stationID, record} = this.props
-
-
-
     return (
-      <div className="mdl-grid">
-        <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-          <div id="meteogram"/>
-        </div>
-
-        <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-          {this.renderRecommendation()}
-        </div>
-      </div>
+      <div id="meteogram" />
     )
   }
 }

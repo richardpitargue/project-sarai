@@ -14,7 +14,7 @@ class DSSLayout extends React.Component {
   }
 
   render() {
-    const {map, chart} = this.props
+    const {map, chart, customModules} = this.props
 
     return(
       <div className="mdl-cell mdl-cell--1-offset-desktop mdl-cell--10-col-desktop mdl-cell--1-offset-tablet mdl-cell--4-col-tablet mdl-cell--4-phone">
@@ -22,7 +22,7 @@ class DSSLayout extends React.Component {
           {map}
         </div>
 
-        {chart}
+        {customModules}
       </div>
     )
   }
