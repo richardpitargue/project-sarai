@@ -11,10 +11,11 @@ const deps = (context, actions) => ({
 
 const TCSRedux = ({context}, onData) => {
   const {Meteor, Collections, dssStore} = context()
-  const {WeatherData} = Collections
+  const {WeatherData, DSSModules} = Collections
   onData(null, {})
 
-  if (Meteor.subscribe('weather-data').ready()) {
+  if (Meteor.subscribe('weather-data').ready()
+      && Meteor.subscribe('dss-modules').ready()) {
     return dssStore.subscribe(() => {
       const {forecast, stationID} = dssStore.getState()
 
@@ -119,15 +120,25 @@ const TCSRedux = ({context}, onData) => {
 
       console.log('Finished assembling chart data')
 
-      // onData(null, {chartData, stationID, minimumRainfall, dateOfSufficientRain})
-
-      const rainGraph = React.createElement(RainGraph, {chartData, stationID})
-      const minRainAdvisory = React.createElement(MinRainAdvisory, {minimumRainfall, dateOfSufficientRain})
-
       const sections = []
 
+      const rainGraph = React.createElement(RainGraph, {chartData, stationID})
       sections.push(rainGraph)
-      sections.push(minRainAdvisory)
+
+
+      const modules = DSSModules.find().fetch()
+
+      for (let module of modules) {
+        if (module.type === "min-rain-advisory") {
+          const m = React.createElement(MinRainAdvisory, {data: module.data, minimumRainfall, dateOfSufficientRain})
+
+          sections.push(m)
+        }
+      }
+
+
+      const minRainAdvisory = React.createElement(MinRainAdvisory, {minimumRainfall, dateOfSufficientRain})
+
 
       onData(null, {sections})
     })

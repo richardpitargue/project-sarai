@@ -3,6 +3,7 @@ import React from 'react';
 class MinRainAdvisory extends React.Component {
   constructor() {
     super()
+    this.parseMessage = this.parseMessage.bind(this)
   }
 
   componentDidMount() {
@@ -17,8 +18,18 @@ class MinRainAdvisory extends React.Component {
     }
   }
 
+  parseMessage() {
+    const {data, minimumRainfall, dateOfSufficientRain} = this.props
+
+    const message = data.message.replace("{minimumRainfall}", minimumRainfall)
+
+    return message
+  }
+
   render() {
     const {minimumRainfall, dateOfSufficientRain} = this.props
+
+    this.parseMessage()
 
     if (dateOfSufficientRain == -1) {
       return (
