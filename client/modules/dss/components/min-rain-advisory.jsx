@@ -4,6 +4,7 @@ class MinRainAdvisory extends React.Component {
   constructor() {
     super()
     this.parseMessage = this.parseMessage.bind(this)
+    this.completeMessage = this.completeMessage.bind(this)
   }
 
   componentDidMount() {
@@ -18,41 +19,58 @@ class MinRainAdvisory extends React.Component {
     }
   }
 
+  completeMessage(message) {
+    const {data, dateOfSufficientRain} = this.props
+
+    const date = new Date(dateOfSufficientRain)
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+
+
+    let finishedMessage = message.replace("{minimumRainfall}", data.minimumRainfall)
+    finishedMessage = finishedMessage.replace("{dateOfSufficientRain}", `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`)
+
+    return finishedMessage
+  }
+
   parseMessage() {
-    const {data, minimumRainfall, dateOfSufficientRain} = this.props
+    const {data, dateOfSufficientRain} = this.props
 
-    const message = data.message.replace("{minimumRainfall}", minimumRainfall)
+    const dosr = new Date(dateOfSufficientRain)
+    const dateToday = new Date()
 
-    return message
+    console.log(dateOfSufficientRain)
+    console.log(data.minimumRainfall)
+    for (let message of data.messages) {
+
+      switch(message.condition) {
+        case "MET":
+          if (dateOfSufficientRain != -1 && dosr < dateToday) {
+            return this.completeMessage(message.message)
+          }
+          break
+        case "MET_FORECAST":
+          if (dateOfSufficientRain != -1 && dosr > dateToday) {
+            return this.completeMessage(message.message)
+          }
+          break
+        case "NOT_MET":
+          if (dateOfSufficientRain == -1) {
+            return this.completeMessage(message.message)
+          }
+          break
+      }
+
+    }
+    return 'nothing'
+
   }
 
   render() {
-    const {minimumRainfall, dateOfSufficientRain} = this.props
-
-    this.parseMessage()
-
-    if (dateOfSufficientRain == -1) {
-      return (
-        <div>
-          <h3>Minimum required rainfall of {minimumRainfall} mm was not reached.</h3>
-        </div>
-      )
-    } else if (dateOfSufficientRain > 0) {
-      const date = new Date(dateOfSufficientRain)
-      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-
-      return (
-        <div>
-          <h3>Minimum required rainfall of {minimumRainfall} mm will be reached on {monthNames[date.getMonth()]} {date.getDate()}, {date.getFullYear()}</h3>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <h3></h3>
-        </div>
-      )
-    }
+    return(
+      <div>
+        {this.parseMessage()}
+      </div>
+    )
   }
 }
 

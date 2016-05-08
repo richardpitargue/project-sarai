@@ -72,25 +72,17 @@ const TCSRedux = ({context}, onData) => {
 
       }
 
-      console.log(records)
+      //console.log(records)
 
       const pastRainfall = []
       const accumulatedRainfall = []
       let totalRainfall = 0
-
-      //configurable min rain
-      const minimumRainfall = 30
-      let dateOfSufficientRain = -1
 
       //Collate past rainfall
       for (let entry of records.reverse()) {
         const utcDate = Date.UTC(entry.date.year, entry.date.month, entry.date.day);
 
         totalRainfall += entry.data.rainfall
-
-        if (dateOfSufficientRain == -1 && totalRainfall >= minimumRainfall) {
-          dateOfSufficientRain = utcDate
-        }
 
         pastRainfall.push({x: utcDate, y: entry.data.rainfall})
         accumulatedRainfall.push({x: utcDate, y: totalRainfall})
@@ -103,10 +95,6 @@ const TCSRedux = ({context}, onData) => {
 
       for (let entry of forecast) {
         fa += entry.y
-
-        if (dateOfSufficientRain == -1 && fa >= minimumRainfall) {
-          dateOfSufficientRain = entry.x
-        }
 
         forecastAccumulation.push({x: entry.x, y: fa})
       }
@@ -125,19 +113,35 @@ const TCSRedux = ({context}, onData) => {
       const rainGraph = React.createElement(RainGraph, {chartData, stationID})
       sections.push(rainGraph)
 
-
       const modules = DSSModules.find().fetch()
 
       for (let module of modules) {
         if (module.type === "min-rain-advisory") {
-          const m = React.createElement(MinRainAdvisory, {data: module.data, minimumRainfall, dateOfSufficientRain})
+          let dateOfSufficientRain = -1
+
+          for (let entry of pastRainfall) {
+            if (entry.y >= module.data.minimumRainfall) {
+              dateOfSufficientRain = Date.UTC(entry.x)
+            }
+          }
+
+          if (dateOfSufficientRain != -1) {
+            //Go through the forecast
+            for (let entry of forecastAccumulation) {
+              if (entry.y >= module.data.minimumRainfall) {
+                dateOfSufficientRain = Date.UTC(entry.x)
+              }
+            }
+          }
+
+          const m = React.createElement(MinRainAdvisory, {data: module.data, dateOfSufficientRain})
 
           sections.push(m)
         }
       }
 
 
-      const minRainAdvisory = React.createElement(MinRainAdvisory, {minimumRainfall, dateOfSufficientRain})
+      // const minRainAdvisory = React.createElement(MinRainAdvisory, {minimumRainfall, dateOfSufficientRain})
 
 
       onData(null, {sections})
