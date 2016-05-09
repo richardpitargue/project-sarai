@@ -116,7 +116,7 @@ const TCSRedux = ({context}, onData) => {
       const modules = DSSModules.find().fetch()
 
       for (let module of modules) {
-        if (module.type === "min-rain-advisory") {
+        if (module.type === "MIN_RAIN_ADVISORY") {
           let dateOfSufficientRain = -1
 
           for (let entry of pastRainfall) {
