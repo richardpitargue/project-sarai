@@ -7,7 +7,7 @@ import DSSAdminAppDrawer from './containers/dss-admin-app-drawer';
 import DSSAdminRootContent from './containers/dss-admin-root-content';
 import DSSAdminWeatherStations from './containers/dss-admin-ws';
 import DSSAdminModules from './containers/dss-admin-modules';
-import ModulesForm from './containers/modules-form';
+import ModulesForm from './containers/forms/modules-form';
 
 export default (injectDeps, context) => {
   const {FlowRouter, mount} = context;

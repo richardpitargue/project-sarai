@@ -5,6 +5,7 @@ class DSSAdminModules extends React.Component {
     super()
     this.renderModulesList = this.renderModulesList.bind(this)
     this.renderModules = this.renderModules.bind(this)
+    this.handleANM = this.handleANM.bind(this)
   }
 
   componentDidMount() {
@@ -18,6 +19,8 @@ class DSSAdminModules extends React.Component {
       componentHandler.upgradeDom();
     }
   }
+
+
 
   renderModules() {
     return this.props.modules.map((module, key) => {
@@ -57,6 +60,11 @@ class DSSAdminModules extends React.Component {
 
   }
 
+  handleANM() {
+
+    FlowRouter.go('/dss/admin/modules/add')
+  }
+
   render() {
     return (
       <div className="mdl-grid">
@@ -66,12 +74,12 @@ class DSSAdminModules extends React.Component {
 
             {this.renderModulesList()}
           </div>
+            <form action="/dss/admin/modules/add">
+              <button type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                Add New Module
+              </button>
+            </form>
 
-          <form action="/dss/admin/modules/add">
-            <button type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-              Add New Module
-            </button>
-          </form>
         </div>
       </div>
     )

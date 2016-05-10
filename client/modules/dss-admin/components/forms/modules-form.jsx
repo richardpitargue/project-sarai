@@ -3,7 +3,7 @@ import React from 'react'
 class ModulesForm extends React.Component {
   constructor() {
     super()
-    this.changedFormType = this.changedFormType.bind(this)
+    this.handleFormTypeChange = this.handleFormTypeChange.bind(this)
   }
 
   componentDidMount() {
@@ -18,40 +18,43 @@ class ModulesForm extends React.Component {
     }
   }
 
-  renderFormType() {
-    switch(Session.get('FORM_TYPE')) {
-      case 'MIN_RAIN_ADVISORY':
-        return (
-          <div>mra goes here</div>
-        )
-      case 'SOIL_MOISTURE':
-        return (
-          <div>sm goes here</div>
-        )
-      case 'YIELD_CALCULATOR':
-        return (
-          <div>ya goes here</div>
-        )
-    }
+  handleSave() {
+    const {insertModule} = this.props
+
+    insertModule('MIN_RAIN_ADVISORY', this.minRain.value, this.metMessage.value, this.forecastMessage.value, this.notMetMessage.value)
   }
 
-  changedFormType(event) {
-    console.log(event.target.value)
-    Session.set('something', 'asdf')
-    Session.set('FORM_TYPE', event.target.value)
+  handleFormTypeChange() {
+    console.log('changing forms')
+    const {setFormType} = this.props
+
+    setFormType(this.formType.value)
   }
 
   render() {
+    const {moduleForm} = this.props
+
+    const formType = (c) => {
+      this.formType = c
+    }
+
     return (
-      <div>
-          TYPE
-          <select onChange={this.changedFormType}>
+      <div className="mdl-grid">
+        <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--1-offset">
+
+          <select ref={formType} id="select-module-type" onChange={this.handleFormTypeChange}>
             <option value="MIN_RAIN_ADVISORY">Minimum Rain Advisory</option>
             <option value="YIELD_CALCULATOR">Yield Calculator</option>
             <option value="SOIL_MOISTURE">Soil Moisture Advisory</option>
           </select>
 
-          {this.renderFormType()}
+          <br/>
+          Real stuff goes here:
+          <br/>
+          {moduleForm}
+
+
+        </div>
       </div>
     )
   }
