@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDeps, composeAll, compose} from 'mantra-core';
 
-import DSSAdminWeatherStations from './../components/dss-admin-weather-stations.jsx';
+import DSSAdminWeatherStations from './../components/dss-admin-ws.jsx';
 
 const deps = (context, actions) => ({
   getYesterdayWeather: actions.Weather.getYesterdayWeather,

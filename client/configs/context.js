@@ -13,6 +13,31 @@ const mediaLibDefaultState = {
   token: null
 };
 
+const dssAdminDefaultState = {}
+
+const dssAdminStore = createStore((state = dssAdminDefaultState, action) => {
+
+  switch (action.type) {
+    case 'CLEAR':
+      return dssAdminDefaultState
+    case 'SET-FORM-MODE':
+      return Object.assign({}, state, {
+        formMode: action.formMode
+      })
+    case 'SET-MODULE-FORM-TYPE':
+      return Object.assign({}, state, {
+        formMode: state.formMode,
+        moduleFormType: action.moduleFormType
+      })
+    case 'SET-MODULE-ID':
+      return Object.assign({}, state, {
+        formMode: state.formMode,
+        moduleID: action.moduleID
+      })
+    default:
+      return state
+  }
+})
 const dssDefaultState = {}
 
 const dssStore = createStore((state = dssDefaultState, action) => {
@@ -80,6 +105,7 @@ export function initContext() {
     SimpleSchema,
     check,
     mediaLib,
-    dssStore
+    dssStore,
+    dssAdminStore
   };
 }
