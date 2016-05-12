@@ -14,6 +14,23 @@ class DSSAdminModules extends React.Component {
     if (componentHandler) {
       componentHandler.upgradeDom();
     }
+
+    const {toast} = this.props
+
+    if (toast) {
+      (function() {
+        'use strict';
+        const snackbarContainer = document.querySelector('#demo-toast-example');
+
+        const data = {
+          message: toast,
+          timeout: 3500
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+      }())
+    }
+
+
   }
 
   componentDidUpdate() {
@@ -34,8 +51,6 @@ class DSSAdminModules extends React.Component {
     const {deleteModule, modules} = this.props
     const id = e.target.id
     const index = id.substring(7)
-    console.log(id)
-    console.log(index)
     deleteModule(modules[index]._id)
   }
 
@@ -69,7 +84,7 @@ class DSSAdminModules extends React.Component {
   renderModulesList() {
 
     return (
-      <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+      <table id="modules-list" className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <thead>
           <tr>
             <th className="mdl-data-table__cell--non-numeric">Title</th>
@@ -88,17 +103,22 @@ class DSSAdminModules extends React.Component {
   render() {
     return (
       <div className="mdl-grid">
-        <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
-          <div>
-            <h4>Hi! Welcome to the DSS Admin page for modules</h4>
 
-            {this.renderModulesList()}
-          </div>
-
+        <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone add-new-module-row">
           <button onClick={this.handleAdd} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-            Add New Module
+            <i className="material-icons">add</i>&nbsp;Add Module
           </button>
+        </div>
 
+        <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
+
+          {this.renderModulesList()}
+
+        </div>
+
+        <div id="demo-toast-example" className="mdl-js-snackbar mdl-snackbar">
+          <div className="mdl-snackbar__text"></div>
+          <button className="mdl-snackbar__action" type="button"></button>
         </div>
       </div>
     )

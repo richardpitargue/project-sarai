@@ -20,7 +20,7 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(DSSAdminRootContent),
-        footer: React.createElement(CoreFooter)
+        // footer: React.createElement(CoreFooter)
       });
     }
   });
@@ -32,7 +32,7 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(DSSAdminWeatherStations),
-        footer: React.createElement(CoreFooter)
+        // footer: React.createElement(CoreFooter)
       });
     }
   });
@@ -44,7 +44,7 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(DSSAdminModules),
-        footer: React.createElement(CoreFooter)
+        // footer: React.createElement(CoreFooter)
       });
     }
   });
@@ -56,7 +56,7 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(ModulesForm),
-        footer: React.createElement(CoreFooter)
+        // footer: React.createElement(CoreFooter)
       });
     }
   });
@@ -68,7 +68,7 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(ModulesForm),
-        footer: React.createElement(CoreFooter)
+        // footer: React.createElement(CoreFooter)
       });
     }
   });

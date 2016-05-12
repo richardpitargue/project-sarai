@@ -5,6 +5,8 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
 import DSSAdminModulesCompose from './dss-admin-modules-compose';
 
+import DSSAdminHeader from './../components/ui-components/dss-admin-header.jsx'
+
 const composerLandingPage = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
   const {DSSModules} = Collections
@@ -14,6 +16,10 @@ const composerLandingPage = ({context}, onData) => {
 
   if (Meteor.subscribe('dss-modules').ready()) {
     const modules = DSSModules.find().fetch()
+
+    const title = 'Modules'
+
+    sections.push(React.createElement(DSSAdminHeader, {title}))
 
     sections.push(React.createElement(DSSAdminModulesCompose, {modules}))
 
