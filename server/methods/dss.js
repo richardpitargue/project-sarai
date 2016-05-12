@@ -37,5 +37,14 @@ Meteor.methods({
         { upsert: true }
       )
     }
+    throw new Meteor.Error('Not authorized')
+  },
+
+  'DSS.deleteModule': (id) => {
+    if (adminAuthenticate) {
+      return DSSModules.remove({_id: id})
+    }
+
+    throw new Meteor.Error('Not authorized')
   }
 });

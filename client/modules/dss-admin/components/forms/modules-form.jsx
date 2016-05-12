@@ -4,6 +4,7 @@ class ModulesForm extends React.Component {
   constructor() {
     super()
     this.handleFormTypeChange = this.handleFormTypeChange.bind(this)
+    this.renderSelect = this.renderSelect.bind(this)
   }
 
   componentDidMount() {
@@ -25,31 +26,50 @@ class ModulesForm extends React.Component {
   }
 
   handleFormTypeChange() {
-    console.log('changing forms')
     const {setFormType} = this.props
 
     setFormType(this.formType.value)
   }
 
-  render() {
-    const {moduleForm} = this.props
-
+  renderSelect() {
+    const {selectDisabled, moduleType} = this.props
     const formType = (c) => {
       this.formType = c
     }
+
+    if (selectDisabled) {
+      return (
+        <select ref={formType} id="select-module-type" onChange={this.handleFormTypeChange} value={moduleType} disabled>
+          <option value="MIN_RAIN_ADVISORY">Minimum Rain Advisory</option>
+          <option value="YIELD_CALCULATOR">Yield Calculator</option>
+          <option value="SOIL_MOISTURE">Soil Moisture Advisory</option>
+        </select>
+      )
+    }
+
+    else {
+      return (
+        <select ref={formType} id="select-module-type" onChange={this.handleFormTypeChange}>
+          <option value="MIN_RAIN_ADVISORY">Minimum Rain Advisory</option>
+          <option value="YIELD_CALCULATOR">Yield Calculator</option>
+          <option value="SOIL_MOISTURE">Soil Moisture Advisory</option>
+         </select>
+      )
+    }
+  }
+
+  render() {
+    const {moduleForm, selectDisabled} = this.props
+    const sd = (selectDisabled) ? 'disabled' : ''
+
+
 
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--1-offset">
 
-          <select ref={formType} id="select-module-type" onChange={this.handleFormTypeChange}>
-            <option value="MIN_RAIN_ADVISORY">Minimum Rain Advisory</option>
-            <option value="YIELD_CALCULATOR">Yield Calculator</option>
-            <option value="SOIL_MOISTURE">Soil Moisture Advisory</option>
-          </select>
+          {this.renderSelect()}
 
-          <br/>
-          Real stuff goes here:
           <br/>
           {moduleForm}
 

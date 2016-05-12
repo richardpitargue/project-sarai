@@ -5,7 +5,8 @@ class DSSAdminModules extends React.Component {
     super()
     this.renderModulesList = this.renderModulesList.bind(this)
     this.renderModules = this.renderModules.bind(this)
-    this.handleANM = this.handleANM.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
   }
 
   componentDidMount() {
@@ -20,17 +21,28 @@ class DSSAdminModules extends React.Component {
     }
   }
 
+  handleEdit(e) {
+    const {setModuleToEdit, modules} = this.props
 
+    setModuleToEdit(modules[e.target.id]._id)
+  }
+
+  handleAdd() {
+    const {setFormModeAdd} = this.props
+    setFormModeAdd()
+  }
 
   renderModules() {
     return this.props.modules.map((module, key) => {
-
       return (
         <tr key={key}>
+          <td className="mdl-data-table__cell--non-numeric">{module.title}</td>
           <td className="mdl-data-table__cell--non-numeric">{module.type}</td>
           <td>
-            <a href="#">
-              <i className="material-icons">mode_edit</i>
+
+
+            <a href="#" onClick={this.handleEdit}>
+              <i id={key} className="material-icons">mode_edit</i>
             </a>&nbsp;
             <a href="#">
               <i className="material-icons">delete</i>
@@ -48,6 +60,7 @@ class DSSAdminModules extends React.Component {
       <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <thead>
           <tr>
+            <th className="mdl-data-table__cell--non-numeric">Title</th>
             <th className="mdl-data-table__cell--non-numeric">Type</th>
             <th>Actions</th>
           </tr>
@@ -60,11 +73,6 @@ class DSSAdminModules extends React.Component {
 
   }
 
-  handleANM() {
-
-    FlowRouter.go('/dss/admin/modules/add')
-  }
-
   render() {
     return (
       <div className="mdl-grid">
@@ -74,11 +82,10 @@ class DSSAdminModules extends React.Component {
 
             {this.renderModulesList()}
           </div>
-            <form action="/dss/admin/modules/add">
-              <button type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                Add New Module
-              </button>
-            </form>
+
+          <button onClick={this.handleAdd} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+            Add New Module
+          </button>
 
         </div>
       </div>

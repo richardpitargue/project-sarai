@@ -61,4 +61,16 @@ export default (injectDeps, context) => {
     }
   });
 
+  FlowRouter.route('/dss/admin/modules/edit', {
+    name: 'dss.admin.modules.edit',
+    action() {
+      mount(LandingCtx, {
+        appBar: React.createElement(CoreAppBar),
+        appDrawer: React.createElement(DSSAdminAppDrawer),
+        content: React.createElement(ModulesForm),
+        footer: React.createElement(CoreFooter)
+      });
+    }
+  });
+
 };

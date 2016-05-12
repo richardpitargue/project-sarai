@@ -2,7 +2,9 @@ import React from 'react';
 import {useDeps, composeAll, compose} from 'mantra-core';
 
 import ModulesForm from './../../components/forms/modules-form.jsx';
-import MinRainAdvisoryForm from './../../components/forms/min-rain-advisory-form.jsx'
+import MinRainAdvisoryFormAdd from './min-rain-advisory-form-add'
+import MinRainAdvisoryFormEdit from './min-rain-advisory-form-edit'
+
 
 const deps = (context, actions) => ({
   setFormType: actions.Modules.setFormType,
@@ -10,29 +12,57 @@ const deps = (context, actions) => ({
 })
 
 const modulesFormRedux = ({context}, onData) => {
-  const {dssAdminStore} = context()
+  const {Meteor, dssAdminStore, Collections} = context()
+  const {DSSModules} = Collections
+
+  const state = dssAdminStore.getState()
 
   onData(null, {})
 
-  return dssAdminStore.subscribe(() => {
-    const {moduleFormType} = dssAdminStore.getState()
+  if (state.formMode == 'EDIT'
+      && Meteor.subscribe('dss-modules').ready()) {
+    const module = DSSModules.find({"_id": state.moduleID}).fetch()[0]
 
+    const moduleType = module.type
     let moduleForm = null
+    const selectDisabled = true
 
-    switch(moduleFormType) {
+    switch(module.type) {
       case 'MIN_RAIN_ADVISORY':
-        moduleForm = React.createElement(MinRainAdvisoryForm)
+        moduleForm = React.createElement(MinRainAdvisoryFormEdit, {module, selectDisabled, moduleType
+        })
         break
-      case 'YIELD_CALCULATOR':
-        break
-      case 'SOIL_MOISTURE':
-        break
+      // case 'YIELD_CALCULATOR':
+      // case 'SOIL_MOISTURE':
       default:
         break
     }
 
     onData(null, {moduleForm})
+  }
+
+  return dssAdminStore.subscribe(() => {
+    const {formMode, moduleFormType, moduleID} = dssAdminStore.getState()
+
+    let moduleForm = null
+
+    if (formMode == 'ADD') {
+      switch(moduleFormType) {
+        case 'MIN_RAIN_ADVISORY':
+          moduleForm = React.createElement(MinRainAdvisoryFormAdd)
+          break
+        case 'YIELD_CALCULATOR':
+          break
+        case 'SOIL_MOISTURE':
+          break
+        default:
+          break
+      }
+    }
+
+    onData(null, {moduleForm})
   })
+
 }
 
 export default composeAll(
