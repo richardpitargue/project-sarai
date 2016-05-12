@@ -72,7 +72,7 @@ const TCSRedux = ({context}, onData) => {
 
       }
 
-      console.log(records)
+      // console.log(records)
 
       const pastRainfall = []
       const accumulatedRainfall = []
@@ -119,22 +119,24 @@ const TCSRedux = ({context}, onData) => {
         if (module.type === "MIN_RAIN_ADVISORY") {
           let dateOfSufficientRain = -1
 
-          for (let entry of pastRainfall) {
+          for (let entry of accumulatedRainfall) {
             if (entry.y >= module.data.minimumRainfall) {
-              dateOfSufficientRain = Date.UTC(entry.x)
+              dateOfSufficientRain = entry.x
+              break
             }
           }
 
-          if (dateOfSufficientRain != -1) {
+          if (dateOfSufficientRain == -1) {
             //Go through the forecast
             for (let entry of forecastAccumulation) {
               if (entry.y >= module.data.minimumRainfall) {
-                dateOfSufficientRain = Date.UTC(entry.x)
+                dateOfSufficientRain = entry.x
+                break
               }
             }
           }
 
-          const m = React.createElement(MinRainAdvisory, {data: module.data, dateOfSufficientRain})
+          const m = React.createElement(MinRainAdvisory, {data: module.data, dateOfSufficientRain, title: module.title})
 
           sections.push(m)
         }

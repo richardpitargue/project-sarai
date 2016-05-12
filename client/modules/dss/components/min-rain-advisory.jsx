@@ -38,8 +38,6 @@ class MinRainAdvisory extends React.Component {
     const dosr = new Date(dateOfSufficientRain)
     const dateToday = new Date()
 
-    console.log(dateOfSufficientRain)
-    console.log(data.minimumRainfall)
     for (let message of data.messages) {
 
       switch(message.condition) {
@@ -66,9 +64,14 @@ class MinRainAdvisory extends React.Component {
   }
 
   render() {
+    const {title} = this.props
+
     return(
       <div>
-        {this.parseMessage()}
+        <h5>{title}</h5><hr/>
+        <div className="mra-message">
+          {this.parseMessage()}
+        </div>
       </div>
     )
   }

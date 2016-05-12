@@ -15,7 +15,7 @@ class TwoColumnSection extends React.Component {
   renderSections() {
     return this.props.sections.map((section, key) => {
       return (
-        <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone"
+        <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone module-cell"
           key={key}
         >
           {section}
