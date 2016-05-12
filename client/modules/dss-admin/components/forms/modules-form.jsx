@@ -37,6 +37,7 @@ class ModulesForm extends React.Component {
       this.formType = c
     }
 
+    console.log(`selectDisabled: ${selectDisabled}`)
     if (selectDisabled) {
       return (
         <select ref={formType} id="select-module-type" onChange={this.handleFormTypeChange} value={moduleType} disabled>

@@ -24,13 +24,12 @@ const modulesFormRedux = ({context}, onData) => {
     const module = DSSModules.find({"_id": state.moduleID}).fetch()[0]
 
     const moduleType = module.type
-    let moduleForm = null
     const selectDisabled = true
+    let moduleForm = null
 
     switch(module.type) {
       case 'MIN_RAIN_ADVISORY':
-        moduleForm = React.createElement(MinRainAdvisoryFormEdit, {module, selectDisabled, moduleType
-        })
+        moduleForm = React.createElement(MinRainAdvisoryFormEdit, {module})
         break
       // case 'YIELD_CALCULATOR':
       // case 'SOIL_MOISTURE':
@@ -38,7 +37,7 @@ const modulesFormRedux = ({context}, onData) => {
         break
     }
 
-    onData(null, {moduleForm})
+    onData(null, {moduleForm, selectDisabled, moduleType})
   }
 
   return dssAdminStore.subscribe(() => {
