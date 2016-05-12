@@ -74,6 +74,17 @@ export default {
     })
   },
 
+  deleteModule(context, id) {
+
+    Meteor.call('DSS.deleteModule', id, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        //nothing
+      }
+    })
+  },
+
   setFormModeAdd(context) {
     const {FlowRouter, dssAdminStore} = context
 

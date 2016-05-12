@@ -6,6 +6,7 @@ import DSSAdminModules from './../components/dss-admin-modules.jsx';
 const deps = (context, actions) => ({
   setFormModeAdd: actions.Modules.setFormModeAdd,
   setModuleToEdit: actions.Modules.setModuleToEdit,
+  deleteModule: actions.Modules.deleteModule,
   context: () => context
 })
 

@@ -7,6 +7,7 @@ class DSSAdminModules extends React.Component {
     this.renderModules = this.renderModules.bind(this)
     this.handleAdd = this.handleAdd.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -23,8 +24,19 @@ class DSSAdminModules extends React.Component {
 
   handleEdit(e) {
     const {setModuleToEdit, modules} = this.props
+    const id = e.target.id
+    const index = id.substring(5)
 
-    setModuleToEdit(modules[e.target.id]._id)
+    setModuleToEdit(modules[index]._id)
+  }
+
+  handleDelete(e) {
+    const {deleteModule, modules} = this.props
+    const id = e.target.id
+    const index = id.substring(7)
+    console.log(id)
+    console.log(index)
+    deleteModule(modules[index]._id)
   }
 
   handleAdd() {
@@ -42,10 +54,10 @@ class DSSAdminModules extends React.Component {
 
 
             <a href="#" onClick={this.handleEdit}>
-              <i id={key} className="material-icons">mode_edit</i>
+              <i id={`edit-${key}`} className="material-icons">mode_edit</i>
             </a>&nbsp;
-            <a href="#">
-              <i className="material-icons">delete</i>
+            <a href="#" onClick={this.handleDelete}>
+              <i id={`delete-${key}`} className="material-icons">delete</i>
             </a>
 
           </td>
