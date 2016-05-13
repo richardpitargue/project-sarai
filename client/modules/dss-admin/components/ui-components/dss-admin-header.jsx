@@ -23,7 +23,7 @@ class DSSAdminHeader extends React.Component {
     return (
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--1-offset-desktop mdl-cell--6-col-tablet mdl-cell--1-offset-tablet mdl-cell--4-col-phone">
-          <h3>{title}</h3>
+          <h3 className="admin-page-header">{title}</h3>
         </div>
       </div>
     )
