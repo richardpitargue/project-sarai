@@ -41,5 +41,23 @@ export default {
       xhr.send()
 
     }
+  },
+
+  insertWeatherStation(context, station) {
+
+  },
+
+  editWeatherStation(context, id, station) {
+
+  },
+
+  deleteWeatherStation(context, id) {
+    Meteor.call('DSS.deleteWeatherStation', id, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        //nothing
+      }
+    })
   }
 }

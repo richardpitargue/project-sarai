@@ -1,6 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 // import {check} from 'meteor/check';
-import {WeatherData, DSSModules} from '/lib/collections';
+import {WeatherData, WeatherStations, DSSModules} from '/lib/collections';
 import adminAuthenticate from '/server/lib/admin-authenticate';
 
 Meteor.methods({
@@ -45,6 +45,31 @@ Meteor.methods({
       return DSSModules.remove({_id: id})
     }
 
+    throw new Meteor.Error('Not authorized')
+  },
+
+  'DSS.insertWeatherStation': (station) => {
+    if (adminAuthenticate) {
+      return WeatherStations.insert(station)
+    }
+    throw new Meteor.Error('Not authorized')
+  },
+
+  'DSS.updateWeatherStation': (id, updatedStation) => {
+    if (adminAuthenticate) {
+      return DSSModules.update(
+        { _id: id },
+        updatedStation,
+        { upsert: true }
+      )
+    }
+    throw new Meteor.Error('Not authorized')
+  },
+
+  'DSS.deleteWeatherStation': (id) => {
+    if (adminAuthenticate) {
+      return WeatherStations.remove({_id: id})
+    }
     throw new Meteor.Error('Not authorized')
   }
 });

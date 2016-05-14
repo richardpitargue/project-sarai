@@ -4,6 +4,9 @@ import {useDeps, composeAll, compose} from 'mantra-core';
 import DSSAdminWeatherStations from './../components/dss-admin-ws.jsx';
 
 const deps = (context, actions) => ({
+  addWS: actions.Weather.insertWeatherStation,
+  editWS: actions.Weather.editWeatherStation,
+  deleteWS: actions.Weather.deleteWeatherStation,
   getYesterdayWeather: actions.Weather.getYesterdayWeather,
   context: () => context
 })
