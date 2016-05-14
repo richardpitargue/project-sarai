@@ -58,7 +58,7 @@ Meteor.methods({
   'DSS.updateWeatherStation': (id, updatedStation) => {
     if (adminAuthenticate) {
       return DSSModules.update(
-        { _id: id },
+        { id: id },
         updatedStation,
         { upsert: true }
       )

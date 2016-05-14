@@ -47,8 +47,24 @@ export default {
 
   },
 
-  editWeatherStation(context, id, station) {
+  editWeatherStation(context, id, label, coords0, coords1) {
 
+    const updatedRecord = {
+      "id": id,
+      "label": label,
+      "coords": [coords0, coords1]
+    }
+
+    console.log('Updated Record:')
+    console.log(updatedRecord)
+
+    Meteor.call('DSS.updateWeatherStation', id, updatedRecord, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        //nothing
+      }
+    })
   },
 
   deleteWeatherStation(context, id) {

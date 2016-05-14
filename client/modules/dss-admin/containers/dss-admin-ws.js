@@ -3,7 +3,8 @@ import React from 'react';
 import {SectionList} from '/client/modules/ui-components';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
-import DSSAdminWSCompose from './dss-admin-ws-compose';
+import DSSAdminWSMap from './weather-stations/dss-admin-ws-map';
+import DSSAdminWSTable from './weather-stations/dss-admin-ws-table';
 
 import DSSAdminHeader from './../components/ui-components/dss-admin-header.jsx'
 
@@ -21,7 +22,9 @@ const composerLandingPage = ({context}, onData) => {
 
     sections.push(React.createElement(DSSAdminHeader, {title}))
 
-    sections.push(React.createElement(DSSAdminWSCompose, {weatherStations}))
+    sections.push(React.createElement(DSSAdminWSMap, {weatherStations}))
+
+    sections.push(React.createElement(DSSAdminWSTable, {weatherStations}))
 
     onData(null, {sections, spacing})
   }

@@ -34,6 +34,10 @@ const dssAdminStore = createStore((state = dssAdminDefaultState, action) => {
         formMode: state.formMode,
         moduleID: action.moduleID
       })
+    case 'SET-WS-ID':
+      return Object.assign({}, state, {
+        wsID: action.wsID
+      })
     default:
       return state
   }
