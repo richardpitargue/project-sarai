@@ -48,6 +48,8 @@ Meteor.methods({
     throw new Meteor.Error('Not authorized')
   },
 
+
+  //---------WEATHER STATIONS----------------
   'DSS.insertWeatherStation': (station) => {
     if (adminAuthenticate) {
       return WeatherStations.insert(station)
@@ -55,10 +57,10 @@ Meteor.methods({
     throw new Meteor.Error('Not authorized')
   },
 
-  'DSS.updateWeatherStation': (id, updatedStation) => {
+  'DSS.updateWeatherStation': (_id, updatedStation) => {
     if (adminAuthenticate) {
-      return DSSModules.update(
-        { id: id },
+      return WeatherStations.update(
+        { _id: _id },
         updatedStation,
         { upsert: true }
       )
@@ -66,9 +68,9 @@ Meteor.methods({
     throw new Meteor.Error('Not authorized')
   },
 
-  'DSS.deleteWeatherStation': (id) => {
+  'DSS.deleteWeatherStation': (_id) => {
     if (adminAuthenticate) {
-      return WeatherStations.remove({_id: id})
+      return WeatherStations.remove({_id: _id})
     }
     throw new Meteor.Error('Not authorized')
   }

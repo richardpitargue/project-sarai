@@ -6,12 +6,8 @@ class DSSAdminWSMap extends React.Component {
   constructor() {
     super()
     this.renderWSData = this.renderWSData.bind(this)
-
-    this.handleChangeId = this.handleChangeId.bind(this)
-    this.handleChangeLabel = this.handleChangeLabel.bind(this)
-    this.handleChangeCoords0 = this.handleChangeCoords0.bind(this)
-    this.handleChangeCoords1 = this.handleChangeCoords1.bind(this)
-    this.handleSave = this.handleSave.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -19,8 +15,7 @@ class DSSAdminWSMap extends React.Component {
       componentHandler.upgradeDom();
     }
 
-    const {weatherStations} = this.props;
-    Session.set('weatherStations', weatherStations)
+    const {weatherStations, setWSId} = this.props;
 
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
@@ -49,17 +44,18 @@ class DSSAdminWSMap extends React.Component {
     }).addTo(map);
 
     map.on('click', (e) => {
-      this.coords0.value = e.latlng.lat
-      this.coords1.value = e.latlng.lng
+      // this.coords0.value = e.latlng.lat
+      // this.coords1.value = e.latlng.lng
     })
 
-    for (let station of Session.get('weatherStations')) {
+    for (let station of weatherStations) {
       L.marker(
         [station.coords[0], station.coords[1]],
         {icon: markerIcon})
       .bindPopup(`<h5>${station.label}</h5>`)
       .on('click', () => {
-        Session.set('ws', station)
+        setWSId(station.id)
+        Session.set('station', station)
       })
       .addTo(map);
     }
@@ -71,80 +67,49 @@ class DSSAdminWSMap extends React.Component {
     }
   }
 
-  handleChangeId(e) {
-    this.setState({id: e.target.value})
+  handleEdit(e) {
+    const {goToEditPage} = this.props
+
+    // goToEditPage(station.id)
+    goToEditPage(Session.get('station').id)
   }
 
-  handleChangeLabel(e) {
-    this.setState({label: e.target.value})
-  }
+  handleDelete() {
+    const {deleteWS} = this.props
 
-  handleChangeCoords0(e) {
-    this.setState({coords0: e.target.value})
-  }
-
-  handleChangeCoords1(e) {
-    this.setState({coords1: e.target.value})
-  }
-
-  handleSave() {
-    const {editWS} = this.props
-
-    editWS(this.id.value, this.label.value, this.coords0.value, this.coords1.value)
-
-    //Then bring up a toast
+    deleteWS(Session.get('station')._id)
   }
 
   renderWSData() {
-    const id = (c) => {
-      this.id = c
-    }
+    // const {station} = this.props
 
-    const label = (c) => {
-      this.label = c
-    }
-
-    const coords0 = (c) => {
-      this.coords0 = c
-    }
-
-    const coords1 = (c) => {
-      this.coords1 = c
-    }
-
-    if (Session.get('ws')) {
-      const station = Session.get('ws')
-
+    if (Session.get('station')) {
+      // return (
+      //   <div class="ws-info">
+      //     <div>Label: {station.label}</div>
+      //     <div>Coordinates: [{station.coords[0]}, {station.coords[1]}]</div>
+      //     <div>
+      //       <button onClick={this.handleEdit} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+      //         <i className="material-icons">mode_edit</i>&nbsp;Edit
+      //       </button>
+      //     </div>
+      //   </div>
+      // )
       return (
-        <div>
+        <div className="ws-info">
+          <div></div>
 
-          <input
-            type="text"
-            defaultValue={station.id}
-            ref={id}
-            onChange={this.handleChangeId} />
-
-          <textarea
-            defaultValue={station.label}
-            ref={label}
-            onChange={this.handleChangeLabel}>
-          </textarea>
-
-          <input
-            type="number"
-            defaultValue={station.coords[0]}
-            ref={coords0}
-            onChange={this.handleChangeCoords0} />
-
-          <input
-            type="number"
-            defaultValue={station.coords[1]}
-            ref={coords1}
-            onChange={this.handleChangeCoords1} />
-
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" onClick={this.handleSave}>
-            Update
+          <div>
+          <button onClick={this.handleEdit} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect crud-button">
+            <i className="material-icons">mode_edit</i>&nbsp;Edit
           </button>
+
+          <button onClick={this.handleDelete} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect crud-button">
+            <i className="material-icons">delete</i>&nbsp;Delete
+          </button>
+
+
+        </div>
         </div>
       )
     }
@@ -152,28 +117,24 @@ class DSSAdminWSMap extends React.Component {
     else {
       return (
         <div className="default-instruction">
-          Select a <br/> weather station <br/>on the map<br/> to edit it.
+          Select a weather station <br/>on the map to edit it.
         </div>
       )
     }
-    return (
-      <div>
-        {Session.get('ws')? Session.get('ws').label: 'Nothing to display'}
-      </div>
-    )
   }
 
   render() {
     const rowClassName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
+    const entireRow = classNames('mdl-cell', 'mdl-cell--12-col')
     const twoCol = classNames('mdl-cell', 'mdl-cell--6-col-desktop', 'mdl-col--4-col-tablet', 'mdl-cell--4-col-phone')
 
     return (
       <div className={rowClassName}>
         <div className="mdl-grid">
-          <div id="admin-ws-map" className={twoCol}>
-          </div>
-          <div className={twoCol}>
+         <div className={entireRow}>
             {this.renderWSData()}
+          </div>
+          <div id="admin-ws-map" className={entireRow}>
           </div>
         </div>
       </div>

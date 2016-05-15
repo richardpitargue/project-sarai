@@ -47,7 +47,25 @@ export default {
 
   },
 
-  editWeatherStation(context, id, label, coords0, coords1) {
+  goToEditPage(context, id) {
+    const {FlowRouter} = context
+
+    FlowRouter.go('/dss/admin/weather-stations/edit')
+  },
+
+  setWSId(context, id) {
+    const {FlowRouter, dssAdminStore} = context
+    dssAdminStore.dispatch({
+      type: 'SET-WS-ID',
+      wsID: id
+    })
+    // console.log(dssAdminStore.getState())
+  },
+
+
+
+  editWeatherStation(context, _id, id, label, coords0, coords1) {
+    const {FlowRouter, Meteor} = context
 
     const updatedRecord = {
       "id": id,
@@ -55,20 +73,18 @@ export default {
       "coords": [coords0, coords1]
     }
 
-    console.log('Updated Record:')
-    console.log(updatedRecord)
-
-    Meteor.call('DSS.updateWeatherStation', id, updatedRecord, (err, res) => {
+    Meteor.call('DSS.updateWeatherStation', _id, updatedRecord, (err, res) => {
       if (err) {
         console.log(err)
       } else {
+        FlowRouter.go('/dss/admin/weather-stations')
         //nothing
       }
     })
   },
 
-  deleteWeatherStation(context, id) {
-    Meteor.call('DSS.deleteWeatherStation', id, (err, res) => {
+  deleteWeatherStation(context, _id) {
+    Meteor.call('DSS.deleteWeatherStation', _id, (err, res) => {
       if (err) {
         console.log(err)
       } else {

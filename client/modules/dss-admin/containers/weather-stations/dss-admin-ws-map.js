@@ -5,19 +5,31 @@ import DSSAdminWSMap from './../../components/weather-stations/dss-admin-ws-map.
 
 const deps = (context, actions) => ({
   addWS: actions.Weather.insertWeatherStation,
-  editWS: actions.Weather.editWeatherStation,
+  goToEditPage: actions.Weather.goToEditPage,
   deleteWS: actions.Weather.deleteWeatherStation,
+  setWSId: actions.Weather.setWSId,
   context: () => context
 })
 
 const composer = ({context, weatherStations}, onData) => {
-  const {Meteor} = context
+  const {Meteor, Collections, dssAdminStore} = context()
+  const {WeatherStations} = Collections
 
   onData(null, {weatherStations})
 
-  // return (dssAdminStore.subscribe(() => {
+  if (Meteor.subscribe('weather-stations').ready()) {
+    return dssAdminStore.subscribe(() => {
 
-  // })
+      const wsID = dssAdminStore.getState().wsID
+
+      const station = WeatherStations.findOne({id: wsID})
+
+      console.log('Selected station: ')
+      console.log(wsID)
+
+      onData(null, {weatherStations, station})
+    })
+  }
 }
 
 export default composeAll(
