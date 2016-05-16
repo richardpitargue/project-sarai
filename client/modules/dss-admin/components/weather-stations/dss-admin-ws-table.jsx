@@ -113,6 +113,11 @@ class DSSAdminWeatherStations extends React.Component {
         <div className={rowClassName}>
           {this.renderWSList()}
         </div>
+
+        <div className={rowClassName}>
+          <hr />
+        </div>
+
         <div className={rowClassName}>
           Misc Settings
           <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.updateWeatherData}>

@@ -55,12 +55,12 @@ export default {
     const newRecord = {
       "id": id,
       "label": label,
-      "coords": [coords0, coords1]
+      "coords": [parseFloat(coords0), parseFloat(coords1)]
     }
     console.log('Inserting new record')
     console.log(newRecord)
 
-    Meteor.call('DSS.updateWeatherStation', newRecord, (err, res) => {
+    Meteor.call('DSS.insertWeatherStation', newRecord, (err, res) => {
       if (err) {
         console.log(err)
       } else {

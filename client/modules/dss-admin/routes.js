@@ -4,7 +4,7 @@ import {Landing, DSSAdmin} from '/client/modules/ui-components';
 import {CoreAppBar, CoreAppDrawer, CoreFooter} from '/client/modules/core';
 
 import DSSAdminAppDrawer from './containers/dss-admin-app-drawer';
-import DSSAdminRootContent from './containers/dss-admin-root-content';
+import DSSAdminDash from './containers/dss-admin-dash';
 import DSSAdminWeatherStations from './containers/dss-admin-ws';
 import DSSAdminModules from './containers/dss-admin-modules';
 import ModulesForm from './containers/forms/modules-form';
@@ -21,7 +21,7 @@ export default (injectDeps, context) => {
       mount(LandingCtx, {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
-        content: React.createElement(DSSAdminRootContent),
+        content: React.createElement(DSSAdminDash),
         // footer: React.createElement(CoreFooter)
       });
     }
