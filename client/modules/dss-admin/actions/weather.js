@@ -43,12 +43,40 @@ export default {
     }
   },
 
-  insertWeatherStation(context, station) {
+  goToAddPage(context) {
+    const {FlowRouter} = context
 
+    FlowRouter.go('/dss/admin/weather-stations/add')
+  },
+
+  insertWeatherStation(context, _id, id, label, coords0, coords1) {
+    const {FlowRouter, Meteor} = context
+
+    const newRecord = {
+      "id": id,
+      "label": label,
+      "coords": [coords0, coords1]
+    }
+    console.log('Inserting new record')
+    console.log(newRecord)
+
+    Meteor.call('DSS.updateWeatherStation', newRecord, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        FlowRouter.go('/dss/admin/weather-stations')
+        //nothing
+      }
+    })
   },
 
   goToEditPage(context, id) {
-    const {FlowRouter} = context
+    const {FlowRouter, dssAdminStore} = context
+
+    dssAdminStore.dispatch({
+      type: 'SET-WS-ID',
+      wsID: id
+    })
 
     FlowRouter.go('/dss/admin/weather-stations/edit')
   },

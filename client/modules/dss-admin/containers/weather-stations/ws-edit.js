@@ -4,7 +4,7 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 import WSForm from './../../components/weather-stations/ws-form.jsx'
 
 const deps = (context, actions) => ({
-  editWS: actions.Weather.editWeatherStation,
+  callback: actions.Weather.editWeatherStation,
   context: () => context
 })
 
@@ -16,8 +16,14 @@ const WSEditRedux = ({context}, onData) => {
 
   if (Meteor.subscribe('weather-stations').ready()) {
     const station = WeatherStations.findOne({id: state.wsID})
+    console.log(station)
+    const _id = station._id
+    const id = station.id
+    const label = station.label
+    const coords0 = station.coords[0]
+    const coords1 = station.coords[1]
 
-    onData(null, {station})
+    onData(null, {station, _id, id, label, coords0, coords1})
   }
 
 }

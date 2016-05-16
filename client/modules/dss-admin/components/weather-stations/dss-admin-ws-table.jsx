@@ -31,15 +31,23 @@ class DSSAdminWeatherStations extends React.Component {
   }
 
   handleAdd() {
+    const {goToAddPage} = this.props
 
+    goToAddPage()
   }
 
-  handleEdit() {
+  handleEdit(e) {
+    const {goToEditPage, weatherStations} = this.props
 
+    const id = e.target.id
+    const index = id.substring(5)
+
+    console.log(`Edit by table. ID: ${weatherStations[index].id}`)
+    goToEditPage(weatherStations[index].id)
   }
 
-  handleDelete() {
-    const {weatherStations, deleteWS} = this.props
+  handleDelete(e) {
+    const {deleteWS, weatherStations} = this.props
 
     const id = e.target.id
     const index = id.substring(7)
@@ -63,7 +71,7 @@ class DSSAdminWeatherStations extends React.Component {
             <a href="#" onClick={this.handleDelete}>
               <i id={`delete-${key}`} className="material-icons">delete</i>
             </a>
-            <a href="#" onClick={this.handleDelete}>
+            <a href="#">
               <i id={`view-data-${key}`} className="material-icons">view_module</i>
             </a>
           </td>

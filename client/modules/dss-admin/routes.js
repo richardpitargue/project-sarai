@@ -9,6 +9,7 @@ import DSSAdminWeatherStations from './containers/dss-admin-ws';
 import DSSAdminModules from './containers/dss-admin-modules';
 import ModulesForm from './containers/forms/modules-form';
 import WSEdit from './containers/weather-stations/ws-edit'
+import WSAdd from './containers/weather-stations/ws-add'
 
 export default (injectDeps, context) => {
   const {FlowRouter, mount} = context;
@@ -81,6 +82,17 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(WSEdit)
+      });
+    }
+  });
+
+  FlowRouter.route('/dss/admin/weather-stations/add', {
+    name: 'dss.admin.ws.add',
+    action() {
+      mount(LandingCtx, {
+        appBar: React.createElement(CoreAppBar),
+        appDrawer: React.createElement(DSSAdminAppDrawer),
+        content: React.createElement(WSAdd)
       });
     }
   });

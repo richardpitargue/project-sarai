@@ -42,16 +42,18 @@ class WSForm extends React.Component {
   }
 
   handleSave() {
-    const {editWS, station} = this.props
+    const {callback, _id} = this.props
 
-    editWS(station._id, this.wsID.value, this.label.value, this.coords0.value, this.coords1.value)
+    let db_id = _id ? _id : ''
+
+    callback(_id, this.wsID_ref.value, this.label_ref.value, this.coords0_ref.value, this.coords1_ref.value)
     //Then bring up a toast
   }
 
   handleDelete() {
-    const {deleteWS, station} = this.props
+    const {deleteWS, _id} = this.props
 
-    deleteWS(station._id)
+    deleteWS(_id)
   }
 
 
@@ -61,22 +63,22 @@ class WSForm extends React.Component {
     const labelCol = classNames('mdl-cell', 'mdl-cell--4-col', 'form-label')
     const inputCol = classNames('mdl-cell', 'mdl-cell--8-col')
 
-    const {station} = this.props
+    const {id, label, coords0, coords1} = this.props
 
-    const wsID = (c) => {
-      this.wsID = c
+    const wsID_ref = (c) => {
+      this.wsID_ref = c
     }
 
-    const label = (c) => {
-      this.label = c
+    const label_ref = (c) => {
+      this.label_ref = c
     }
 
-    const coords0 = (c) => {
-      this.coords0 = c
+    const coords0_ref = (c) => {
+      this.coords0_ref = c
     }
 
-    const coords1 = (c) => {
-      this.coords1 = c
+    const coords1_ref = (c) => {
+      this.coords1_ref = c
     }
 
     return (
@@ -90,8 +92,8 @@ class WSForm extends React.Component {
             <div className={inputCol}>
               <input
                 type="text"
-                defaultValue={station.id}
-                ref={wsID}
+                defaultValue={id}
+                ref={wsID_ref}
                 onChange={this.handleChangeId} />
             </div>
 
@@ -101,8 +103,8 @@ class WSForm extends React.Component {
 
             <div className={inputCol}>
               <textarea
-                defaultValue={station.label}
-                ref={label}
+                defaultValue={label}
+                ref={label_ref}
                 onChange={this.handleChangeLabel}>
               </textarea>
             </div>
@@ -114,14 +116,14 @@ class WSForm extends React.Component {
             <div className={inputCol}>
               <input
                 type="number"
-                defaultValue={station.coords[0]}
-                ref={coords0}
+                defaultValue={coords0}
+                ref={coords0_ref}
                 onChange={this.handleChangeCoords0} />
 
               <input
                 type="number"
-                defaultValue={station.coords[1]}
-                ref={coords1}
+                defaultValue={coords1}
+                ref={coords1_ref}
                 onChange={this.handleChangeCoords1} />
             </div>
 

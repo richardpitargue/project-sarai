@@ -84,32 +84,16 @@ class DSSAdminWSMap extends React.Component {
     // const {station} = this.props
 
     if (Session.get('station')) {
-      // return (
-      //   <div class="ws-info">
-      //     <div>Label: {station.label}</div>
-      //     <div>Coordinates: [{station.coords[0]}, {station.coords[1]}]</div>
-      //     <div>
-      //       <button onClick={this.handleEdit} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-      //         <i className="material-icons">mode_edit</i>&nbsp;Edit
-      //       </button>
-      //     </div>
-      //   </div>
-      // )
       return (
         <div className="ws-info">
           <div></div>
 
           <div>
-          <button onClick={this.handleEdit} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect crud-button">
-            <i className="material-icons">mode_edit</i>&nbsp;Edit
-          </button>
+            <button onClick={this.handleEdit} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect crud-button">
+              <i className="material-icons">mode_edit</i>&nbsp;Edit
+            </button>
 
-          <button onClick={this.handleDelete} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect crud-button">
-            <i className="material-icons">delete</i>&nbsp;Delete
-          </button>
-
-
-        </div>
+          </div>
         </div>
       )
     }
