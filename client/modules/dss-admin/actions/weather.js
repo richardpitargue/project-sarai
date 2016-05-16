@@ -13,7 +13,7 @@ export default {
           const data = JSON.parse(xhr.responseText)
 
           const date = data.history.date
-          const rainfall = data.history.dailysummary[0].precipm
+          const summary = data.history.dailysummary[0]
 
           const newRecord = {
             id: stationID,
@@ -23,7 +23,26 @@ export default {
               day: parseInt(date.mday)
             },
             data: {
-              rainfall: parseInt(rainfall)
+              temp: {
+                ave: summary.meantempm,
+                min: summary.mintempm,
+                max: summary.maxtempm
+              },
+              humidity: {
+                ave: summary.humidity,
+                min: summary.minhumidity,
+                max: summary.maxhumidity
+              },
+              wind: {
+                maxSpd: summary.maxwspdm,
+                aveSpd: summary.meanwindspdm,
+                gustMaxSpd: null
+              },
+              pressure: {
+                min: summary.maxpressurem,
+                max: summary.minpressurem
+              },
+              rainfall: parseInt(summary.precipm)
             }
           }
 

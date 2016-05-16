@@ -1,9 +1,4 @@
 import React from 'react';
-// import classNames from 'classnames';
-// import highcharts from 'highcharts/highcharts';
-// require('highcharts/modules/exporting')(highcharts)
-// require('highcharts/highcharts-more')(highcharts)
-
 
 class HighStock extends React.Component {
   componentDidMount() {
@@ -19,46 +14,6 @@ class HighStock extends React.Component {
     }
 
     const idTemp = `#${id}`;
-
-    // const chart = new highcharts.Chart(
-    //   {
-    //     chart: {
-    //       // type: 'arearange',
-    //       // type: 'line',
-    //       renderTo: 'temp-range'
-    //     },
-
-    //     title: {
-    //       text: 'title'
-    //     },
-
-    //     // tooltip: {
-    //     //   valueSuffix: 'C'
-    //     // },
-
-    //     series: [
-    //       {
-    //         name: 'Temperature',
-    //         data: [{
-    //           name: 'Temperature',
-    //           data: [
-    //             [1, 1.1],
-    //             [2, 1.8],
-    //             [3, 1.7],
-    //             [4, 2.6],
-    //             [5, 3.3],
-    //             [6, 3.0],
-    //             [7, 3.9],
-    //             [8, 3.9]
-    //           ]
-    //         }]
-    //       }
-    //     ]
-    //   }
-    // )
-
-    console.log('Creating chart')
-    console.log(chartSeries)
 
     $(idTemp).highcharts(
       'StockChart',
