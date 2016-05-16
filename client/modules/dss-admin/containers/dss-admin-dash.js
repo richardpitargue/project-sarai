@@ -3,7 +3,7 @@ import React from 'react';
 import {SectionList} from '/client/modules/ui-components';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
-import TempRangeChart from './dashboard/temp-range-chart'
+import DashCharts from './dashboard/dash-charts'
 
 import DSSAdminHeader from './../components/ui-components/dss-admin-header.jsx'
 import DSSAdminRoot from './../components/dss-admin-root.jsx'
@@ -20,7 +20,7 @@ const composerLandingPage = ({context}, onData) => {
 
   sections.push(React.createElement(DSSAdminRoot))
 
-  sections.push(React.createElement(TempRangeChart))
+  sections.push(React.createElement(DashCharts))
 
   onData(null, {sections, spacing})
 };

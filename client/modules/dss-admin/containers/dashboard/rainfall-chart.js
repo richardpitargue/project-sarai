@@ -4,6 +4,7 @@ import {SectionList} from '/client/modules/ui-components';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
 import RangeAveChart from './../../components/dashboard/range-ave-chart.jsx'
+import BarChart from './../../components/dashboard/bar-chart.jsx';
 
 const composeChart = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
@@ -16,42 +17,29 @@ const composeChart = ({context}, onData) => {
 
     const records = WeatherData.find({id: 'IILOCOSR3'}).fetch()
 
-    const id = 'temp-range'
-    const chartName = 'TempRange'
-    const chartRange = 'arearange'
-    const chartTitle = 'Temperature Range'
+    const id = 'rainfall'
+    const chartName = 'Rainfall'
+    const chartTitle = 'Rainfall'
 
 
     const chartSeries = [
       {
-        name: 'Temperature Range',
+        name: 'Rainfall',
         data: [],
-        type: 'arearange',
-        color: '#ff9933'
-      },
-      {
-        name: 'Average Temperature',
-        data: [],
-        type: 'line',
-        color: '#1a0d00',
-        // linkedTo: ':previous'
+        type: 'column',
+        color: '#1a8cff'
       }
     ]
 
     for (let record of records) {
       const utcDate = Date.UTC(record.date.year, record.date.month, record.date.day)
 
-      // chartSeries[0].data.push([utcDate, record.temp.min, record.temp.max])
-      chartSeries[0].data.push([utcDate, record.data.temp.min, record.data.temp.max])
-      chartSeries[1].data.push([utcDate, record.data.temp.ave])
+      chartSeries[0].data.push([utcDate, record.data.rainfall])
     }
-
-
 
     onData(null, {
       id,
       chartName,
-      chartRange,
       chartTitle,
       chartSeries})
 

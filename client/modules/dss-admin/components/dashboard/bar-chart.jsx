@@ -1,11 +1,10 @@
 import React from 'react';
 
-class HighStock extends React.Component {
+class BarChart extends React.Component {
   componentDidMount() {
     const {
       id,
       chartName,
-      chartRange,
       chartTitle,
       chartSeries} = this.props;
 
@@ -18,8 +17,33 @@ class HighStock extends React.Component {
     $(idTemp).highcharts(
       'StockChart',
       {
-        chart: {
-            type: 'arearange'
+         title: {
+            text: chartTitle
+        },
+
+        xAxis: {
+            type: 'datetime'
+        },
+
+        yAxis: {
+            title: {
+                text: null
+            }
+        },
+
+        tooltip: {
+            shared: true,
+            valueSuffix: 'mm'
+        },
+
+        legend: {
+          enabled: true,
+          layout: 'horizontal',
+          align: 'left',
+          x: 100,
+          verticalAlign: 'top',
+          y: 70,
+          floating: true
         },
 
         series: chartSeries
@@ -52,9 +76,9 @@ class HighStock extends React.Component {
   }
 }
 
-HighStock.propTypes = {
+BarChart.propTypes = {
   chartData: React.PropTypes.object,
   id: React.PropTypes.string
 };
 
-export default HighStock;
+export default BarChart;
