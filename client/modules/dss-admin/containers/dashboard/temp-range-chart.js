@@ -10,27 +10,31 @@ const composeChart = ({context}, onData) => {
   const {WeatherData} = Collections
 
   //sample
-  const id = 'ICAGAYAN2'
+  const id = 'IILOCOSR3'
 
   if (Meteor.subscribe('weather-data').ready()) {
-    const records = WeatherData.find({id}).fetch()
+
+    const records = WeatherData.find({id: 'IILOCOSR3'}).fetch()
 
     const id = 'temp-range'
     const chartName = 'TempRange'
     const chartRange = 'arearange'
     const chartTitle = 'Temperature Range'
+
+
+    let tempData = []
+
+    for (let record of records) {
+      const utcDate = Date.UTC(record.date.year, record.date.month, record.date.day)
+
+      // chartSeries[0].data.push([utcDate, record.temp.min, record.temp.max])
+      tempData.push([utcDate, record.data.temp.min, record.data.temp.max])
+
+    }
+
     const chartSeries = [{
       name: 'Temperature',
-      data: [
-        [1388538000000, 1.1, 4.7],
-        [1388624400000, 1.8, 6.4],
-        [1388710800000, 1.7, 6.9],
-        [1388797200000, 2.6, 7.4],
-        [1388883600000, 3.3, 9.3],
-        [1388970000000, 3.0, 7.9],
-        [1389056400000, 3.9, 6.0],
-        [1389142800000, 3.9, 5.5]
-      ]
+      data: tempData
     }]
 
     onData(null, {
