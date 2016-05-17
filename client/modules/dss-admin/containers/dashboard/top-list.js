@@ -67,11 +67,13 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
 
         switch (compareValue) {
           case 'RAINFALL':
-            records[index].data.push(r.data.rainfall)
+            // records[index].data.push(r.data.rainfall)
+            records[index].data.push(r ? r.data.rainfall : 0)
             break
 
           case 'TEMP_AVE':
-            records[index].data.push(r.data.temp.ave)
+            // records[index].data.push(r.data.temp.ave)
+            records[index].data.push(r ? r.data.temp.ave : 0)
             break
 
           default:
@@ -102,10 +104,10 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
           default:
             break
         }
+      }
 
-        if (compareOp == 'MEAN') {
-          runningValue = runningValue / limit
-        }
+      if (compareOp == 'MEAN') {
+        runningValue = runningValue / limit
       }
 
       items.push({

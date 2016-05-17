@@ -66,9 +66,21 @@ const TCSRedux = ({context}, onData) => {
         })
 
         if (r == null) {
-          console.log('Missing an entry')
+          console.log(`${stationID}  is Missing an entry`)
+          records.push ({
+            id: stationID,
+            date: {
+              year: y,
+              month: m,
+              day: d
+            },
+            data: {
+              rainfall: 0
+            }
+          })
+        } else {
+          records.push(r)
         }
-        records.push(r)
 
       }
 

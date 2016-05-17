@@ -28,16 +28,23 @@ const composeChart = ({context}, onData) => {
       compareOp: 'CUMULATIVE', // average
       sort: 'HIGHEST',
       range: '30_DAYS', //10_DAYS, ALL_TIME,
-      valueLabel: 'Cumulative Rainfall',
-      title: 'Areas with the most rainfall based on the past 30 days'}))
+      labels: {
+        header: 'Cumulative Rainfall',
+        title: 'Areas with the most rainfall for the past 30 days',
+        unit: 'mm'
+      }
+    }))
 
     lists.push(React.createElement(TopList, {
       compareValue: 'TEMP_AVE',
       compareOp: 'MEAN',
       sort: 'HIGHEST',
       range: '30_DAYS',
-      valueLabel: 'Average Temperature',
-      title: 'Hottest areas for the past 30 days'
+      labels: {
+        header: 'Average Temperature',
+        title: 'Hottest areas for the past 30 days',
+        unit: '°C'
+      }
     }))
 
     onData(null, {charts, lists})

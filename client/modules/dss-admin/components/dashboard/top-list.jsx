@@ -20,30 +20,30 @@ class TopList extends React.Component {
   }
 
   renderListItems() {
+    const {labels} = this.props
 
     return this.props.items.map((item, key) => {
       return (
         <tr key={key}>
           <td className="mdl-data-table__cell--non-numeric">{item.label}</td>
-          <td className="mdl-data-table__cell--non-numeric">{item.id}</td>
-          <td className="mdl-data-table__cell--non-numeric">{item.runningValue} mm</td>
+
+          <td className="mdl-data-table__cell--non-numeric">{item.runningValue} {labels.unit}</td>
         </tr>
       )
     })
   }
 
   render() {
-    const {valueLabel, title} = this.props
+    const {labels} = this.props
 
     return (
       <div>
-        <h5>{title}</h5>
+        <h5>{labels.title}</h5>
         <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
           <thead>
             <tr>
-              <th className="mdl-data-table__cell--non-numeric">Label</th>
-              <th className="mdl-data-table__cell--non-numeric">ID</th>
-              <th className="mdl-data-table__cell--non-numeric">{valueLabel}</th>
+              <th className="mdl-data-table__cell--non-numeric">Station</th>
+              <th className="mdl-data-table__cell--non-numeric">{labels.header}</th>
             </tr>
           </thead>
           <tbody>
