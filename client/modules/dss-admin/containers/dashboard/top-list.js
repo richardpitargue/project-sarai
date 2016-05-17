@@ -4,7 +4,7 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
 import TopList from './../../components/dashboard/top-list.jsx'
 
-const composeChart = ({context, compareValue, compareOp, range, valueLabel}, onData) => {
+const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
   const {WeatherData, WeatherStations} = Collections
 
@@ -70,6 +70,10 @@ const composeChart = ({context, compareValue, compareOp, range, valueLabel}, onD
             records[index].data.push(r.data.rainfall)
             break
 
+          case 'TEMP_AVE':
+            records[index].data.push(r.data.temp.ave)
+            break
+
           default:
             break
         }
@@ -78,6 +82,9 @@ const composeChart = ({context, compareValue, compareOp, range, valueLabel}, onD
       index += 1
     }
 
+    if (compareValue == 'TEMP_AVE' ) {
+      console.log(records)
+    }
     const items = []
 
     //COMPARE RECORDS
@@ -89,8 +96,15 @@ const composeChart = ({context, compareValue, compareOp, range, valueLabel}, onD
           case 'CUMULATIVE':
             runningValue += value
             break
+          case 'MEAN':
+            runningValue += value
+            break
           default:
             break
+        }
+
+        if (compareOp == 'MEAN') {
+          runningValue = runningValue / limit
         }
       }
 
@@ -101,8 +115,8 @@ const composeChart = ({context, compareValue, compareOp, range, valueLabel}, onD
       })
     }
 
+    console.log(items)
     //should have sort parameter
-    const sort = 'HIGHEST'
     let sortedItems = items
 
     switch(sort) {

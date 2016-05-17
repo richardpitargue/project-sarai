@@ -24,23 +24,23 @@ export default {
             },
             data: {
               temp: {
-                ave: summary.meantempm,
-                min: summary.mintempm,
-                max: summary.maxtempm
+                ave: parseFloat(summary.meantempm),
+                min: parseFloat(summary.mintempm),
+                max: parseFloat(summary.maxtempm)
               },
               humidity: {
-                ave: summary.humidity,
-                min: summary.minhumidity,
-                max: summary.maxhumidity
+                ave: parseInt(summary.humidity),
+                min: parseInt(summary.minhumidity),
+                max: parseInt(summary.maxhumidity)
               },
               wind: {
-                maxSpd: summary.maxwspdm,
-                aveSpd: summary.meanwindspdm,
+                maxSpd: parseFloat(summary.maxwspdm),
+                aveSpd: parseFloat(summary.meanwindspdm),
                 gustMaxSpd: null
               },
               pressure: {
-                min: summary.maxpressurem,
-                max: summary.minpressurem
+                min: parseFloat(summary.maxpressurem),
+                max: parseFloat(summary.minpressurem)
               },
               rainfall: parseInt(summary.precipm)
             }
