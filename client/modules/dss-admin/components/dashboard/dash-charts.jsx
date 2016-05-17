@@ -18,7 +18,7 @@ class DashCharts extends React.Component {
   }
 
   renderLists() {
-     const listRow = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
+     const listRow = classNames('mdl-cell', 'mdl-cell--6-col-desktop', 'mdl-cell--4-col-tablet', 'mdl-cell--4-col-phone')
 
     return this.props.lists.map((list, key) => {
       return (
@@ -30,7 +30,7 @@ class DashCharts extends React.Component {
   }
 
   renderCharts() {
-    const chartRow = classNames('mdl-cell', 'mdl-cell--6-col-desktop', 'mdl-cell--4-col-tablet', 'mdl-cell--4-col-phone')
+    const chartRow = classNames('mdl-cell', 'mdl-cell--12-col-desktop', 'mdl-cell--8-col-tablet', 'mdl-cell--4-col-phone')
 
     return this.props.charts.map((chart, key) => {
       return (
@@ -61,7 +61,9 @@ class DashCharts extends React.Component {
           </div>
         </div>
 
-        {this.renderCharts()}
+        <div className={rowName}>
+          {this.renderCharts()}
+        </div>
       </div>
     );
   }
