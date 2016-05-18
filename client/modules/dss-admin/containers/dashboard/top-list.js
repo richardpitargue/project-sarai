@@ -4,7 +4,7 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
 import TopList from './../../components/dashboard/top-list.jsx'
 
-const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel}, onData) => {
+const composeChart = ({context, compareValue, compareOp, sort, range, limit}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
   const {WeatherData, WeatherStations} = Collections
 
@@ -13,7 +13,7 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
     const stations = WeatherStations.find({}).fetch()
 
     //set limit according to range
-    const limit = (range == '30_DAYS') ? 30 : (range == '10_DAYS') ? 10 : 30
+    const noOfRecordsToFetch = (range == '30_DAYS') ? 30 : (range == '10_DAYS') ? 10 : 30
 
     let records = []
     let index = 0
@@ -32,7 +32,7 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
       let m = date.getMonth();
       let d = date.getDate();
 
-      while (records[index].data.length < limit) {
+      while (records[index].data.length < noOfRecordsToFetch) {
         if (d > 1) {
           d -= 1
         } else {
@@ -84,9 +84,6 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
       index += 1
     }
 
-    if (compareValue == 'TEMP_AVE' ) {
-      console.log(records)
-    }
     const items = []
 
     //COMPARE RECORDS
@@ -107,7 +104,7 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
       }
 
       if (compareOp == 'MEAN') {
-        runningValue = runningValue / limit
+        runningValue = runningValue / noOfRecordsToFetch
       }
 
       items.push({
@@ -117,8 +114,6 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
       })
     }
 
-    console.log(items)
-    //should have sort parameter
     let sortedItems = items
 
     switch(sort) {
@@ -150,7 +145,7 @@ const composeChart = ({context, compareValue, compareOp, sort, range, valueLabel
     }
 
 
-    onData(null, {items: sortedItems, valueLabel})
+    onData(null, {items: sortedItems.slice(0, limit)})
 
   }
 

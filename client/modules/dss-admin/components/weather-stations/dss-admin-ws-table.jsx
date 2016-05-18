@@ -56,6 +56,8 @@ class DSSAdminWeatherStations extends React.Component {
   }
 
   renderStations() {
+    const {recordCount} = this.props
+
     return this.props.weatherStations.map((station, key) => {
       return (
         <tr key={key}>
@@ -63,6 +65,9 @@ class DSSAdminWeatherStations extends React.Component {
           <td className="mdl-data-table__cell--non-numeric">{station.id}</td>
           <td className="mdl-data-table__cell--non-numeric">
             {`[${station.coords[0]}, ${station.coords[1]}]`}
+          </td>
+          <td className="mdl-data-table__cell--non-numeric">
+            {recordCount[key]}
           </td>
           <td>
             <a href="#" onClick={this.handleEdit}>
@@ -89,6 +94,7 @@ class DSSAdminWeatherStations extends React.Component {
             <th className="mdl-data-table__cell--non-numeric">Label</th>
             <th className="mdl-data-table__cell--non-numeric">Station ID</th>
             <th className="mdl-data-table__cell--non-numeric">Coordinates</th>
+           <th className="mdl-data-table__cell--non-numeric">Available Records</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -100,8 +106,8 @@ class DSSAdminWeatherStations extends React.Component {
   }
 
   render() {
-
     const rowClassName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
+    const itemCount = this.props.weatherStations.length
 
     return (
       <div className="mdl-grid">
@@ -111,6 +117,8 @@ class DSSAdminWeatherStations extends React.Component {
           </button>
         </div>
         <div className={rowClassName}>
+          <h5>{itemCount} Weather Stations</h5>
+
           {this.renderWSList()}
         </div>
 

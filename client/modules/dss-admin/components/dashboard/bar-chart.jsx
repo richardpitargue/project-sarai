@@ -66,7 +66,6 @@ class BarChart extends React.Component {
 
     return (
       <div>
-        chart goes here
         <div
           id={id}
         >

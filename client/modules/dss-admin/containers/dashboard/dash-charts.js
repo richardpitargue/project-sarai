@@ -28,9 +28,10 @@ const composeChart = ({context}, onData) => {
       compareOp: 'CUMULATIVE', // average
       sort: 'HIGHEST',
       range: '30_DAYS', //10_DAYS, ALL_TIME,
+      limit: 3,
       labels: {
         header: 'Cumulative Rainfall',
-        title: 'Areas with the most rainfall for the past 30 days',
+        title: 'Top 3 rainy areas for the past 30 days',
         unit: 'mm'
       }
     }))
@@ -40,9 +41,10 @@ const composeChart = ({context}, onData) => {
       compareOp: 'MEAN',
       sort: 'HIGHEST',
       range: '30_DAYS',
+      limit: 5,
       labels: {
         header: 'Average Temperature',
-        title: 'Hottest areas for the past 30 days',
+        title: 'Top 5 hottest areas for the past 30 days',
         unit: '°C'
       }
     }))

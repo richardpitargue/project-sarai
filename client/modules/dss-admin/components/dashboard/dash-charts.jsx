@@ -56,13 +56,12 @@ class DashCharts extends React.Component {
     return (
       <div className={className}>
         <div className={rowName}>
+          {this.renderCharts()}
+        </div>
+        <div className={rowName}>
           <div className="mdl-grid">
             {this.renderLists()}
           </div>
-        </div>
-
-        <div className={rowName}>
-          {this.renderCharts()}
         </div>
       </div>
     );
