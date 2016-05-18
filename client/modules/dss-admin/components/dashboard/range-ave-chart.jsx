@@ -22,6 +22,10 @@ class RangeAveChart extends React.Component {
             text: chartTitle
         },
 
+        rangeSelector: {
+          selected: 0
+        },
+
         xAxis: {
             type: 'datetime'
         },

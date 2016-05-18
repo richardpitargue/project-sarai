@@ -2,6 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 
 class AWSSquares extends React.Component {
+  constructor() {
+    super()
+    this.selectAWS = this.selectAWS.bind(this)
+  }
+
   componentDidMount() {
     if (componentHandler) {
       componentHandler.upgradeDom();
@@ -15,8 +20,8 @@ class AWSSquares extends React.Component {
     }
   }
 
-  doSomething() {
-    console.log('doing something...')
+  selectAWS() {
+
   }
 
   renderSquares() {
@@ -25,7 +30,7 @@ class AWSSquares extends React.Component {
     return this.props.weatherStations.map(( station, key) => {
       return (
 
-        <div className={squareClass} key={key} onClick={this.doSomething}>
+        <div className={squareClass} key={key} onClick={this.selectAWS}>
           {station.id}
         </div>
       )
