@@ -51,13 +51,14 @@ class DashCharts extends React.Component {
     const noSpacing = 'mdl-grid--no-spacing';
     const className = spacing ? classNames('mdl-grid', 'section-list', classList)
       : classNames('mdl-grid', 'section-list', noSpacing, classList);
-    const rowName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
+    const rowName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone', 'dash-charts')
 
     return (
       <div className={className}>
         <div className={rowName}>
           {this.renderCharts()}
         </div>
+        <hr />
         <div className={rowName}>
           <div className="mdl-grid">
             {this.renderLists()}

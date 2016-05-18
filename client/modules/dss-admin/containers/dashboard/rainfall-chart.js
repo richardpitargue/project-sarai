@@ -6,16 +6,14 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 import RangeAveChart from './../../components/dashboard/range-ave-chart.jsx'
 import BarChart from './../../components/dashboard/bar-chart.jsx';
 
-const composeChart = ({context}, onData) => {
+const composeChart = ({context, wsID}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
   const {WeatherData} = Collections
 
-  //sample
-  const id = 'IILOCOSR3'
 
   if (Meteor.subscribe('weather-data').ready()) {
 
-    const records = WeatherData.find({id: 'IILOCOSR3'}).fetch()
+    const records = WeatherData.find({id: wsID}).fetch()
 
     const id = 'rainfall'
     const chartName = 'Rainfall'

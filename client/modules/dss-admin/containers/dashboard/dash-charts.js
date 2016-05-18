@@ -10,22 +10,21 @@ import DashCharts from './../../components/dashboard/dash-charts.jsx'
 
 
 const composeChart = ({context}, onData) => {
-  const {Meteor, Collections, FlowRouter} = context();
+  const {Meteor, Collections, dssAdminStore} = context();
   const {WeatherData, WeatherStations} = Collections
+
+  const spacing = false
+  const classList = []
 
   const charts = []
   const lists = []
 
   if (Meteor.subscribe('weather-stations').ready()
       && Meteor.subscribe('weather-data').ready()) {
-    charts.push(React.createElement(TempRangeChart))
-    charts.push(React.createElement(RainfallChart))
-
-    const rainiest = WeatherStations.find({}).fetch()
 
     lists.push(React.createElement(TopList, {
       compareValue: 'RAINFALL', //maxtemp, avetemp
-      compareOp: 'CUMULATIVE', // average
+      compareOp: 'CUMULATIVE', // average, minima, maxima
       sort: 'HIGHEST',
       range: '30_DAYS', //10_DAYS, ALL_TIME,
       limit: 3,
@@ -49,8 +48,16 @@ const composeChart = ({context}, onData) => {
       }
     }))
 
-    onData(null, {charts, lists})
+    onData(null, {charts, lists, spacing, classList})
 
+    return dssAdminStore.subscribe(() => {
+      const {wsID} = dssAdminStore.getState()
+
+      charts.push(React.createElement(TempRangeChart, {wsID}))
+      charts.push(React.createElement(RainfallChart, {wsID}))
+
+      onData(null, {wsID, charts, lists, spacing, classList})
+    })
   }
 
 };

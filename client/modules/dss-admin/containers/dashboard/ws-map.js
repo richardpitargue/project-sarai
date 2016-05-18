@@ -1,16 +1,15 @@
 import React from 'react';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
-import ModulesForm from './../../components/dashboard/aws-squares.jsx';
+import WSMap from './../../components/dashboard/map-selector.jsx'
 
 const deps = (context, actions) => ({
   setWSId: actions.Weather.setWSId,
   context: () => context
 })
 
-const AWSSquaresRedux = ({context}, onData) => {
-  const {Meteor, dssAdminStore, Collections} = context()
-
+const composer = ({context}, onData) => {
+  const {dssAdminStore} = context()
   onData(null, {})
 
   return dssAdminStore.subscribe(() => {
@@ -20,6 +19,6 @@ const AWSSquaresRedux = ({context}, onData) => {
 }
 
 export default composeAll(
-  composeWithTracker(AWSSquaresRedux),
+  composeWithTracker(composer),
   useDeps(deps)
-)(ModulesForm);
+)(WSMap);
