@@ -35,14 +35,22 @@ const composeChart = ({context, wsID}, onData) => {
       }
     ]
 
-    for (let record of records) {
+    //don't want to get too much data
+    let limit = 365
+
+    for (let record of records.reverse()) {
       const utcDate = Date.UTC(record.date.year, record.date.month, record.date.day)
 
       // chartSeries[0].data.push([utcDate, record.temp.min, record.temp.max])
       chartSeries[0].data.push([utcDate, record.data.temp.min, record.data.temp.max])
       chartSeries[1].data.push([utcDate, record.data.temp.ave])
+
+      limit -= 1
+      if (limit == 0) break
     }
 
+    chartSeries[0].data = chartSeries[0].data.reverse()
+    chartSeries[1].data = chartSeries[1].data.reverse()
 
 
     onData(null, {

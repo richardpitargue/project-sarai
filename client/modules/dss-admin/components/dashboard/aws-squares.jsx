@@ -45,10 +45,15 @@ class AWSSquares extends React.Component {
 
   render() {
     // const className = classNames('mdl-layout-title', 'app-title', classList);
+    const innerRow = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone', 'squares-row')
 
     return (
       <div id="squares-grid" className="mdl-grid mdl-grid--no-spacing">
-        {this.renderSquares()}
+        <div className={innerRow}>
+          <div className="mdl-grid mdl-grid--no-spacing">
+            {this.renderSquares()}
+          </div>
+        </div>
       </div>
     );
   }
