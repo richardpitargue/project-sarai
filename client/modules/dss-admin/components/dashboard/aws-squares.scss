@@ -1,0 +1,32 @@
+.aws-square {
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(120,120,120,0.7);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(120,120,120,0.7);
+  box-shadow: 0px 1px 2px 0px rgba(120,120,120,0.7);
+  height: 35px;
+  text-align: center;
+  /*background-color: #c9e5ff;*/
+  background-color: #DFE2E4;
+  font-weight: bold;
+  color: #414141;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
+.aws-square-selected {
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(120,120,120,0.7);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(120,120,120,0.7);
+  box-shadow: 0px 1px 2px 0px rgba(120,120,120,0.7);
+  height: 35px;
+  text-align: center;
+  background-color: #414141;
+  font-weight: bold;
+  color: #DFE2E4;
+  padding: 8px;
+  font-size: 0.8em;
+}
+
+.squares-row {
+  background-color: #DFE2E4;
+}
+

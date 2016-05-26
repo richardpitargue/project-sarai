@@ -1,5 +1,33 @@
 export default {
 
+  getCurrentConditions(context, wsID) {
+    const {dssAdminStore} = context
+
+    xhr.open('GET', `http:\/\/api.wunderground.com/api/9470644e92f975d3/yesterday/q/pws:${wsID}.json`, true)
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText)
+
+          const co = data.current_observation
+
+          const currentObservation = {
+            lastUpdated: co.observation_time,
+
+          }
+
+          dssAdminStore.dispatch({
+            type: 'SET-CURRENT-OBSERVATION',
+            wsID,
+            currentObservation
+          })
+
+        }
+      }
+
+      xhr.send()
+  },
+
   getYesterdayWeather(context, weatherStations) {
 
     for (let station of weatherStations) {
@@ -13,7 +41,7 @@ export default {
           const data = JSON.parse(xhr.responseText)
 
           const date = data.history.date
-          const rainfall = data.history.dailysummary[0].precipm
+          const summary = data.history.dailysummary[0]
 
           const newRecord = {
             id: stationID,
@@ -23,7 +51,26 @@ export default {
               day: parseInt(date.mday)
             },
             data: {
-              rainfall: parseInt(rainfall)
+              temp: {
+                ave: parseFloat(summary.meantempm),
+                min: parseFloat(summary.mintempm),
+                max: parseFloat(summary.maxtempm)
+              },
+              humidity: {
+                ave: parseInt(summary.humidity),
+                min: parseInt(summary.minhumidity),
+                max: parseInt(summary.maxhumidity)
+              },
+              wind: {
+                maxSpd: parseFloat(summary.maxwspdm),
+                aveSpd: parseFloat(summary.meanwindspdm),
+                gustMaxSpd: null
+              },
+              pressure: {
+                min: parseFloat(summary.maxpressurem),
+                max: parseFloat(summary.minpressurem)
+              },
+              rainfall: parseInt(summary.precipm)
             }
           }
 
@@ -41,5 +88,83 @@ export default {
       xhr.send()
 
     }
+  },
+
+  goToAddPage(context) {
+    const {FlowRouter} = context
+
+    FlowRouter.go('/dss/admin/weather-stations/add')
+  },
+
+  insertWeatherStation(context, _id, id, label, coords0, coords1) {
+    const {FlowRouter, Meteor} = context
+
+    const newRecord = {
+      "id": id,
+      "label": label,
+      "coords": [parseFloat(coords0), parseFloat(coords1)]
+    }
+    console.log('Inserting new record')
+    console.log(newRecord)
+
+    Meteor.call('DSS.insertWeatherStation', newRecord, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        FlowRouter.go('/dss/admin/weather-stations')
+        //nothing
+      }
+    })
+  },
+
+  goToEditPage(context, id) {
+    const {FlowRouter, dssAdminStore} = context
+
+    dssAdminStore.dispatch({
+      type: 'SET-WS-ID',
+      wsID: id
+    })
+
+    FlowRouter.go('/dss/admin/weather-stations/edit')
+  },
+
+  setWSId(context, id) {
+    const {FlowRouter, dssAdminStore} = context
+    dssAdminStore.dispatch({
+      type: 'SET-WS-ID',
+      wsID: id
+    })
+    // console.log(dssAdminStore.getState())
+  },
+
+
+
+  editWeatherStation(context, _id, id, label, coords0, coords1) {
+    const {FlowRouter, Meteor} = context
+
+    const updatedRecord = {
+      "id": id,
+      "label": label,
+      "coords": [coords0, coords1]
+    }
+
+    Meteor.call('DSS.updateWeatherStation', _id, updatedRecord, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        FlowRouter.go('/dss/admin/weather-stations')
+        //nothing
+      }
+    })
+  },
+
+  deleteWeatherStation(context, _id) {
+    Meteor.call('DSS.deleteWeatherStation', _id, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        //nothing
+      }
+    })
   }
 }

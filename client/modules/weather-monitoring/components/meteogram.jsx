@@ -1,5 +1,4 @@
 import React from 'react';
-import highcharts from 'highcharts/highstock';
 
 class Meteogram extends React.Component {
   constructor() {

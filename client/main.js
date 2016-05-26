@@ -1,6 +1,11 @@
 import '/node_modules/material-design-lite/material';
+import highcharts from 'highcharts/highstock';
+require('highcharts/modules/exporting')(highcharts)
+require('highcharts/highcharts-more')(highcharts)
+
 import {createApp} from 'mantra-core';
 import {initContext} from './configs/context';
+
 
 // This is deprecated...
 import coreModule from './modules/core';

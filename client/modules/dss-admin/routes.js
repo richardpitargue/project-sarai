@@ -4,10 +4,12 @@ import {Landing, DSSAdmin} from '/client/modules/ui-components';
 import {CoreAppBar, CoreAppDrawer, CoreFooter} from '/client/modules/core';
 
 import DSSAdminAppDrawer from './containers/dss-admin-app-drawer';
-import DSSAdminRootContent from './containers/dss-admin-root-content';
+import DSSAdminDash from './containers/dss-admin-dash';
 import DSSAdminWeatherStations from './containers/dss-admin-ws';
 import DSSAdminModules from './containers/dss-admin-modules';
 import ModulesForm from './containers/forms/modules-form';
+import WSEdit from './containers/weather-stations/ws-edit'
+import WSAdd from './containers/weather-stations/ws-add'
 
 export default (injectDeps, context) => {
   const {FlowRouter, mount} = context;
@@ -19,7 +21,7 @@ export default (injectDeps, context) => {
       mount(LandingCtx, {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
-        content: React.createElement(DSSAdminRootContent),
+        content: React.createElement(DSSAdminDash),
         // footer: React.createElement(CoreFooter)
       });
     }
@@ -69,6 +71,28 @@ export default (injectDeps, context) => {
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(ModulesForm),
         // footer: React.createElement(CoreFooter)
+      });
+    }
+  });
+
+  FlowRouter.route('/dss/admin/weather-stations/edit', {
+    name: 'dss.admin.ws.edit',
+    action() {
+      mount(LandingCtx, {
+        appBar: React.createElement(CoreAppBar),
+        appDrawer: React.createElement(DSSAdminAppDrawer),
+        content: React.createElement(WSEdit)
+      });
+    }
+  });
+
+  FlowRouter.route('/dss/admin/weather-stations/add', {
+    name: 'dss.admin.ws.add',
+    action() {
+      mount(LandingCtx, {
+        appBar: React.createElement(CoreAppBar),
+        appDrawer: React.createElement(DSSAdminAppDrawer),
+        content: React.createElement(WSAdd)
       });
     }
   });
