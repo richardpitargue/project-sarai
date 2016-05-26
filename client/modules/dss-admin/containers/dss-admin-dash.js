@@ -35,7 +35,7 @@ const composerLandingPage = ({context}, onData) => {
   sections.push(React.createElement(HistoryCharts))
 
 
-  const lists = []
+  // const lists = []
   // lists.push(React.createElement(TopList, {
   //     compareValue: 'RAINFALL', //maxtemp, avetemp
   //     compareOp: 'CUMULATIVE', // average, minima, maxima

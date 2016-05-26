@@ -53,6 +53,7 @@ const composeChart = ({context, wsID}, onData) => {
     chartSeries[1].data = chartSeries[1].data.reverse()
 
 
+    console.log(chartSeries)
     onData(null, {
       id,
       chartName,

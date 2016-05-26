@@ -21,8 +21,14 @@ if (!DSSSettings.findOne({name: 'mapbox-tileset-id'})) {
   });
 }
 
-// if (!DSSSettings.findOne({name: 'weather-last-update'})) {
-//   name: 'weather-last-update',
-//   value: '<Date UTC>'
-// }
+if (!DSSSettings.findOne({name: 'weather-last-update'})) {
+  DSSSettings.insert({
+    name: 'weather-last-update',
+    value: {
+      year: 2016,
+      month: 4,
+      day: 18
+    }
+  })
+}
 

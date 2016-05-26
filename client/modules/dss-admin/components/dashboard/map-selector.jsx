@@ -22,9 +22,9 @@ class MapSelector extends React.Component {
     });
 
     const markerIcon = L.icon({
-      iconUrl: '/images/weather-monitoring/map/marker.png',
-      iconSize: [40, 40],
-      iconAnchor: [20, 39],
+      iconUrl: '/images/dss/map/marker.png',
+      iconSize: [21, 39],
+      iconAnchor: [10, 38],
       popupAnchor: [0, -40]
     });
 
