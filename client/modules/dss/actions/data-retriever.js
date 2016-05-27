@@ -37,14 +37,12 @@ export default {
 
   },
 
-  updateWeatherData(context) {
-    const someData = 'some data'
-    Meteor.call('DSS.insertWeatherData', someData, (err, res) => {
-      if (err) {
-        console.error(err)
-      } else {
-        console.log(res)
-      }
+  setStationID(context, stationID) {
+    const {dssStore} = context
+
+    dssStore.dispatch({
+      type: 'SET-STATION-ID',
+      stationID
     })
   }
 

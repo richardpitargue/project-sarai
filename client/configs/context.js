@@ -35,7 +35,6 @@ const dssAdminStore = createStore((state = dssAdminDefaultState, action) => {
         moduleID: action.moduleID
       })
     case 'SET-WS-ID':
-      console.log("received dispatch..")
       return Object.assign({}, state, {
         wsID: action.wsID
       })

@@ -12,7 +12,9 @@ const deps = (context, actions) => ({
 const TCSRedux = ({context}, onData) => {
   const {Meteor, Collections, dssStore} = context()
   const {WeatherData, DSSModules} = Collections
-  onData(null, {})
+  const classList = ['custom-modules-section']
+  const spacing = false
+  onData(null, {classList, spacing})
 
   if (Meteor.subscribe('weather-data').ready()
       && Meteor.subscribe('dss-modules').ready()) {
@@ -158,7 +160,7 @@ const TCSRedux = ({context}, onData) => {
       // const minRainAdvisory = React.createElement(MinRainAdvisory, {minimumRainfall, dateOfSufficientRain})
 
 
-      onData(null, {sections})
+      onData(null, {classList, spacing, sections})
     })
   }
 }
