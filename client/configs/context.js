@@ -38,6 +38,10 @@ const dssAdminStore = createStore((state = dssAdminDefaultState, action) => {
       return Object.assign({}, state, {
         wsID: action.wsID
       })
+    case 'SET-STATION-ID':
+      return Object.assign({}, state, {
+        stationID: action.stationID
+      })
     default:
       return state
   }

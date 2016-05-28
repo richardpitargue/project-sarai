@@ -21,9 +21,9 @@ class AWSSquares extends React.Component {
   }
 
   selectAWS(e) {
-    const {setWSId} = this.props
+    const {setStationID} = this.props
 
-    setWSId(e.target.id)
+    setStationID(e.target.id)
   }
 
   renderSquares() {

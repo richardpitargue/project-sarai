@@ -4,7 +4,7 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 import ModulesForm from './../../components/dashboard/aws-squares.jsx';
 
 const deps = (context, actions) => ({
-  setWSId: actions.Weather.setWSId,
+  setStationID: actions.Weather.setStationID,
   context: () => context
 })
 

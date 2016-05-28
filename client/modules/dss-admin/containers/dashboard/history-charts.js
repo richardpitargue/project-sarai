@@ -23,12 +23,12 @@ const composeChart = ({context}, onData) => {
     onData(null, {charts, spacing, classList})
 
     return dssAdminStore.subscribe(() => {
-      const {wsID} = dssAdminStore.getState()
+      const {stationID} = dssAdminStore.getState()
 
-      charts.push(React.createElement(TempRangeChart, {wsID}))
-      charts.push(React.createElement(RainfallChart, {wsID}))
+      charts.push(React.createElement(TempRangeChart, {stationID}))
+      charts.push(React.createElement(RainfallChart, {stationID}))
 
-      onData(null, {wsID, charts, spacing, classList})
+      onData(null, {stationID, charts, spacing, classList})
     })
   }
 

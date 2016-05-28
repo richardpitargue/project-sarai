@@ -7,7 +7,7 @@ class MapSelector extends React.Component {
       componentHandler.upgradeDom();
     }
 
-    const {weatherStations, setWSId, wsID} = this.props;
+    const {weatherStations, setStationID, stationID} = this.props;
 
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
@@ -46,12 +46,12 @@ class MapSelector extends React.Component {
         {icon: markerIcon})
       .bindPopup(`<h5>${station.label}</h5>`)
       .on('click', () => {
-        setWSId(station.id)
+        setStationID(station.id)
       })
 
       marker.addTo(map)
 
-      if (this.props.wsID == station.id) {
+      if (this.props.stationID == station.id) {
         console.log('found a match')
         map.panTo(new L.LatLng(station.coords[0], station.coords[1]))
       }
