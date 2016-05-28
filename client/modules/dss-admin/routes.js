@@ -3,7 +3,7 @@ import React from 'react';
 import {Landing, DSSAdmin} from '/client/modules/ui-components';
 import {CoreAppBar, CoreAppDrawer, CoreFooter} from '/client/modules/core';
 
-import DSSAdminAppDrawer from './containers/dss-admin-app-drawer';
+import DSSAdminAppDrawer from './containers/ui-components/dss-admin-app-drawer';
 import DSSAdminDash from './containers/dss-admin-dash';
 import DSSAdminWeatherStations from './containers/dss-admin-ws';
 import DSSAdminModules from './containers/dss-admin-modules';
