@@ -1,0 +1,150 @@
+#yield-calculator-map {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+#map-container {
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  position: absolute;
+}
+
+#yield-calculator-sidebar {
+  height: 80%;
+  position: absolute;
+  background-color: rgba(51, 51, 51, 0.9);
+  -webkit-transition: ease-in-out .5s all;
+  transition: ease-in-out .5s all;
+  right: 20px;
+  top: 50px;
+  border-radius: 3px;
+  width: 350px;
+}
+
+.yc-top-row {
+  text-align: right;
+}
+
+.yc-help-icon {
+  color: azure;
+}
+
+.yc-input-row {
+  text-align: center;
+}
+
+/********SELECT**********/
+.yc-dropdown__select {
+  font-size: inherit; /* inherit size from .custom-dropdown */
+  padding: .5em; /* add some space*/
+  margin: 0; /* remove default margins */
+  background-color: #fff;
+  color: #444;
+  width: 17em;
+}
+
+.yc-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .yc-dropdown__select {
+    padding-right: 2.5em; /* accommodate with the pseudo elements for the dropdown arrow */
+    border: 0;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .yc-dropdown::before,
+  .yc-dropdown::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .yc-dropdown::after { /*  Custom dropdown arrow */
+    content: "\25BC";
+    height: 1em;
+    font-size: .625em;
+    line-height: 1;
+    right: 1.2em;
+    top: 50%; margin-top: -.5em;
+  }
+
+/********END SELECT**********/
+
+/********NUMBER INPUT*********/
+.yc-input__number{
+  font-size: inherit; /* inherit size from .yc-input */
+  padding: .5em; /* add some space*/
+  margin: 0; /* remove default margins */
+  background-color: #fff;
+  color: #444;
+}
+
+.yc-input {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .yc-input__number {
+    padding-right: 3.8em; /* accommodate with the pseudo elements for the dropdown arrow */
+    border: 0;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .yc-input::before,
+  .yc-input::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .yc-input::after { /*  Custom dropdown arrow */
+    content: "°C";
+    height: 1em;
+    font-size: 1.5em;
+    line-height: 1;
+    right: 0.5em;
+    top: 50%; margin-top: -.5em;
+    color: #444;
+  }
+
+  .yc-input-srad::after {
+    content: "MJ/m";
+    font-size: 1em;
+  }
+
+  .yc-input-temp::after {
+    content: "°C";
+  }
+
+  .yc-input-rain::after {
+    content: "mm";
+  }
+
+  .yc-input-elev::after {
+    content: "m";
+  }
+
+/********END NUMBER INPUT*********/
+
+
+#yc-help-modal {
+  width: 400px;
+}
+
+#yc-help-modal p {
+  font-size: 1.5em;
+}

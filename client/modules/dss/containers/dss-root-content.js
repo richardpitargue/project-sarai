@@ -8,6 +8,7 @@ import RainGraph from './rain-graph';
 import WeatherStationMap from './weather-station-map';
 import CustomModules from './custom-modules';
 import WSMap from './map/ws-map';
+import YieldCalculator from './modules/yield-calculator'
 
 import TwoColumnSection from './../components/two-column-section.jsx';
 import DSSLayout from './../components/dss-layout.jsx';
@@ -32,9 +33,11 @@ const composerLandingPage = ({context}, onData) => {
 
     sections.push(React.createElement(WSMap, {weatherStations}))
 
-    const customModules = React.createElement(CustomModules)
+    const customModules = React.createElement(CustomModules, {spacing})
 
     sections.push(React.createElement(DSSLayout, {customModules, spacing}))
+
+    sections.push(React.createElement(YieldCalculator))
 
     onData(null, {sections, spacing, classList});
 

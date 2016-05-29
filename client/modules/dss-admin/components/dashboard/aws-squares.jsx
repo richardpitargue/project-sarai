@@ -29,10 +29,10 @@ class AWSSquares extends React.Component {
   renderSquares() {
     // const squareClass = classNames('aws-square', 'mdl-cell', 'mdl-cell--1-col-desktop', 'mdl-cell--1-col-tablet', 'mdl-cell--1-col-phone')
     const common = ['mdl-cell', 'mdl-cell--1-col-desktop', 'mdl-cell--1-col-tablet', 'mdl-cell--1-col-phone']
-    const {wsID} = this.props
+    const {stationID} = this.props
 
     return this.props.weatherStations.map(( station, key) => {
-      const finalClass = (station.id == wsID) ? classNames(common, 'aws-square-selected') : classNames(common, 'aws-square')
+      const finalClass = (station.id == stationID) ? classNames(common, 'aws-square-selected') : classNames(common, 'aws-square')
 
       return (
         <div className={finalClass} key={key} id={station.id} onClick={this.selectAWS}>
