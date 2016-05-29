@@ -12,6 +12,7 @@ import YieldCalculator from './modules/yield-calculator'
 
 import TwoColumnSection from './../components/two-column-section.jsx';
 import DSSLayout from './../components/dss-layout.jsx';
+import MinorHeader from './../components/ui-components/minor-header.jsx'
 
 const composerLandingPage = ({context}, onData) => {
   const {Meteor, Collections, FlowRouter} = context();
@@ -37,7 +38,11 @@ const composerLandingPage = ({context}, onData) => {
 
     sections.push(React.createElement(DSSLayout, {customModules, spacing}))
 
-    sections.push(React.createElement(YieldCalculator))
+    const ycMinorHeader = React.createElement(MinorHeader, {title: 'YIELD CALCULATOR', helpText: ''})
+
+    sections.push(React.createElement(YieldCalculator, {
+      minorHeader: ycMinorHeader})
+    )
 
     onData(null, {sections, spacing, classList});
 

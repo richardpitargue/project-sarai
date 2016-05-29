@@ -68,7 +68,7 @@ class MinRainAdvisory extends React.Component {
 
     return(
       <div>
-        <h5>{title}</h5><hr/>
+        <h5 className="mra-title">{title}</h5><hr/>
         <div className="mra-message">
           {this.parseMessage()}
         </div>

@@ -28,6 +28,7 @@ class DSSLayout extends React.Component {
           <div className="mdl-grid">
             {customModules}
           </div>
+          <hr />
         </div>
       </div>
 

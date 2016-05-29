@@ -25,13 +25,12 @@ class TwoColumnSection extends React.Component {
   }
   render() {
     const {spacing, classList} = this.props;
-    console.log(`Creating two col section. Spacing: ${spacing}`)
 
     const noSpacing = 'mdl-grid--no-spacing';
     const gridClass = spacing ? classNames('mdl-grid', classList) : classNames('mdl-grid', noSpacing, classList);
 
     return (
-      <div id="two-col-section" className={gridClass}>
+      <div className={gridClass}>
         {this.renderSections()}
       </div>
     );

@@ -27,7 +27,7 @@ if (!DSSSettings.findOne({name: 'weather-last-update'})) {
     value: {
       year: 2016,
       month: 4,
-      day: 18
+      day: 28
     }
   })
 }
