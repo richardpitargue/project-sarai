@@ -14,7 +14,7 @@ class DSSLayout extends React.Component {
   }
 
   render() {
-    const {map, chart, customModules, spacing, classList} = this.props
+    const {map, chart, customModules, spacing, classList, minorHeader} = this.props
 
     const noSpacing = 'mdl-grid--no-spacing';
     const className = spacing ? classNames('mdl-grid', 'section-list', classList)
@@ -25,6 +25,7 @@ class DSSLayout extends React.Component {
     return(
       <div className={className}>
         <div className={rowName}>
+          {minorHeader}
           <div className="mdl-grid">
             {customModules}
           </div>

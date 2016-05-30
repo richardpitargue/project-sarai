@@ -36,13 +36,17 @@ const composerLandingPage = ({context}, onData) => {
 
     const customModules = React.createElement(CustomModules, {spacing})
 
-    sections.push(React.createElement(DSSLayout, {customModules, spacing}))
+    const mraMinorHeader = React.createElement(MinorHeader, {title: 'CUMULATIVE RAINFALL', helpText: 'help', id: 'mra'})
 
-    const ycMinorHeader = React.createElement(MinorHeader, {title: 'YIELD CALCULATOR', helpText: ''})
+    sections.push(React.createElement(DSSLayout, {customModules, spacing, minorHeader: mraMinorHeader}))
+
+    const ycMinorHeader = React.createElement(MinorHeader, {title: 'YIELD CALCULATOR', helpText: 'The Yield calculator uses weather data averages of the past week to predict the yield of your crops if they were planted this week. Please provide a solar radiation reading.', id: 'yc'})
 
     sections.push(React.createElement(YieldCalculator, {
       minorHeader: ycMinorHeader})
     )
+
+    const smMinorHeader = React.createElement(MinorHeader, {title: 'SOIL MOISTURE MONITORING', helpText: 'This section calculates the soil moisture deficit for the past 30 days. The assumption is that the deficit starts at baseline 0'})
 
     onData(null, {sections, spacing, classList});
 

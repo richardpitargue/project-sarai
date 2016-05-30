@@ -5,6 +5,7 @@ import math from 'mathjs';
 import YieldCalculator from './../../components/modules/yield-calculator.jsx'
 
 const deps = (context, actions) => ({
+  setPredictedYield: actions.YieldCalculator.setPredictedYield,
   context: () => context
 })
 
@@ -18,7 +19,7 @@ const composer = ({context}, onData) => {
       && Meteor.subscribe('weather-data').ready()
       && Meteor.subscribe('weather-stations').ready()) {
     return dssStore.subscribe(() => {
-      const {stationID} = dssStore.getState()
+      const {stationID, predictedYield} = dssStore.getState()
 
 
       //Get data to autofill form with
@@ -64,7 +65,7 @@ const composer = ({context}, onData) => {
         }
       }
 
-      onData(null, {station, maxTemperature, minTemperature, rainfall, closestFormula})
+      onData(null, {station, maxTemperature, minTemperature, rainfall, closestFormula, predictedYield})
     })
   }
 

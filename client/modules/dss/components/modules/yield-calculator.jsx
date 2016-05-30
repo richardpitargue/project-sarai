@@ -49,8 +49,9 @@ class YieldCalculator extends React.Component {
     d.setDate(d.getDate()+4-(d.getDay()||7));
     return (Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7)) - 1;
   }
+
   handleSubmit() {
-    const {closestFormula} = this.props
+    const {closestFormula, setPredictedYield} = this.props
 
     const scope = {
       plantingDate: this.getWeekNumber(),
@@ -60,21 +61,24 @@ class YieldCalculator extends React.Component {
       rainfall: parseFloat(this.rain.value)
     }
 
+    let result = math.eval(closestFormula.expression, scope)
+    result = Math.round(result * 100) / 100
+
     console.log(scope)
+    console.log(result)
 
-    console.log(math.eval(closestFormula.expression, scope))
-
+    setPredictedYield(result)
   }
 
   renderDescription() {
-    const {closestFormula} = this.props
+    const {closestFormula, predictedYield} = this.props
     const twoCol = classNames('mdl-cell', 'mdl-cell--6-col-desktop', 'mdl-cell--4-col-tablet', 'mdl-cell--4-col-phone')
 
-    if (closestFormula) {
+    if (predictedYield) {
       return (
         <div className={twoCol}>
           <div className="yc-advisory">
-            Planting <span className="yc-advisory-emp">{closestFormula.variety} {closestFormula.crop}</span> this week has a predicted yield of <span className="yc-advisory-emp"> XXX</span> kg/ha
+            Planting <span className="yc-advisory-emp">{closestFormula.variety} {closestFormula.crop}</span> this week has a predicted yield of <span className="yc-advisory-emp"> {predictedYield} kg/ha</span>
           </div>
         </div>
       )
@@ -83,7 +87,7 @@ class YieldCalculator extends React.Component {
     else {
       return (
         <div className={twoCol}>
-          Display something
+
         </div>
       )
     }
@@ -123,9 +127,9 @@ class YieldCalculator extends React.Component {
     return (
       <div className={className}>
         <div className={rowName}>
+          {minorHeader}
           <div className="mdl-grid">
             <div className={twoCol}>
-              {minorHeader}
               <div className="yc-message">{message}<span className="yc-selected-location">{label}</span></div>
               <div className="mdl-cell mdl-cell--12-col yc-input-row">
                 <div className="yc-input yc-input-srad">

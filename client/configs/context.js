@@ -66,6 +66,10 @@ const dssStore = createStore((state = dssDefaultState, action) => {
       return Object.assign({}, state, {
         rainfallMetDate: ''
       })
+    case 'SET-PREDICTED-YIELD':
+      return Object.assign({}, state, {
+        predictedYield: action.predictedYield
+      })
 
     default:
       return state
