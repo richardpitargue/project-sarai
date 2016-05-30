@@ -75,6 +75,11 @@ const dssStore = createStore((state = dssDefaultState, action) => {
       return Object.assign({}, state, {
         predictedYield: action.predictedYield
       })
+    case 'SET-CURRENT-OBSERVATION':
+      return Object.assign({}, state, {
+        observation: action.observation,
+        stationID: action.stationID
+      })
 
     default:
       return state

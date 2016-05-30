@@ -1,13 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import {CurrentWeather} from '/client/modules/dss-admin'
+
 class MapSelector extends React.Component {
   componentDidMount() {
     if (componentHandler) {
       componentHandler.upgradeDom();
     }
 
-    const {weatherStations, getRainfallData, wsID} = this.props;
+    const {weatherStations, getRainfallData, getCurrentConditions, stationID} = this.props;
 
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
@@ -47,11 +49,12 @@ class MapSelector extends React.Component {
       .bindPopup(`<h5>${station.label}</h5>`)
       .on('click', () => {
         getRainfallData(station.id)
+        getCurrentConditions(station.id)
       })
 
       marker.addTo(map)
 
-      if (this.props.wsID == station.id) {
+      if (this.props.stationID == station.id) {
         console.log('found a match')
         map.panTo(new L.LatLng(station.coords[0], station.coords[1]))
       }
@@ -65,13 +68,24 @@ class MapSelector extends React.Component {
 
 
   render() {
-    const {spacing, classList} = this.props;
+    const {spacing, classList, stationID, observation} = this.props;
     // const noSpacing = 'mdl-grid--no-spacing';
     // const className = spacing ? classNames('mdl-grid', 'section-list', classList)
     //   : classNames('mdl-grid', 'section-list', noSpacing, classList);
     const rowName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone', 'dark-row')
     const gridClass = classNames('mdl-grid', 'mdl-grid--no-spacing', classList)
     const twoCol = classNames('mdl-cell', 'mdl-cell--6-col', 'mdl-cell--4-col-phone')
+
+
+    const observationTime = observation ? observation.observation_time : 'Last Updated on'
+    const tempC = observation ? observation.temp_c : ''
+    const iconURL = observation ? observation.icon_url : ''
+    const feelsLikeC = observation ? observation.feelslike_c : ''
+    const weather = observation ? observation.weather : ''
+    const relativeHumidity = observation ? observation.relative_humidity : ''
+    const pressureMB = observation ? observation.pressure_mb : ''
+    const windDir = observation ? observation.wind_dir : ''
+    const windGustKPH = observation ? observation.wind_gust_kph : ''
 
     return (
       <div className={gridClass}>
@@ -80,7 +94,19 @@ class MapSelector extends React.Component {
             <div id="dash-ws-map" className={twoCol}>
             </div>
             <div id="ws-map" className={twoCol}>
-              Data goes here {this.props.wsID}
+              <CurrentWeather
+                stationID={stationID}
+                observationTime={observationTime}
+                tempC={tempC}
+                iconURL={iconURL}
+                feelsLikeC={feelsLikeC}
+                weather={weather}
+                relativeHumidity={relativeHumidity}
+                pressureMB={pressureMB}
+                windDir={windDir}
+                windGustKPH={windGustKPH}
+
+                />
             </div>
           </div>
         </div>
