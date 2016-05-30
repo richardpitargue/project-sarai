@@ -5,7 +5,7 @@ import YCForm from './../../components/yield-calculator/yc-form.jsx'
 
 
 const deps = (context, actions) => ({
-  callback: actions.YieldCalculator.insertWeatherStation,
+  callback: actions.YieldCalculator.addYieldFormula,
   context: () => context
 })
 

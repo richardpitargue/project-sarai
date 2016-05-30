@@ -1,10 +1,6 @@
 import React from 'react';
 
 class MinorHeader extends React.Component {
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     if (componentHandler) {
       componentHandler.upgradeDom();

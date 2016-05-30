@@ -99,8 +99,6 @@ export default {
       "label": label,
       "coords": [parseFloat(coords0), parseFloat(coords1)]
     }
-    console.log('Inserting new record')
-    console.log(newRecord)
 
     Meteor.call('DSS.insertWeatherStation', newRecord, (err, res) => {
       if (err) {

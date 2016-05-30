@@ -2,13 +2,15 @@ import React from 'react';
 import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 
 import YCForm from './../../components/yield-calculator/yc-form.jsx'
+import DSSAdminHeader from './../../components/ui-components/dss-admin-header.jsx'
 
 const deps = (context, actions) => ({
-  callback: actions.Weather.editWeatherStation,
+  callback: actions.YieldCalculator.editYieldFormula,
+  deleteItem: actions.YieldCalculator.deleteYieldFormula,
   context: () => context
 })
 
-const WSEditRedux = ({context}, onData) => {
+const YCEditRedux = ({context}, onData) => {
   const {dssAdminStore, Meteor, Collections} = context()
   const {YieldFormulas} = Collections
 
@@ -27,12 +29,14 @@ const WSEditRedux = ({context}, onData) => {
     const coords1 = formula.location.coords[1]
     const expression = formula.expression
 
-    onData(null, {formula, _id, crop, variety, label, yearClassification, coords0, coords1, expression})
+    const header = React.createElement(DSSAdminHeader, {title: 'Edit'})
+
+    onData(null, {header, formula, _id, crop, variety, label, yearClassification, coords0, coords1, expression})
   }
 
 }
 
 export default composeAll(
-  composeWithTracker(WSEditRedux),
+  composeWithTracker(YCEditRedux),
   useDeps(deps)
 )(YCForm);

@@ -25,9 +25,9 @@ class YieldFormulasTable extends React.Component {
 
 
   handleAdd() {
-    // const {goToAddPage} = this.props
+    const {goToAddPage} = this.props
 
-    // goToAddPage()
+    goToAddPage()
   }
 
   handleEdit(e) {
@@ -40,12 +40,12 @@ class YieldFormulasTable extends React.Component {
   }
 
   handleDelete(e) {
-    // const {deleteWS, weatherStations} = this.props
+    const {deleteItem, formulas} = this.props
 
-    // const id = e.target.id
-    // const index = id.substring(7)
+    const id = e.target.id
+    const index = id.substring(7)
 
-    // deleteWS(weatherStations[index]._id)
+    deleteItem(formulas[index]._id)
   }
 
   renderRows() {

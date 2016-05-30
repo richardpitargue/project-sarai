@@ -58,29 +58,30 @@ class YCForm extends React.Component {
   handleSave() {
     const {callback, _id} = this.props
 
-    let db_id = _id ? _id : ''
+    // let db_id = _id ? _id : ''
+    console.log(_id)
 
-    callback(_id, this.wsID_ref.value, this.label_ref.value, this.coords0_ref.value, this.coords1_ref.value)
+    callback(_id, this.crop_ref.value, this.variety_ref.value, this.year_ref.value, this.label_ref.value, this.coords0_ref.value, this.coords1_ref.value, this.exp_ref.value)
     //Then bring up a toast
   }
 
   handleDelete() {
-    const {deleteWS, _id} = this.props
+    const {deleteItem, _id} = this.props
 
-    deleteWS(_id)
+    deleteItem(_id)
   }
 
 
   render() {
     const rowClassName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
 
-    const labelCol = classNames('mdl-cell', 'mdl-cell--4-col', 'form-label')
-    // const inputCol = classNames('mdl-cell', 'mdl-cell--8-col')
-
     const row = classNames('mdl-cell', 'mdl-cell--12-col')
-    const inputCol = classNames('mdl-cell', 'mdl-cell--8-col')
+    const labelRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-label-row')
+    const inputRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-input-row')
+    const actionsRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-actions-row')
 
-    const {_id, crop, variety, yearClassification, label, coords0, coords1, expression} = this.props
+
+    const {header, _id, crop, variety, yearClassification, label, coords0, coords1, expression} = this.props
 
     const crop_ref = (c) => {
       this.crop_ref = c
@@ -111,77 +112,109 @@ class YCForm extends React.Component {
     }
 
     return (
-      <div className="mdl-grid">
-        <div className={rowClassName}>
-          <div className="mdl-grid">
-            <div className={labelCol}>
-              Weather Station ID
-            </div>
+      <div>
+        {header}
+        <div className="mdl-grid">
+          <div className={rowClassName}>
+            <div className="mdl-grid">
 
-            <div className={labelCol}>
-              Station Label
-            </div>
+              <div className={labelRow}>
+                Crop
+              </div>
 
-            <div className={inputCol}>
-              <input
-                type="text"
-                defaultValue={crop}
-                ref={crop_ref}
-                onChange={this.handleChangeCrop}
-              />
-            </div>
+              <div className={inputRow}>
+                <input
+                  type="text"
+                  defaultValue={crop}
+                  ref={crop_ref}
+                  onChange={this.handleChangeCrop}
+                />
+              </div>
 
-            <div className={inputCol}>
-              <input
-                type="text"
-                defaultValue={variety}
-                ref={variety_ref}
-                onChange={this.handleChangeVariety}
-              />
-            </div>
+              <div className={labelRow}>
+                Variety
+              </div>
 
-            <div className={inputCol}>
-              <textarea
-                defaultValue={label}
-                ref={label_ref}
-                onChange={this.handleChangeLabel}>
-              </textarea>
-            </div>
+              <div className={inputRow}>
+                <input
+                  type="text"
+                  defaultValue={variety}
+                  ref={variety_ref}
+                  onChange={this.handleChangeVariety}
+                />
+              </div>
 
-            <div className={labelCol}>
-              Geographical Coordinates
-            </div>
+              <div className={labelRow}>
+                Year Classification
+              </div>
 
-            <div className={inputCol}>
-              <input
-                type="number"
-                defaultValue={coords0}
-                ref={coords0_ref}
-                onChange={this.handleChangeCoords0} />
+              <div className={inputRow}>
+                <input
+                  type="text"
+                  defaultValue={yearClassification}
+                  ref={year_ref}
+                  onChange={this.handleChangeYear}
+                />
+              </div>
 
-              <input
-                type="number"
-                defaultValue={coords1}
-                ref={coords1_ref}
-                onChange={this.handleChangeCoords1} />
-            </div>
+              <div className={labelRow}>
+                Label
+              </div>
 
-            <div className={labelCol}>
-              Geographical Coordinates
-            </div>
+              <div className={inputRow}>
+                <input
+                  type="text"
+                  defaultValue={label}
+                  ref={label_ref}
+                  onChange={this.handleChangeLabel} />
+              </div>
 
-            <div className={inputCol}>
-              <button onClick={this.handleSave} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                Save
-              </button>
+              <div className={labelRow}>
+                Coordinates
+              </div>
 
-              <button onClick={this.handleDelete} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                Delete
-              </button>
+              <div className={inputRow}>
+                <input
+                  className="coords"
+                  type="number"
+                  defaultValue={coords0}
+                  ref={coords0_ref}
+                  onChange={this.handleChangeCoords0} />
+
+                <input
+                  className="coords"
+                  type="number"
+                  defaultValue={coords1}
+                  ref={coords1_ref}
+                  onChange={this.handleChangeCoords1} />
+              </div>
+
+              <div className={labelRow}>
+                Expression
+              </div>
+
+              <div className={inputRow}>
+                <textarea
+                  defaultValue={expression}
+                  ref={exp_ref}
+                  onChange={this.handleChangeExpression}>
+                </textarea>
+              </div>
+
+              <div className={actionsRow}>
+                <button onClick={this.handleSave} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                  Save
+                </button>
+
+                <button onClick={this.handleDelete} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                  Delete
+                </button>
+              </div>
+
             </div>
           </div>
-
         </div>
+
       </div>
     )
   }

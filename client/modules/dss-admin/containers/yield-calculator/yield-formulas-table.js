@@ -4,12 +4,9 @@ import {useDeps, composeAll, compose} from 'mantra-core';
 import YieldFormulasTable from './../../components/yield-calculator/yield-formulas-table.jsx';
 
 const deps = (context, actions) => ({
-  // goToAddPage: actions.Weather.goToAddPage,
-  // add: actions.Weather.insertWeatherStation,
+  goToAddPage: actions.YieldCalculator.goToAddPage,
   goToEditPage: actions.YieldCalculator.goToEditPage,
-  // edit: actions.Weather.editWeatherStation,
-  // deleteWS: actions.Weather.deleteWeatherStation,
-  // getYesterdayWeather: actions.Weather.getYesterdayWeather,
+  deleteItem: actions.YieldCalculator.deleteYieldFormula,
   context: () => context
 })
 

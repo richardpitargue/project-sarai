@@ -1,0 +1,36 @@
+.form-label-row {
+  font-weight: bold;
+  color: #555555;
+}
+
+.form-input-row {
+
+  input, textarea {
+    font-size: inherit;
+    padding: .5em;
+    margin: 0;
+    background-color: #fff;
+    color: #444;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  textarea {
+    height: 320px;
+    width: 100%;
+  }
+
+  .coords {
+    margin-right: 30px;
+  }
+
+}
+
+.form-actions-row {
+  button {
+    margin-right: 20px;
+  }
+}

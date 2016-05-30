@@ -1,6 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 // import {check} from 'meteor/check';
-import {WeatherData, WeatherStations, DSSModules} from '/lib/collections';
+import {WeatherData, WeatherStations, DSSModules, YieldFormulas} from '/lib/collections';
 import adminAuthenticate from '/server/lib/admin-authenticate';
 
 Meteor.methods({
@@ -73,5 +73,32 @@ Meteor.methods({
       return WeatherStations.remove({_id: _id})
     }
     throw new Meteor.Error('Not authorized')
+  },
+
+  'DSS.insertYieldFormula': (yieldFormula) => {
+    if (adminAuthenticate) {
+      return YieldFormulas.insert(yieldFormula)
+    }
+    throw new Meteor.Error('Not authorized')
+  },
+
+  'DSS.updateYieldFormula': (_id, updatedYieldFormula) => {
+
+    if (adminAuthenticate) {
+      return YieldFormulas.update(
+        { _id: _id },
+        updatedYieldFormula,
+        { upsert: true}
+      )
+    }
+    throw new Meteor.Error('Not authorized')
+  },
+
+  'DSS.deleteYieldFormula': (_id) => {
+    if (adminAuthenticate) {
+      return YieldFormulas.remove({_id: _id})
+    }
+    throw new Meteor.Error('Not authorized')
   }
+
 });
