@@ -20,13 +20,13 @@ class CurrentWeather extends React.Component {
   }
 
   render() {
-    const {classList, observationTime, tempC, iconURL, feelsLikeC, weather, relativeHumidity, pressureMB, windDir, windGustKPH} = this.props
+    const {classList, observationTime, tempC, iconURL, feelsLikeC, weather, relativeHumidity, pressureMB, windDir, windGustKPH, stationID} = this.props
     const gridClass = classNames('mdl-grid', 'mdl-grid--no-spacing', classList)
 
     return (
       <div className={gridClass}>
         <div id="cw-last-updated" className="mdl-cell mdl-cell--12-col">
-          {observationTime}
+          {stationID} {observationTime}
         </div>
 
         <div id="cw-temp" className="mdl-cell mdl-cell--6-col">

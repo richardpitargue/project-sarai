@@ -14,8 +14,8 @@ const AWSSquaresRedux = ({context}, onData) => {
   onData(null, {})
 
   return dssAdminStore.subscribe(() => {
-    const {wsID} = dssAdminStore.getState()
-    onData(null, {wsID})
+    const {stationID} = dssAdminStore.getState()
+    onData(null, {stationID})
   })
 }
 

@@ -41,7 +41,7 @@ const composerLandingPage = ({context}, onData) => {
 
     sections.push(React.createElement(DSSLayout, {customModules, spacing, minorHeader: mraMinorHeader}))
 
-    const ycMinorHeader = React.createElement(MinorHeader, {title: 'YIELD CALCULATOR', helpText: 'The Yield calculator uses weather data averages of the past week to predict the yield of your crops if they were planted this week. Please provide a solar radiation reading.', id: 'yc'})
+    const ycMinorHeader = React.createElement(MinorHeader, {title: 'YIELD CALCULATOR', helpText: 'The Yield calculator uses weather data averages of the past week to predict the yield of your crops if they were planted this week. Please provide a solar radiation reading. Values are usually within the range of  13 to 23 MJ', id: 'yc'})
 
     sections.push(React.createElement(YieldCalculator, {
       minorHeader: ycMinorHeader})
