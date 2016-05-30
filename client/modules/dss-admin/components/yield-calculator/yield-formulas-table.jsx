@@ -31,13 +31,12 @@ class YieldFormulasTable extends React.Component {
   }
 
   handleEdit(e) {
-    // const {goToEditPage, weatherStations} = this.props
+    const {goToEditPage, formulas} = this.props
 
-    // const id = e.target.id
-    // const index = id.substring(5)
+    const id = e.target.id
+    const index = id.substring(5)
 
-    // console.log(`Edit by table. ID: ${weatherStations[index].id}`)
-    // goToEditPage(weatherStations[index].id)
+    goToEditPage(formulas[index]._id)
   }
 
   handleDelete(e) {

@@ -134,13 +134,11 @@ class YCForm extends React.Component {
             <div className={inputCol}>
               <input
                 type="text"
-                defaultValue={crop}
-                ref={crop_ref}
-                onChange={this.handleChangeCrop}
+                defaultValue={variety}
+                ref={variety_ref}
+                onChange={this.handleChangeVariety}
               />
             </div>
-
-
 
             <div className={inputCol}>
               <textarea

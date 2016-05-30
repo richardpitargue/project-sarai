@@ -6,7 +6,7 @@ import YieldFormulasTable from './../../components/yield-calculator/yield-formul
 const deps = (context, actions) => ({
   // goToAddPage: actions.Weather.goToAddPage,
   // add: actions.Weather.insertWeatherStation,
-  // goToEditPage: actions.Weather.goToEditPage,
+  goToEditPage: actions.YieldCalculator.goToEditPage,
   // edit: actions.Weather.editWeatherStation,
   // deleteWS: actions.Weather.deleteWeatherStation,
   // getYesterdayWeather: actions.Weather.getYesterdayWeather,

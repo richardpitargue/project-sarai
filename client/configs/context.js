@@ -34,13 +34,17 @@ const dssAdminStore = createStore((state = dssAdminDefaultState, action) => {
         formMode: state.formMode,
         moduleID: action.moduleID
       })
-    case 'SET-WS-ID':
-      return Object.assign({}, state, {
-        wsID: action.wsID
-      })
+    // case 'SET-WS-ID':
+    //   return Object.assign({}, state, {
+    //     wsID: action.wsID
+    //   })
     case 'SET-STATION-ID':
       return Object.assign({}, state, {
         stationID: action.stationID
+      })
+    case 'SET-FORMULA-ID':
+      return Object.assign({}, state, {
+        formulaID: action.formulaID
       })
     case 'SET-CURRENT-OBSERVATION':
       return Object.assign({}, state, {

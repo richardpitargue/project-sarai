@@ -16,7 +16,7 @@ const WSEditRedux = ({context}, onData) => {
 
   if (Meteor.subscribe('weather-stations').ready()) {
     const station = WeatherStations.findOne({id: state.wsID})
-    console.log(station)
+
     const _id = station._id
     const id = station.id
     const label = station.label

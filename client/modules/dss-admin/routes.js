@@ -11,6 +11,8 @@ import DSSAdminModules from './containers/dss-admin-modules';
 import ModulesForm from './containers/forms/modules-form';
 import WSEdit from './containers/weather-stations/ws-edit'
 import WSAdd from './containers/weather-stations/ws-add'
+import YCEdit from './containers/yield-calculator/yc-edit'
+import YCAdd from './containers/yield-calculator/yc-add'
 
 export default (injectDeps, context) => {
   const {FlowRouter, mount} = context;
@@ -105,6 +107,28 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(DSSAdminYieldCalculator)
+      });
+    }
+  });
+
+  FlowRouter.route('/dss/admin/yield-calculator/edit', {
+    name: 'dss.admin.yc.edit',
+    action() {
+      mount(LandingCtx, {
+        appBar: React.createElement(CoreAppBar),
+        appDrawer: React.createElement(DSSAdminAppDrawer),
+        content: React.createElement(YCEdit)
+      });
+    }
+  });
+
+  FlowRouter.route('/dss/admin/yield-calculator/add', {
+    name: 'dss.admin.yc.add',
+    action() {
+      mount(LandingCtx, {
+        appBar: React.createElement(CoreAppBar),
+        appDrawer: React.createElement(DSSAdminAppDrawer),
+        content: React.createElement(YCAdd)
       });
     }
   });

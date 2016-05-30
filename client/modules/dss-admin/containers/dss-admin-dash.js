@@ -19,7 +19,7 @@ const composerLandingPage = ({context}, onData) => {
   const spacing = false;
   const classList = ['dss-dash-sections']
 
-  const title = 'Dashboard'
+  const title = 'Welcome, Admin!'
 
   sections.push(React.createElement(DSSAdminHeader, {title}))
 
