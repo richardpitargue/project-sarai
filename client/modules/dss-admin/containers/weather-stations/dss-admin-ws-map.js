@@ -7,7 +7,7 @@ const deps = (context, actions) => ({
   addWS: actions.Weather.insertWeatherStation,
   goToEditPage: actions.Weather.goToEditPage,
   deleteWS: actions.Weather.deleteWeatherStation,
-  setWSId: actions.Weather.setWSId,
+  setStationID: actions.Weather.setStationID,
   context: () => context
 })
 
@@ -20,12 +20,10 @@ const composer = ({context, weatherStations}, onData) => {
   if (Meteor.subscribe('weather-stations').ready()) {
     return dssAdminStore.subscribe(() => {
 
-      const wsID = dssAdminStore.getState().wsID
+      const stationID = dssAdminStore.getState().stationID
+      console.log(stationID)
 
-      const station = WeatherStations.findOne({id: wsID})
-
-      console.log('Selected station: ')
-      console.log(wsID)
+      const station = WeatherStations.findOne({id: stationID})
 
       onData(null, {weatherStations, station})
     })

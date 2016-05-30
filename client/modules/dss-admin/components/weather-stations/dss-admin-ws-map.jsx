@@ -15,7 +15,7 @@ class DSSAdminWSMap extends React.Component {
       componentHandler.upgradeDom();
     }
 
-    const {weatherStations, setWSId} = this.props;
+    const {weatherStations, setStationID} = this.props;
 
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
@@ -30,9 +30,9 @@ class DSSAdminWSMap extends React.Component {
     });
 
     const markerIcon = L.icon({
-      iconUrl: '/images/weather-monitoring/map/marker.png',
-      iconSize: [40, 40],
-      iconAnchor: [20, 39],
+      iconUrl: '/images/dss/map/marker.png',
+      iconSize: [21, 39],
+      iconAnchor: [10, 38],
       popupAnchor: [0, -40]
     });
 
@@ -54,7 +54,7 @@ class DSSAdminWSMap extends React.Component {
         {icon: markerIcon})
       .bindPopup(`<h5>${station.label}</h5>`)
       .on('click', () => {
-        setWSId(station.id)
+        setStationID(station.id)
         Session.set('station', station)
       })
       .addTo(map);

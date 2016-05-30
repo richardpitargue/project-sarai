@@ -58,12 +58,15 @@ class WSForm extends React.Component {
 
 
   render() {
+    const {header, id, label, coords0, coords1} = this.props
+
     const rowClassName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
 
-    const labelCol = classNames('mdl-cell', 'mdl-cell--4-col', 'form-label')
-    const inputCol = classNames('mdl-cell', 'mdl-cell--8-col')
+    const row = classNames('mdl-cell', 'mdl-cell--12-col')
+    const labelRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-label-row')
+    const inputRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-input-row')
+    const actionsRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-actions-row')
 
-    const {id, label, coords0, coords1} = this.props
 
     const wsID_ref = (c) => {
       this.wsID_ref = c
@@ -82,68 +85,71 @@ class WSForm extends React.Component {
     }
 
     return (
-      <div className="mdl-grid">
+      <div>
+        {header}
         <div className={rowClassName}>
           <div className="mdl-grid">
-            <div className={labelCol}>
-              Weather Station ID
-            </div>
+            <div className={row}>
+              <div className={labelRow}>
+                Weather Station ID
+              </div>
 
-            <div className={inputCol}>
-              <input
-                type="text"
-                defaultValue={id}
-                ref={wsID_ref}
-                onChange={this.handleChangeId} />
-            </div>
+              <div className={inputRow}>
+                <input
+                  type="text"
+                  defaultValue={id}
+                  ref={wsID_ref}
+                  onChange={this.handleChangeId} />
+              </div>
 
-            <div className={labelCol}>
-              Station Label
-            </div>
+              <div className={labelRow}>
+                Label
+              </div>
 
-            <div className={inputCol}>
-              <textarea
-                defaultValue={label}
-                ref={label_ref}
-                onChange={this.handleChangeLabel}>
-              </textarea>
-            </div>
+              <div className={inputRow}>
+                <textarea
+                  className="small"
+                  defaultValue={label}
+                  ref={label_ref}
+                  onChange={this.handleChangeLabel}>
+                </textarea>
+              </div>
 
-            <div className={labelCol}>
-              Geographical Coordinates
-            </div>
+              <div className={labelRow}>
+                Coordinates
+              </div>
 
-            <div className={inputCol}>
-              <input
-                type="number"
-                defaultValue={coords0}
-                ref={coords0_ref}
-                onChange={this.handleChangeCoords0} />
+              <div className={inputRow}>
+                <input
+                  className="coords"
+                  type="number"
+                  defaultValue={coords0}
+                  ref={coords0_ref}
+                  onChange={this.handleChangeCoords0} />
 
-              <input
-                type="number"
-                defaultValue={coords1}
-                ref={coords1_ref}
-                onChange={this.handleChangeCoords1} />
-            </div>
+                <input
+                  className="coords"
+                  type="number"
+                  defaultValue={coords1}
+                  ref={coords1_ref}
+                  onChange={this.handleChangeCoords1} />
+              </div>
 
-            <div className={labelCol}>
-              Geographical Coordinates
-            </div>
+              <div className={actionsRow}>
+                <button onClick={this.handleSave} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                  Save
+                </button>
 
-            <div className={inputCol}>
-              <button onClick={this.handleSave} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                Save
-              </button>
-
-              <button onClick={this.handleDelete} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                Delete
-              </button>
+                <button onClick={this.handleDelete} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
+
+
     )
   }
 }

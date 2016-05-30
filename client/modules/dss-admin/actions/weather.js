@@ -110,12 +110,12 @@ export default {
     })
   },
 
-  goToEditPage(context, id) {
+  goToEditPage(context, stationID) {
     const {FlowRouter, dssAdminStore} = context
 
     dssAdminStore.dispatch({
-      type: 'SET-WS-ID',
-      wsID: id
+      type: 'SET-STATION-ID',
+      stationID
     })
 
     FlowRouter.go('/dss/admin/weather-stations/edit')
