@@ -9,7 +9,7 @@ import WeatherStationMap from './weather-station-map';
 import CustomModules from './custom-modules';
 import WSMap from './map/ws-map';
 import YieldCalculator from './modules/yield-calculator'
-import SoilMoisture from './soil-moisture'
+// import SoilMoisture from './modules/soil-moisture'
 
 import TwoColumnSection from './../components/two-column-section.jsx';
 import DSSLayout from './../components/dss-layout.jsx';
@@ -47,9 +47,9 @@ const composerLandingPage = ({context}, onData) => {
       minorHeader: ycMinorHeader})
     )
 
-    const smMinorHeader = React.createElement(MinorHeader, {title: 'SOIL MOISTURE MONITORING', helpText: 'This section calculates the soil moisture deficit for the past 30 days. The assumption is that the deficit starts at baseline 0'})
+    // const smMinorHeader = React.createElement(MinorHeader, {title: 'SOIL MOISTURE MONITORING', helpText: 'This section calculates the soil moisture deficit for the past 30 days. The assumption is that the deficit starts at baseline 0'})
 
-    sections.push(React.createElement(SoilMoisture, {smMinorHeader}))
+    // sections.push(React.createElement(SoilMoisture, {smMinorHeader}))
 
     onData(null, {sections, spacing, classList});
 

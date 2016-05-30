@@ -21,9 +21,9 @@ class AWSSquares extends React.Component {
   }
 
   selectAWS(e) {
-    const {setStationID} = this.props
+    const {getCurrentConditions} = this.props
 
-    setStationID(e.target.id)
+    getCurrentConditions(e.target.id)
   }
 
   renderSquares() {

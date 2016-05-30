@@ -42,6 +42,11 @@ const dssAdminStore = createStore((state = dssAdminDefaultState, action) => {
       return Object.assign({}, state, {
         stationID: action.stationID
       })
+    case 'SET-CURRENT-OBSERVATION':
+      return Object.assign({}, state, {
+        observation: action.observation,
+        stationID: action.stationID
+      })
     default:
       return state
   }

@@ -1,25 +1,20 @@
 export default {
 
-  getCurrentConditions(context, wsID) {
+  getCurrentConditions(context, stationID) {
     const {dssAdminStore} = context
 
-    xhr.open('GET', `http:\/\/api.wunderground.com/api/9470644e92f975d3/yesterday/q/pws:${wsID}.json`, true)
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', `http:\/\/api.wunderground.com/api/9470644e92f975d3/conditions/q/pws:${stationID}.json`, true)
 
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           const data = JSON.parse(xhr.responseText)
 
-          const co = data.current_observation
-
-          const currentObservation = {
-            lastUpdated: co.observation_time,
-
-          }
-
+          const observation = data.current_observation
           dssAdminStore.dispatch({
             type: 'SET-CURRENT-OBSERVATION',
-            wsID,
-            currentObservation
+            stationID,
+            observation
           })
 
         }

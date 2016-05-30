@@ -6,6 +6,7 @@ import {CoreAppBar, CoreAppDrawer, CoreFooter} from '/client/modules/core';
 import DSSAdminAppDrawer from './containers/ui-components/dss-admin-app-drawer';
 import DSSAdminDash from './containers/dss-admin-dash';
 import DSSAdminWeatherStations from './containers/dss-admin-ws';
+import DSSAdminYieldCalculator from './containers/dss-admin-yc';
 import DSSAdminModules from './containers/dss-admin-modules';
 import ModulesForm from './containers/forms/modules-form';
 import WSEdit from './containers/weather-stations/ws-edit'
@@ -93,6 +94,17 @@ export default (injectDeps, context) => {
         appBar: React.createElement(CoreAppBar),
         appDrawer: React.createElement(DSSAdminAppDrawer),
         content: React.createElement(WSAdd)
+      });
+    }
+  });
+
+  FlowRouter.route('/dss/admin/yield-calculator', {
+    name: 'dss.admin.ws.add',
+    action() {
+      mount(LandingCtx, {
+        appBar: React.createElement(CoreAppBar),
+        appDrawer: React.createElement(DSSAdminAppDrawer),
+        content: React.createElement(DSSAdminYieldCalculator)
       });
     }
   });

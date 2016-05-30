@@ -4,7 +4,7 @@ import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
 import MapSelector from './../../components/dashboard/map-selector.jsx'
 
 const deps = (context, actions) => ({
-  setStationID: actions.Weather.setStationID,
+  getCurrentConditions: actions.Weather.getCurrentConditions,
   context: () => context
 })
 
@@ -13,8 +13,8 @@ const composer = ({context}, onData) => {
   onData(null, {})
 
   return dssAdminStore.subscribe(() => {
-    const {stationID} = dssAdminStore.getState()
-    onData(null, {stationID})
+    const {stationID, observation} = dssAdminStore.getState()
+    onData(null, {stationID, observation})
   })
 }
 

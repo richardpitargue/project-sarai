@@ -1,13 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import CurrentWeather from './../ui-components/current-weather.jsx'
+
 class MapSelector extends React.Component {
   componentDidMount() {
     if (componentHandler) {
       componentHandler.upgradeDom();
     }
 
-    const {weatherStations, setStationID, stationID} = this.props;
+    const {weatherStations, getCurrentConditions, stationID} = this.props;
 
     //Store all this data in db
     const northEast = L.latLng(21.924058, 115.342984);
@@ -46,7 +48,7 @@ class MapSelector extends React.Component {
         {icon: markerIcon})
       .bindPopup(`<h5>${station.label}</h5>`)
       .on('click', () => {
-        setStationID(station.id)
+        getCurrentConditions(station.id)
       })
 
       marker.addTo(map)
@@ -65,7 +67,7 @@ class MapSelector extends React.Component {
 
 
   render() {
-    const {spacing, classList} = this.props;
+    const {spacing, classList, stationID, observation} = this.props;
     // const noSpacing = 'mdl-grid--no-spacing';
     // const className = spacing ? classNames('mdl-grid', 'section-list', classList)
     //   : classNames('mdl-grid', 'section-list', noSpacing, classList);
@@ -73,15 +75,42 @@ class MapSelector extends React.Component {
     const gridClass = classNames('mdl-grid', 'mdl-grid--no-spacing', classList)
     const twoCol = classNames('mdl-cell', 'mdl-cell--6-col', 'mdl-cell--4-col-phone')
 
+    const observationTime = observation ? observation.observation_time : 'Last Updated on'
+    const tempC = observation ? observation.temp_c : ''
+    const iconURL = observation ? observation.icon_url : ''
+    const feelsLikeC = observation ? observation.feelslike_c : ''
+    const weather = observation ? observation.weather : ''
+    const relativeHumidity = observation ? observation.relative_humidity : ''
+    const pressureMB = observation ? observation.pressure_mb : ''
+    const windDir = observation ? observation.wind_dir : ''
+    const windGustKPH = observation ? observation.wind_gust_kph : ''
+
     return (
       <div className={gridClass}>
         <div className={rowName}>
           <div className="mdl-grid">
             <div id="dash-ws-map" className={twoCol}>
             </div>
+
             <div id="ws-map" className={twoCol}>
-              Data goes here {this.props.wsID}
+              <div className="mdl-grid">
+                <CurrentWeather
+                  stationID={stationID}
+                  observationTime={observationTime}
+                  tempC={tempC}
+                  iconURL={iconURL}
+                  feelsLikeC={feelsLikeC}
+                  weather={weather}
+                  relativeHumidity={relativeHumidity}
+                  pressureMB={pressureMB}
+                  windDir={windDir}
+                  windGustKPH={windGustKPH}
+
+                />
+              </div>
+
             </div>
+
           </div>
         </div>
       </div>
