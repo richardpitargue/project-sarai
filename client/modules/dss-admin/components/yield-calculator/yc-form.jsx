@@ -75,10 +75,24 @@ class YCForm extends React.Component {
     const rowClassName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
 
     const labelCol = classNames('mdl-cell', 'mdl-cell--4-col', 'form-label')
+    // const inputCol = classNames('mdl-cell', 'mdl-cell--8-col')
+
+    const row = classNames('mdl-cell', 'mdl-cell--12-col')
     const inputCol = classNames('mdl-cell', 'mdl-cell--8-col')
 
-    const {id, label, coords0, coords1} = this.props
+    const {_id, crop, variety, yearClassification, label, coords0, coords1, expression} = this.props
 
+    const crop_ref = (c) => {
+      this.crop_ref = c
+    }
+
+    const variety_ref = (c) => {
+      this.variety_ref = c
+    }
+
+    const year_ref = (c) => {
+      this.year_ref = c
+    }
 
     const label_ref = (c) => {
       this.label_ref = c
@@ -92,6 +106,10 @@ class YCForm extends React.Component {
       this.coords1_ref = c
     }
 
+    const exp_ref = (c) => {
+      this.exp_ref = c
+    }
+
     return (
       <div className="mdl-grid">
         <div className={rowClassName}>
@@ -100,17 +118,29 @@ class YCForm extends React.Component {
               Weather Station ID
             </div>
 
-            <div className={inputCol}>
-              <input
-                type="text"
-                defaultValue={id}
-                ref={wsID_ref}
-                onChange={this.handleChangeId} />
-            </div>
-
             <div className={labelCol}>
               Station Label
             </div>
+
+            <div className={inputCol}>
+              <input
+                type="text"
+                defaultValue={crop}
+                ref={crop_ref}
+                onChange={this.handleChangeCrop}
+              />
+            </div>
+
+            <div className={inputCol}>
+              <input
+                type="text"
+                defaultValue={crop}
+                ref={crop_ref}
+                onChange={this.handleChangeCrop}
+              />
+            </div>
+
+
 
             <div className={inputCol}>
               <textarea

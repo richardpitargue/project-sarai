@@ -17,7 +17,7 @@ class DSSAdmin extends React.Component {
     const className = classNames('landing', classList);
     return (
       <div className={className}>
-        <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer">
+        <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
           {appBar}
           {appDrawer}
           <main className="mdl-layout__content">
