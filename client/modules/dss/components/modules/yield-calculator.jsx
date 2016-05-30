@@ -61,6 +61,11 @@ class YieldCalculator extends React.Component {
       rainfall: parseFloat(this.rain.value)
     }
 
+    math.config({
+      number: 'BigNumber',
+      precision: 20
+    })
+
     let result = math.eval(closestFormula.expression, scope)
     result = Math.round(result * 100) / 100
 
