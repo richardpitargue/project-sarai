@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 
 class MinRainAdvisoryForm extends React.Component {
   constructor() {
@@ -51,6 +52,11 @@ class MinRainAdvisoryForm extends React.Component {
 
   render() {
     let {title, minimumRainfall, m1, m2, m3} = this.props
+    const rowClassName = classNames('mdl-cell', 'mdl-cell--10-col-desktop', 'mdl-cell--1-offset-desktop', 'mdl-cell--6-col-tablet', 'mdl-cell--1-offset-tablet', 'mdl-cell--4-col-phone')
+    const row = classNames('mdl-cell', 'mdl-cell--12-col')
+    const labelRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-label-row')
+    const inputRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-input-row')
+    const actionsRow = classNames('mdl-cell', 'mdl-cell--12-col', 'form-actions-row')
 
     const minRainTitle = (c) => {
       this.minRainTitle = c
@@ -73,59 +79,83 @@ class MinRainAdvisoryForm extends React.Component {
     }
 
     return (
-      <div className="mdl-grid">
-        <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--1-offset">
+      <div className={rowClassName}>
+        <div className="mdl-grid">
 
-          <input
-            type="text"
-            id="min-rain-title"
-            ref={minRainTitle}
-            defaultValue={title}
-            onChange={this.handleChangeTitle}
-          />
-          <br />
-          Minimum Rain:
-          <input
-            type="number"
-            id="min-rain"
-            ref={minRain}
-            defaultValue={minimumRainfall}
-            onChange={this.handleChangeMinRain}
-          />
-          <br />
+          <div className={labelRow}>
+            Title
+          </div>
 
-          Advisories:
-          <ul>
-            <li>Condition: MET<br/>
-              <textarea
+          <div className={inputRow}>
+            <input
+              type="text"
+              id="min-rain-title"
+              ref={minRainTitle}
+              defaultValue={title}
+              onChange={this.handleChangeTitle}
+            />
+          </div>
+
+          <div className={labelRow}>
+            Minimum Rainfall
+          </div>
+
+          <div className={inputRow}>
+            <input
+              type="number"
+              id="min-rain"
+              ref={minRain}
+              defaultValue={minimumRainfall}
+              onChange={this.handleChangeMinRain}
+            />
+          </div>
+
+          <div className={labelRow}>
+            Message Condition: Threshold was met in the last 30 days
+          </div>
+
+          <div className={inputRow}>
+            <textarea
                 id="met-message"
                 ref={metMessage}
                 defaultValue={m1}
                 onChange={this.handleChangeM1}
                 ></textarea>
-            </li>
-            <li>Condition: MET_FORECAST<br/>
-              <textarea
+          </div>
+
+
+          <div className={labelRow}>
+            Message Condition: Threshold will be met in the next 10 days
+          </div>
+
+          <div className={inputRow}>
+            <textarea
                 id="forecast-message"
                 ref={forecastMessage}
                 defaultValue={m2}
                 onChange={this.handleChangeM2}
                 ></textarea>
-            </li>
-            <li>Condition: NOT_MET<br/>
-              <textarea
+          </div>
+
+
+          <div className={labelRow}>
+            Message Condition: Threshold will not be met
+          </div>
+
+          <div className={inputRow}>
+            <textarea
                 id="not-met-message"
                 ref={notMetMessage}
                 defaultValue={m3}
                 onChange={this.handleChangeM3}
                 ></textarea>
-            </li>
-          </ul>
-          <br/>
+          </div>
 
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" onClick={this.handleSave}>
-            Save
-          </button>
+          <div className={actionsRow}>
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" onClick={this.handleSave}>
+              Save
+            </button>
+          </div>
         </div>
       </div>
     )

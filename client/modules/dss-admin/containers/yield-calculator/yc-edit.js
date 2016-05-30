@@ -29,7 +29,7 @@ const YCEditRedux = ({context}, onData) => {
     const coords1 = formula.location.coords[1]
     const expression = formula.expression
 
-    const header = React.createElement(DSSAdminHeader, {title: 'Edit'})
+    const header = React.createElement(DSSAdminHeader, {title: 'Edit Formula'})
 
     onData(null, {header, formula, _id, crop, variety, label, yearClassification, coords0, coords1, expression})
   }

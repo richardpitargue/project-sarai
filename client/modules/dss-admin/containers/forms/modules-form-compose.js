@@ -4,6 +4,7 @@ import {useDeps, composeAll, compose} from 'mantra-core';
 import ModulesForm from './../../components/forms/modules-form.jsx';
 import MinRainAdvisoryFormAdd from './min-rain-advisory-form-add'
 import MinRainAdvisoryFormEdit from './min-rain-advisory-form-edit'
+import DSSAdminHeader from './../../components/ui-components/dss-admin-header.jsx'
 
 
 const deps = (context, actions) => ({
@@ -17,11 +18,12 @@ const modulesFormRedux = ({context}, onData) => {
 
   const state = dssAdminStore.getState()
 
-  onData(null, {})
+  onData(null, {header: React.createElement(DSSAdminHeader, {title: 'Add New Module'})})
 
   if (state.formMode == 'EDIT'
       && Meteor.subscribe('dss-modules').ready()) {
     const module = DSSModules.find({"_id": state.moduleID}).fetch()[0]
+    const header = React.createElement(DSSAdminHeader, {title: 'Edit Module'})
 
     const moduleType = module.type
     const selectDisabled = true
@@ -37,11 +39,12 @@ const modulesFormRedux = ({context}, onData) => {
         break
     }
 
-    onData(null, {moduleForm, selectDisabled, moduleType})
+    onData(null, {header, moduleForm, selectDisabled, moduleType})
   }
 
   return dssAdminStore.subscribe(() => {
     const {formMode, moduleFormType, moduleID} = dssAdminStore.getState()
+    const header = React.createElement(DSSAdminHeader, {title: 'Add New Module'})
 
     let moduleForm = null
 
@@ -59,7 +62,7 @@ const modulesFormRedux = ({context}, onData) => {
       }
     }
 
-    onData(null, {moduleForm})
+    onData(null, {header, moduleForm})
   })
 
 }

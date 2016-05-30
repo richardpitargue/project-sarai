@@ -107,7 +107,7 @@ class YieldFormulasTable extends React.Component {
       <div className="mdl-grid">
         <div className={rowClassName}>
           <button onClick={this.handleAdd} type="submit" className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-            <i className="material-icons">add</i>&nbsp;Add Yield Formula
+            <i className="material-icons">add</i>&nbsp;Add Formula
           </button>
         </div>
         <div className={rowClassName}>
