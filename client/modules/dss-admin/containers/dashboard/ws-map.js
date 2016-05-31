@@ -9,13 +9,21 @@ const deps = (context, actions) => ({
 })
 
 const composer = ({context}, onData) => {
-  const {dssAdminStore} = context()
+  const {dssAdminStore, Collections} = context()
+  const {WeatherData} = Collections
+
   onData(null, {})
 
-  return dssAdminStore.subscribe(() => {
-    const {stationID, observation} = dssAdminStore.getState()
-    onData(null, {stationID, observation})
-  })
+  if (Meteor.subscribe('weather-data').ready()) {
+    return dssAdminStore.subscribe(() => {
+      const {stationID, observation} = dssAdminStore.getState()
+      const recordCount = WeatherData.find({id: stationID}).count()
+      const firstRecord = WeatherData.findOne()
+      const earliestDate = `${firstRecord.date.year}-${firstRecord.date.month + 1}-${firstRecord.date.day}`
+
+      onData(null, {recordCount, earliestDate, stationID, observation})
+    })
+  }
 }
 
 export default composeAll(

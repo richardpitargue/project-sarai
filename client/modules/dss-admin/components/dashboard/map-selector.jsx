@@ -67,7 +67,7 @@ class MapSelector extends React.Component {
 
 
   render() {
-    const {spacing, classList, stationID, observation} = this.props;
+    const {spacing, classList, stationID, observation, recordCount, earliestDate} = this.props;
     // const noSpacing = 'mdl-grid--no-spacing';
     // const className = spacing ? classNames('mdl-grid', 'section-list', classList)
     //   : classNames('mdl-grid', 'section-list', noSpacing, classList);
@@ -105,7 +105,8 @@ class MapSelector extends React.Component {
                   pressureMB={pressureMB}
                   windDir={windDir}
                   windGustKPH={windGustKPH}
-
+                  recordCount={recordCount}
+                  earliestDate={earliestDate}
                 />
               </div>
 

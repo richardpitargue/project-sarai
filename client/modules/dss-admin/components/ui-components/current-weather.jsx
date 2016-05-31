@@ -20,13 +20,19 @@ class CurrentWeather extends React.Component {
   }
 
   render() {
-    const {classList, observationTime, tempC, iconURL, feelsLikeC, weather, relativeHumidity, pressureMB, windDir, windGustKPH, stationID} = this.props
+    const {classList, observationTime, tempC, iconURL, feelsLikeC, weather, relativeHumidity, pressureMB, windDir, windGustKPH, stationID, recordCount, earliestDate} = this.props
     const gridClass = classNames('mdl-grid', 'mdl-grid--no-spacing', classList)
+
+    const statsMessage = recordCount ? `${recordCount} records since ${earliestDate}` : ''
 
     return (
       <div className={gridClass}>
         <div id="cw-last-updated" className="mdl-cell mdl-cell--12-col">
-          {stationID} {observationTime}
+          {observationTime}
+        </div>
+
+        <div id="cw-station-stats" className="mdl-cell mdl-cell--12-col">
+          {stationID} - {statsMessage}
         </div>
 
         <div id="cw-temp" className="mdl-cell mdl-cell--6-col">
@@ -62,7 +68,6 @@ class CurrentWeather extends React.Component {
         <div id="cw-wind-spd" className="mdl-cell mdl-cell--6-col">
           Gusts of <span className="value">{windGustKPH}</span> km/h
         </div>
-
       </div>
     )
   }
