@@ -37,7 +37,7 @@ const composerLandingPage = ({context}, onData) => {
 
     const customModules = React.createElement(CustomModules, {spacing})
 
-    const mraMinorHeader = React.createElement(MinorHeader, {title: 'CUMULATIVE RAINFALL', helpText: 'help', id: 'mra'})
+    const mraMinorHeader = React.createElement(MinorHeader, {title: 'CUMULATIVE RAINFALL', helpText: 'This section is a series of advisories based on the cumulative rainfall in your area.', id: 'mra'})
 
     sections.push(React.createElement(DSSLayout, {customModules, spacing, minorHeader: mraMinorHeader}))
 

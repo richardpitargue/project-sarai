@@ -191,6 +191,7 @@ class YCForm extends React.Component {
 
               <div className={labelRow}>
                 Expression
+                <br />Variables: [plantingDate, solarRadiation, maxTemperature, minTemperature]
               </div>
 
               <div className={inputRow}>

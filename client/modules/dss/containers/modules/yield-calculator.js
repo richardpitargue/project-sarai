@@ -5,7 +5,7 @@ import math from 'mathjs';
 import YieldCalculator from './../../components/modules/yield-calculator.jsx'
 
 const deps = (context, actions) => ({
-  setPredictedYield: actions.YieldCalculator.setPredictedYield,
+  spy: actions.YieldCalculatorActions.spy,
   context: () => context
 })
 

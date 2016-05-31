@@ -1,6 +1,6 @@
 export default {
 
-  setPredictedYield(context, predictedYield) {
+  spy(context, predictedYield) {
     const {dssStore} = context
 
     dssStore.dispatch({

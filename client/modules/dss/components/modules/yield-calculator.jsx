@@ -51,7 +51,8 @@ class YieldCalculator extends React.Component {
   }
 
   handleSubmit() {
-    const {closestFormula, setPredictedYield} = this.props
+    const {closestFormula} = this.props
+    const {spy} = this.props
 
     const scope = {
       plantingDate: this.getWeekNumber(),
@@ -72,7 +73,7 @@ class YieldCalculator extends React.Component {
     console.log(scope)
     console.log(result)
 
-    setPredictedYield(result)
+    spy(result)
   }
 
   renderDescription() {
@@ -83,7 +84,9 @@ class YieldCalculator extends React.Component {
       return (
         <div className={twoCol}>
           <div className="yc-advisory">
-            Planting <span className="yc-advisory-emp">{closestFormula.variety} {closestFormula.crop}</span> this week has a predicted yield of <span className="yc-advisory-emp"> {predictedYield} kg/ha</span>
+            Planting <span className="yc-advisory-emp">{closestFormula.variety} {closestFormula.crop}</span> this week has a predicted yield of <span className="yc-advisory-emp"> {predictedYield} kg/ha*</span>
+            <br /><br />
+            *Using the model for {closestFormula.location.label} ({closestFormula.yearClassification} year)
           </div>
         </div>
       )
