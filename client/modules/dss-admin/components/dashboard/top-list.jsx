@@ -25,6 +25,8 @@ class TopList extends React.Component {
     return this.props.items.map((item, key) => {
       return (
         <tr key={key}>
+          <td className="mdl-data-table__cell--non-numeric">{item.id}</td>
+
           <td className="mdl-data-table__cell--non-numeric">{item.label}</td>
 
           <td className="mdl-data-table__cell--non-numeric">{item.runningValue} {labels.unit}</td>
@@ -42,6 +44,7 @@ class TopList extends React.Component {
         <table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
           <thead>
             <tr>
+              <th className="mdl-data-table__cell--non-numeric">ID</th>
               <th className="mdl-data-table__cell--non-numeric">Station</th>
               <th className="mdl-data-table__cell--non-numeric">{labels.header}</th>
             </tr>

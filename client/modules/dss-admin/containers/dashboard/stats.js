@@ -8,14 +8,8 @@ const deps = (context, actions) => ({
 })
 
 const composer = ({context}, onData) => {
-  const {dssAdminStore} = context()
+
   onData(null, {})
-
-  return dssAdminStore.subscribe(() => {
-    const {wsID} = dssAdminStore.getState()
-
-    onData(null, {wsID})
-  })
 }
 
 export default composeAll(

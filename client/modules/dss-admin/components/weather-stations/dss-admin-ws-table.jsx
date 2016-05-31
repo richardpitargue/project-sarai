@@ -122,7 +122,15 @@ class DSSAdminWeatherStations extends React.Component {
           {this.renderWSList()}
         </div>
 
-        <div className={rowClassName}>
+
+      </div>
+    )
+  }
+}
+
+export default DSSAdminWeatherStations;
+
+/*<div className={rowClassName}>
           <hr />
         </div>
 
@@ -131,10 +139,4 @@ class DSSAdminWeatherStations extends React.Component {
           <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.updateWeatherData}>
             Update Weather Data
           </button>
-        </div>
-      </div>
-    )
-  }
-}
-
-export default DSSAdminWeatherStations;
+        </div>*/

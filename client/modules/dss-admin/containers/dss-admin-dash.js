@@ -35,34 +35,34 @@ const composerLandingPage = ({context}, onData) => {
   sections.push(React.createElement(HistoryCharts))
 
 
-  // const lists = []
-  // lists.push(React.createElement(TopList, {
-  //     compareValue: 'RAINFALL', //maxtemp, avetemp
-  //     compareOp: 'CUMULATIVE', // average, minima, maxima
-  //     sort: 'HIGHEST',
-  //     range: '30_DAYS', //10_DAYS, ALL_TIME,
-  //     limit: 3,
-  //     labels: {
-  //       header: 'Cumulative Rainfall',
-  //       title: 'Top 3 rainy areas for the past 30 days',
-  //       unit: 'mm'
-  //     }
-  //   }))
+  const lists = []
+  lists.push(React.createElement(TopList, {
+      compareValue: 'RAINFALL', //maxtemp, avetemp
+      compareOp: 'CUMULATIVE', // average, minima, maxima
+      sort: 'HIGHEST',
+      range: '30_DAYS', //10_DAYS, ALL_TIME,
+      limit: 5,
+      labels: {
+        header: 'Cumulative Rainfall',
+        title: 'Top 5 rainy areas for the past 30 days',
+        unit: 'mm'
+      }
+    }))
 
-  //   lists.push(React.createElement(TopList, {
-  //     compareValue: 'TEMP_AVE',
-  //     compareOp: 'MEAN',
-  //     sort: 'HIGHEST',
-  //     range: '30_DAYS',
-  //     limit: 5,
-  //     labels: {
-  //       header: 'Average Temperature',
-  //       title: 'Top 5 hottest areas for the past 30 days',
-  //       unit: '°C'
-  //     }
-  //   }))
+    lists.push(React.createElement(TopList, {
+      compareValue: 'TEMP_AVE',
+      compareOp: 'MEAN',
+      sort: 'HIGHEST',
+      range: '30_DAYS',
+      limit: 5,
+      labels: {
+        header: 'Average Temperature',
+        title: 'Top 5 hottest areas for the past 30 days',
+        unit: '°C'
+      }
+    }))
 
-  // sections.push(React.createElement(Stats, {lists}))
+  sections.push(React.createElement(Stats, {spacing, lists}))
   //ADVISORIES
 
   //STATS

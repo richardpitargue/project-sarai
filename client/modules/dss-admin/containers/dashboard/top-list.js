@@ -23,7 +23,7 @@ const composeChart = ({context, compareValue, compareOp, sort, range, limit}, on
       const id = station.id
       records.push({
         id,
-        label: station.label,
+        label: station.label.substring(0, 100),
         data: []
       })
 
@@ -32,39 +32,9 @@ const composeChart = ({context, compareValue, compareOp, sort, range, limit}, on
       let m = date.getMonth();
       let d = date.getDate();
 
-      while (records[index].data.length < noOfRecordsToFetch) {
-        if (d > 1) {
-          d -= 1
-        } else {
-          //Go back a month
-          if (m > 0) {
-            m -= 1
+      const wd = WeatherData.find({id}, {sort: {dateUTC: -1}, limit: noOfRecordsToFetch}).fetch()
 
-            if ([0, 2, 4, 6, 7, 9].indexOf(m) > -1) {
-              d = 31
-            } else if (m == 1) {
-              d = 29
-            } else  {
-              d = 30
-            }
-          }
-          else {
-            //Go back to prev year
-            y -= 1
-            m = 11
-            d = 31
-          }
-        }
-
-        const r = WeatherData.findOne({
-          id,
-          date: {
-            year: y,
-            month: m,
-            day: d
-          }
-        })
-
+      for (let r of wd) {
         switch (compareValue) {
           case 'RAINFALL':
             // records[index].data.push(r.data.rainfall)
@@ -80,8 +50,57 @@ const composeChart = ({context, compareValue, compareOp, sort, range, limit}, on
             break
         }
       }
+      ++index
+      // while (records[index].data.length < noOfRecordsToFetch) {
+      //   if (d > 1) {
+      //     d -= 1
+      //   } else {
+      //     //Go back a month
+      //     if (m > 0) {
+      //       m -= 1
 
-      index += 1
+      //       if ([0, 2, 4, 6, 7, 9].indexOf(m) > -1) {
+      //         d = 31
+      //       } else if (m == 1) {
+      //         d = 29
+      //       } else  {
+      //         d = 30
+      //       }
+      //     }
+      //     else {
+      //       //Go back to prev year
+      //       y -= 1
+      //       m = 11
+      //       d = 31
+      //     }
+      //   }
+
+      //   const r = WeatherData.findOne({
+      //     id,
+      //     date: {
+      //       year: y,
+      //       month: m,
+      //       day: d
+      //     }
+      //   })
+
+      //   switch (compareValue) {
+      //     case 'RAINFALL':
+      //       // records[index].data.push(r.data.rainfall)
+      //       records[index].data.push(r ? r.data.rainfall : 0)
+      //       break
+
+      //     case 'TEMP_AVE':
+      //       // records[index].data.push(r.data.temp.ave)
+      //       records[index].data.push(r ? r.data.temp.ave : 0)
+      //       break
+
+      //     default:
+      //       break
+      //   }
+      // }
+
+      // index += 1
     }
 
     const items = []

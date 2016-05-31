@@ -18,7 +18,7 @@ class Stats extends React.Component {
   }
 
   renderLists() {
-     const listRow = classNames('mdl-cell', 'mdl-cell--12-col-desktop', 'mdl-cell--8-col-tablet', 'mdl-cell--4-col-phone')
+     const listRow = classNames('mdl-cell', 'mdl-cell--6-col-desktop', 'mdl-cell--4-col-tablet', 'mdl-cell--4-col-phone')
 
     return this.props.lists.map((list, key) => {
       return (
