@@ -18,7 +18,7 @@ const composer = ({context}, onData) => {
     return dssAdminStore.subscribe(() => {
       const {stationID, observation} = dssAdminStore.getState()
       const recordCount = WeatherData.find({id: stationID}).count()
-      const firstRecord = WeatherData.findOne()
+      const firstRecord = WeatherData.findOne({id: stationID})
       const earliestDate = `${firstRecord.date.year}-${firstRecord.date.month + 1}-${firstRecord.date.day}`
 
       onData(null, {recordCount, earliestDate, stationID, observation})

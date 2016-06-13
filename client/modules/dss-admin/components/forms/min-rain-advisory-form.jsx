@@ -126,10 +126,10 @@ class MinRainAdvisoryForm extends React.Component {
 
           <div className={labelRow}>
             Message Condition: Threshold will be met in the next 10 days
-            <br />Variables: [{minimumRainfall}, {dateOfSufficientRain}]
+            <br />Variables: {'[{minimumRainfall}, {dateOfSufficientRain}]'}
           </div>
 
-          <div className={inputRow}>
+          <div className={inputRow}>``
             <textarea
                 id="forecast-message"
                 ref={forecastMessage}
