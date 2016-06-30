@@ -18,6 +18,7 @@ import oldInteractiveMaps from './modules/old-interactive-maps';
 import experiment from './modules/experiment';
 import dss from './modules/dss';
 import dssAdmin from './modules/dss-admin';
+import farmerDashboard from './modules/farmer-dashboard';
 
 // These are the new ones
 // import aboutModule from './modules/about-v1';
@@ -41,6 +42,7 @@ app.loadModule(oldInteractiveMaps);
 app.loadModule(experiment);
 app.loadModule(dss);
 app.loadModule(dssAdmin);
+app.loadModule(farmerDashboard);
 
 // Load the new ones here
 app.loadModule(MdlCoreDeisgn);
