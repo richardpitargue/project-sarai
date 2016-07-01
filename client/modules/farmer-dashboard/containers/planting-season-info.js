@@ -7,7 +7,7 @@ const composePlantingSeasonInfo = ({context, plantingSeasonId}, onData) => {
     const {Meteor, Collections, FlowRouter} = context();
     const {PlantingSeasons} = Collections;
 
-    const userId = 'xadNqJxGXMkRBuDzp'; // this is currently hard coded!! change this
+    const userId = 'FppLeCMyWNku2iiX2'; // this is currently hard coded!! change this
 
     if(Meteor.subscribe('planting-seasons', userId).ready()) {
         const plantingSeasonInfo = PlantingSeasons.find({
@@ -19,7 +19,7 @@ const composePlantingSeasonInfo = ({context, plantingSeasonId}, onData) => {
 }
 
 const deps = (context, actions) => ({
-    addIrrigation: actions.IrrigationSchedule.addIrrigation,
+    addIrrigation: actions.FarmerActions.addIrrigation,
     context: () => context
 });
 

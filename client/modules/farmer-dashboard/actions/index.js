@@ -1,7 +1,7 @@
-import IrrigationSchedule from './irrigation-schedule';
+import FarmerActions from './farmer-dashboard';
 import Utility from './utility';
 
 export default {
-    IrrigationSchedule,
+    FarmerActions,
     Utility
 };

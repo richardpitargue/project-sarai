@@ -16,7 +16,7 @@ class FarmerDashboard extends React.Component {
     }
 
     render() {
-        const {plantingSeasons, selectPlantingSeason} = this.props;
+        const {plantingSeasons, selectPlantingSeason, addPlantingSeason} = this.props;
 
         const plantingSeasonsHTML = plantingSeasons.map((plantingSeason, key) => {
             return (
@@ -30,12 +30,37 @@ class FarmerDashboard extends React.Component {
         });
 
         return (
+            <div>
+            <form>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input className="mdl-textfield__input" type="text" id="cropName" />
+                    <label className="mdl-textfield__label" htmlFor="amountField">Crop</label>
+                </div>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input className="mdl-textfield__input" type="text" id="cropVariety" />
+                    <label className="mdl-textfield__label" htmlFor="amountField">Crop Variety</label>
+                </div>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input className="mdl-textfield__input" type="text" id="startDate" />
+                    <label className="mdl-textfield__label" htmlFor="amountField">Start Date</label>
+                </div>
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input className="mdl-textfield__input" type="text" id="targetEndDate" />
+                    <label className="mdl-textfield__label" htmlFor="amountField">Target End Date</label>
+                </div>
+            </form>
+            <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" 
+                        onClick={() => addPlantingSeason($('#cropName').val(), $('#cropVariety').val(), new Date(), new Date())}
+                >
+                    <i className="material-icons">add</i>
+                </button>
             <div className="mdl-grid">
                 <div className="mdl-cell--6-col">
                     <ul className="mdl-list">
                         {plantingSeasonsHTML}
                     </ul>
                 </div>
+            </div>
             </div>
         );
     }
