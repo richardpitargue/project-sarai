@@ -9,8 +9,8 @@ export default (injectDeps, context) => {
   const {FlowRouter, mount} = context;
   const LandingCtx = injectDeps(Landing);
 
-  FlowRouter.route('/farmer', {
-    name: 'farmer.root',
+  FlowRouter.route('/waiss', {
+    name: 'waiss.root',
     action() {
       mount(LandingCtx, {
         content: React.createElement(FarmerDashboard)
@@ -19,7 +19,7 @@ export default (injectDeps, context) => {
   });
 
   FlowRouter.route('/farmer/:plantingSeason', {
-    name: 'farmer.plantingSeason',
+    name: 'waiss.plantingSeason',
     action(params, queryParams) {
       mount(LandingCtx, {
         content: React.createElement(PlantingSeasonInfo, {
