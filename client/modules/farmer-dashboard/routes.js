@@ -18,7 +18,7 @@ export default (injectDeps, context) => {
     }
   });
 
-  FlowRouter.route('/farmer/:plantingSeason', {
+  FlowRouter.route('/waiss/:plantingSeason', {
     name: 'waiss.plantingSeason',
     action(params, queryParams) {
       mount(LandingCtx, {
